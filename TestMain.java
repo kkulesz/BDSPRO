@@ -1,5 +1,7 @@
+import benchmark.Benchmark;
 import databases.TimescaleDb;
 import datasets.TestDataset;
+import query.QueryType;
 import query.SqlQueryTranslator;
 
 import java.sql.DriverManager;
@@ -19,8 +21,12 @@ public class TestMain {
 //        var queryTranslator = new SqlQueryTranslator();
 //        System.out.println(queryTranslator.translateCreateTable(dataset));
 
+//        var db = new TimescaleDb();
+//        db.setup();
+//        db.insert(null, null);
+        var ds = new TestDataset();
         var db = new TimescaleDb();
-        db.setup();
-        db.insert(null, null);
+        var benchmark = new Benchmark(50, db, 0,ds);
+        benchmark.run(QueryType.EXACT_POINT);
     }
 }

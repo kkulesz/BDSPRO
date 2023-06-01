@@ -9,6 +9,6 @@ public interface Dataset {
     public String getTableName();
     public List<Map.Entry<String, String>> getColumnNamesWithTypes();
     public String getCsvName();
-    public String getTimeSeriesColumnName();
+    public String getTimeStampColumnName();
 
 }

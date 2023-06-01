@@ -30,7 +30,7 @@ public class TestDataset implements Dataset{
     }
 
     @Override
-    public String getTimeSeriesColumnName() {
+    public String getTimeStampColumnName() {
         return "period";
     }
 }

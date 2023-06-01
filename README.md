@@ -26,11 +26,10 @@ questions:
 
 
 problems so far:
-- `QueryTranslator`s should be static? then we cannot have interfaces for them, but is that an issue?
+- `QueryTranslator`s should be static? then we cannot have interfaces for them, but is that an issue? -> abstract class?
 - Dataset interface? we should introduce it i think. Creating queries would be easier
-- should we load dataset in code or can we do it by hand if database has such functionality? Maybe let's start without and if we have time then we can  add it
-- maybe change `QueryTranslator` into `<language>Builder`, e.g. `SqlQueryTranslator`->`SqlBuilder` and make it also build `CREATE TABLE`, `INSERT INTO`, etc. statements. 
-- I really think that `DBMeasurement` shouldn't implement `Database` interface. It will be only instance of such object and we can manage without this dependency
+- should we load dataset in code or can we do it by hand if database has such functionality? Maybe let's start without and if we have time then we can  add it -> do it later, its low priority. First let's focus on core of the project and then write it as well
+- maybe change `QueryTranslator` into `<language>Builder`, e.g. `SqlQueryTranslator`->`SqlBuilder` and make it also build `CREATE TABLE`, `INSERT INTO`, etc. statements.
 - also - should `Database` get prepared queries/statements as a function argument? Like it should only connect to DB, insert data into '?' in given queries and execute so we measure only this. Query/statement formation should be outside it's functions
 
 Notes:
