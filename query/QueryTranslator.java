@@ -6,14 +6,18 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public abstract class QueryTranslator {
-    // TODO: 2 or 3 queries (exact point, general range and one aggregate ), insert into, create table,
     public abstract String translate(QueryType type);
 
-    public abstract String translateCreateTable(Dataset dataset); // CREATE TABLE ? (? ?, ? ?)
-//    String translateInsertInto(Dataset dataset, List<String> values);
-//    String translateExactPointQuery(Timestamp time, String entity);
-//    String translateRangeSingleEntity(Timestamp from, Timestamp until, String entity);
-//    String translateRangeAnyEntity(Timestamp from, Timestamp until);
+    public abstract String translateCreateTable(Dataset dataset);
+
+    public abstract String translateInsertInto(Dataset dataset, List<String> values);
+
+    public abstract String translateExactPoint(Dataset dataset, Timestamp timestamp);
+
+    public abstract String translateRangeAnyEntity(Dataset dataset, Timestamp from, Timestamp until);
+
+    public abstract String translateRangeQueryWithAggregation(Dataset dataset, Timestamp from, Timestamp until);
+
 
     //TODO: rest of queries
 

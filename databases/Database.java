@@ -14,6 +14,7 @@ public interface Database {
     public int cleanup();
 
     public int runStatement(String stmtString);
+
     public int runQuery(String queryString);
 
     public QueryTranslator getQueryTranslator();

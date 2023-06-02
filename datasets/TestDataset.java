@@ -12,14 +12,14 @@ public class TestDataset implements Dataset{
     }
 
     @Override
-    public List<Map.Entry<String, String>> getColumnNamesWithTypes() {
-        var list = new ArrayList<Map.Entry<String, String>>(){};
+    public List<Map.Entry<String, ColumnType>> getColumnNamesWithTypes() {
+        var list = new ArrayList<Map.Entry<String, ColumnType>>(){};
 
-        list.add(new AbstractMap.SimpleEntry<String, String>("Period", "TIMESTAMPTZ"));
-        list.add(new AbstractMap.SimpleEntry<String, String>("Revenue", "NUMERIC"));
-        list.add(new AbstractMap.SimpleEntry<String, String>("Sales_quantity", "INT"));
-        list.add(new AbstractMap.SimpleEntry<String, String>("Average_cost", "NUMERIC"));
-        list.add(new AbstractMap.SimpleEntry<String, String>("The_average_annual_payroll_of_the_region", "NUMERIC"));
+        list.add(new AbstractMap.SimpleEntry<>("Period", ColumnType.TIMESTAMP));
+        list.add(new AbstractMap.SimpleEntry<>("Revenue", ColumnType.NUMERIC));
+        list.add(new AbstractMap.SimpleEntry<>("Sales_quantity", ColumnType.NUMERIC));
+        list.add(new AbstractMap.SimpleEntry<>("Average_cost", ColumnType.NUMERIC));
+        list.add(new AbstractMap.SimpleEntry<>("The_average_annual_payroll_of_the_region", ColumnType.NUMERIC));
 
         return list;
     }
