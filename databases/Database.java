@@ -1,10 +1,3 @@
-package databases;
-
-import datasets.Dataset;
-import query.QueryTranslator;
-
-import java.sql.Timestamp;
-
 public interface Database {
 
     public int setup(Dataset dataset);

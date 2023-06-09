@@ -1,56 +1,83 @@
-package benchmark;
+import java.util.Random;
 
-import databases.Database;
-import datasets.Dataset;
-import query.QueryTranslator;
-import query.QueryType;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-
+// This class should be called with the different possible values for the parameters to test different scenarios.
+// Databases should always include all available databases
 public class Benchmark {
 
 
     private int writePercentage;
-    private Database database;
+    private Database[] databases;
     private int numberOfNodes;
     private Dataset dataset;
-    private QueryTranslator queryTranslator;
+    private int numberOfQueries;
+    private int batchSize;
 
-    public Benchmark(int writePercentage, Database database, int numberOfNodes, Dataset dataset) {
+    public Benchmark(int writePercentage, Database[] databases, int numberOfNodes, Dataset dataset, int numberOfQueries, int batchSize) {
         this.writePercentage = writePercentage;
-        this.database = database;
+        this.databases = databases;
         this.numberOfNodes = numberOfNodes;
         this.dataset = dataset;
+        this.numberOfQueries = numberOfQueries;
+        this.batchSize = batchSize;
 
-        this.database.setup(this.dataset);
-        this.queryTranslator = database.getQueryTranslator();
+    }
+
+    public String[][] generateQueryWorkload() {
+        String[][] queries = new String[databases.length][numberOfQueries];
+        Random random = new Random();
+        for (int i = 0; i < numberOfQueries; i++) {
+            int x = random.nextInt(100);
+
+            //write query
+            if (x < writePercentage) {
+                String[][] data = generateData(batchSize);
+                for (int j=0; j<databases.length; j++){
+                    queries[j][i] = databases[j].getQueryTranslator().translateInsertInto(dataset, data);
+                }
+            }
+            //read query
+            else {
+                QueryType type = QueryType.values()[random.nextInt(QueryType.values().length)];
+                for (int j=0; j<databases.length; j++) {
+                    queries[j][i] = generateQuery(databases[j].getQueryTranslator());
+                }
+            }
+        }
+        return queries;
+    }
+
+    private String generateQuery(QueryTranslator queryTranslator) {
+        //this should probably have a switch with all possible query types
+        return "";
+    }
+
+    private String[][] generateData(int batchSize) {
+        // generates batchSize many records that match the dataset given as a class variable
+        return null;
     }
 
     public void run(){
-        var queryString = queryTranslator.translate(QueryType.EXACT_POINT);
+        // generate queries for all databases
+        String[][] queries = generateQueryWorkload();
 
-        var rowData = new ArrayList<String>();
-        rowData.add("12.12.2017");
-        rowData.add("16010072.1195");
-        rowData.add("12729");
-        rowData.add("1257.76354148008");
-        rowData.add("30024676");
-        var insertString = queryTranslator.translateInsertInto(this.dataset, rowData);
+        //loop through all databases
+        for (int j = 0; j < databases.length; j++){
 
-        var rangeQueryString = queryTranslator.translateRangeAnyEntity(this.dataset, Timestamp.valueOf("2014-11-12 01:02:03.123456789"), Timestamp.valueOf("2018-11-12 01:02:03.123456789"));
-        var rangeQueryWithAggregationString = queryTranslator.translateRangeQueryWithAggregation(this.dataset, Timestamp.valueOf("2014-11-12 01:02:03.123456789"), Timestamp.valueOf("2018-11-12 01:02:03.123456789"));
-        var pointQueryString = queryTranslator.translateExactPoint(this.dataset, Timestamp.valueOf("2017-12-12 00:00:00"));
+            //setup database
+            databases[j].setup(dataset);
 
-        for (int i = 0; i<5; i++){
+            //TODO: write whole dataset and check compression
 
-            this.database.runQuery(queryString);
-            this.database.runQuery(rangeQueryString);
-            this.database.runStatement(insertString);
-            this.database.runQuery(rangeQueryWithAggregationString);
-            this.database.runQuery(pointQueryString);
+            // execute all queries and measure time
+            for (int i = 0; i < numberOfQueries; i++) {
+                //TODO: start a measurement
+                databases[j].runQuery(queries[j][i]);
+                // TODO: stop the measurement and log results
+            }
+
+            //TODO: to something with the results
         }
-        return;
     }
 
 }

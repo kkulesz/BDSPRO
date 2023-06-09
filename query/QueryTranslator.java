@@ -1,16 +1,11 @@
-package query;
-
-import datasets.Dataset;
-
 import java.sql.Timestamp;
-import java.util.List;
 
 public abstract class QueryTranslator {
     public abstract String translate(QueryType type);
 
     public abstract String translateCreateTable(Dataset dataset);
 
-    public abstract String translateInsertInto(Dataset dataset, List<String> values);
+    public abstract String translateInsertInto(Dataset dataset, String[][] values);
 
     public abstract String translateExactPoint(Dataset dataset, Timestamp timestamp);
 
