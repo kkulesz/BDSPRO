@@ -2,7 +2,7 @@ import java.sql.DriverManager;
 
 public class TimescaleDb implements Database {
     private String connUrl = "jdbc:postgresql://localhost:5432/bdspro?user=postgres&password=123qweasdzx";
-    private SqlQueryTranslator queryTranslator = new SqlQueryTranslator();
+    private QueryTranslator queryTranslator = new SqlQueryTranslator();
 
 
     @Override

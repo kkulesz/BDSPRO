@@ -1,3 +1,7 @@
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -13,6 +17,9 @@ public class Benchmark {
     private int numberOfQueries;
     private int batchSize;
 
+
+    private DataGenerator dataGenerator;
+
     public Benchmark(int writePercentage, Database[] databases, int numberOfNodes, Dataset dataset, int numberOfQueries, int batchSize) {
         this.writePercentage = writePercentage;
         this.databases = databases;
@@ -21,6 +28,7 @@ public class Benchmark {
         this.numberOfQueries = numberOfQueries;
         this.batchSize = batchSize;
 
+        this.dataGenerator = new DataGenerator(dataset);
     }
 
     public String[][] generateQueryWorkload() {
@@ -31,7 +39,7 @@ public class Benchmark {
 
             //write query
             if (x < writePercentage) {
-                String[][] data = generateData(batchSize);
+                String[][] data = dataGenerator.generateData(batchSize);
                 for (int j=0; j<databases.length; j++){
                     queries[j][i] = databases[j].getQueryTranslator().translateInsertInto(dataset, data);
                 }
@@ -40,22 +48,27 @@ public class Benchmark {
             else {
                 QueryType type = QueryType.values()[random.nextInt(QueryType.values().length)];
                 for (int j=0; j<databases.length; j++) {
-                    queries[j][i] = generateQuery(databases[j].getQueryTranslator());
+                    queries[j][i] = generateQuery(databases[j].getQueryTranslator(), type);
                 }
             }
         }
         return queries;
     }
 
-    private String generateQuery(QueryTranslator queryTranslator) {
-        //this should probably have a switch with all possible query types
+    private String generateQuery(QueryTranslator queryTranslator, QueryType type) {
+        switch (type){
+            case EXACT_POINT -> {
+                //return queryTranslator.translateExactPoint(dataset, );
+            }
+            case RANGE_ANY_ENTITY -> {
+                //
+            }
+            // TODO
+        }
         return "";
     }
 
-    private String[][] generateData(int batchSize) {
-        // generates batchSize many records that match the dataset given as a class variable
-        return null;
-    }
+
 
     public void run(){
         // generate queries for all databases
@@ -63,20 +76,28 @@ public class Benchmark {
 
         //loop through all databases
         for (int j = 0; j < databases.length; j++){
+            Database db = databases[j];
+
+            System.out.println("Benchmarking Database: " + db.getClass().getSimpleName());
 
             //setup database
-            databases[j].setup(dataset);
+            db.setup(dataset);
 
-            //TODO: write whole dataset and check compression
+            //write whole dataset
+            db.load(dataset.getCsvName());
+
+            // TODO: and check compression
 
             // execute all queries and measure time
             for (int i = 0; i < numberOfQueries; i++) {
-                //TODO: start a measurement
+                long start = System.nanoTime();
                 databases[j].runQuery(queries[j][i]);
-                // TODO: stop the measurement and log results
+                long finish = System.nanoTime();
+                long elapsedTime = finish - start;
+                // TODO: log results
             }
 
-            //TODO: to something with the results
+            //TODO: do something with the results
         }
     }
 
