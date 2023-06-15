@@ -1,10 +1,3 @@
-package query.sql;
-
-import datasets.ColumnType;
-import datasets.Dataset;
-import query.QueryTranslator;
-import query.QueryType;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +28,7 @@ public class SqlQueryTranslator extends QueryTranslator {
     }
 
     @Override
-    public String translateInsertInto(Dataset dataset, List<String> values) {
+    public String translateInsertInto(Dataset dataset, String[][] values) {
         var columnNamesWithTypes = dataset.getColumnNamesWithTypes();
         var columnNamesChunk = String.join(", ",
                 columnNamesWithTypes
@@ -44,16 +37,17 @@ public class SqlQueryTranslator extends QueryTranslator {
                         .toArray(String[]::new)
         );
 
-        var valuesChunk = String.join(", ",
+        /*var valuesChunk = String.join(", ",
                 IntStream.range(0, columnNamesWithTypes.size())
                         .mapToObj(i -> Map.entry(columnNamesWithTypes.get(i).getValue(), values.get(i)))
                         .map(kv -> SqlColumnTypeMapper.mapValueToMatchTypeFormat(kv))
                         .toArray(String[]::new));
 
-
-        return  String.format(
+*/
+        /*return  String.format(
                 "INSERT INTO %s \n\t(%s) \n\tVALUES \n\t(%s);", dataset.getTableName(), columnNamesChunk, valuesChunk
-        );
+        );*/
+        return null;
     }
 
     @Override

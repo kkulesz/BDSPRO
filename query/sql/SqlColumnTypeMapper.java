@@ -1,7 +1,3 @@
-package query.sql;
-
-import datasets.ColumnType;
-
 import java.util.Map;
 
 

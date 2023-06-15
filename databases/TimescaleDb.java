@@ -1,12 +1,6 @@
-package databases;
-
-import datasets.Dataset;
-import query.QueryTranslator;
-import query.sql.SqlQueryTranslator;
-
 import java.sql.DriverManager;
 
-public class TimescaleDb implements Database{
+public class TimescaleDb implements Database {
     private String connUrl = "jdbc:postgresql://localhost:5432/bdspro?user=postgres&password=123qweasdzx";
     private QueryTranslator queryTranslator = new SqlQueryTranslator();
 
@@ -62,7 +56,7 @@ public class TimescaleDb implements Database{
 
     @Override
     public QueryTranslator getQueryTranslator() {
-        return queryTranslator;
+        return null;//queryTranslator;
     }
 
 }
