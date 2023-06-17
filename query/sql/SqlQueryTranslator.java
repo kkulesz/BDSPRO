@@ -37,17 +37,16 @@ public class SqlQueryTranslator extends QueryTranslator {
                         .toArray(String[]::new)
         );
 
-        /*var valuesChunk = String.join(", ",
+        var valuesChunk = String.join(", ",
                 IntStream.range(0, columnNamesWithTypes.size())
-                        .mapToObj(i -> Map.entry(columnNamesWithTypes.get(i).getValue(), values.get(i)))
+                        .mapToObj(i -> Map.entry(columnNamesWithTypes.get(i).getValue(), values[0][i])) //TODO
                         .map(kv -> SqlColumnTypeMapper.mapValueToMatchTypeFormat(kv))
                         .toArray(String[]::new));
 
-*/
-        /*return  String.format(
+
+        return  String.format(
                 "INSERT INTO %s \n\t(%s) \n\tVALUES \n\t(%s);", dataset.getTableName(), columnNamesChunk, valuesChunk
-        );*/
-        return null;
+        );
     }
 
     @Override
