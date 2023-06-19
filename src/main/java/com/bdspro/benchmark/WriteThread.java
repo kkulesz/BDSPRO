@@ -17,7 +17,7 @@ public class WriteThread extends Thread {
     public void run(){
         for (int i=0; i<queries.length; i++) {
             long start = System.nanoTime();
-            db.runQuery(queries[i]);
+            db.runStatement(queries[i]);
             long finish = System.nanoTime();
             long elapsedTime = finish - start;
             //TODO: log time and return

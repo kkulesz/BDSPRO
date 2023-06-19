@@ -62,7 +62,7 @@ public class TimescaleDb implements Database {
 
     @Override
     public QueryTranslator getQueryTranslator() {
-        return null;//queryTranslator;
+        return queryTranslator;
     }
 
 }
