@@ -1,3 +1,8 @@
+package com.bdspro.databases;
+
+import com.bdspro.datasets.Dataset;
+import com.bdspro.query.QueryTranslator;
+
 public interface Database {
 
     public int setup(Dataset dataset);

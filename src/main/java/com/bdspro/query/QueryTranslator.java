@@ -1,3 +1,7 @@
+package com.bdspro.query;
+
+import com.bdspro.datasets.Dataset;
+
 import java.sql.Timestamp;
 
 public abstract class QueryTranslator {

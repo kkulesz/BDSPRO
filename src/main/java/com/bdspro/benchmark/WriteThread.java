@@ -1,3 +1,7 @@
+package com.bdspro.benchmark;
+
+import com.bdspro.databases.Database;
+
 public class WriteThread extends Thread {
 
     private int writeFrequency;
@@ -19,6 +23,8 @@ public class WriteThread extends Thread {
             //TODO: log time and return
             try {
                 Thread.sleep(writeFrequency);
+                //Todo: technically we should subtract elapsed time here from writeFrequency, but then we
+                // have to make sure that time units match and that we never get a negative number
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

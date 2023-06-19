@@ -1,3 +1,8 @@
+package com.bdspro.benchmark;
+
+import com.bdspro.datasets.ColumnType;
+import com.bdspro.datasets.Dataset;
+
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;

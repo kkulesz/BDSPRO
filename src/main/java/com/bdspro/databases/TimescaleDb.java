@@ -1,3 +1,9 @@
+package com.bdspro.databases;
+
+import com.bdspro.datasets.Dataset;
+import com.bdspro.query.QueryTranslator;
+import com.bdspro.query.sql.SqlQueryTranslator;
+
 import java.sql.DriverManager;
 
 public class TimescaleDb implements Database {

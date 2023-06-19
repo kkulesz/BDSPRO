@@ -1,8 +1,10 @@
+package com.bdspro.query.sql;
+
+import com.bdspro.datasets.Dataset;
+import com.bdspro.query.QueryTranslator;
+import com.bdspro.query.QueryType;
+
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.IntStream;
 
 public class SqlQueryTranslator extends QueryTranslator {
 

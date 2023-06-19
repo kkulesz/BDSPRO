@@ -1,3 +1,5 @@
+package com.bdspro.datasets;
+
 /**
  * util enum that simplifies creating tables, inserting data etc. for various datasets.
  */

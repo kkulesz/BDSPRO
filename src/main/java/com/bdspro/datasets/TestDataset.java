@@ -1,3 +1,5 @@
+package com.bdspro.datasets;
+
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,6 @@ public class TestDataset implements Dataset{
 
     @Override
     public String getTimeStampColumnName() {
-        return "period";
+        return "Period";
     }
 }
