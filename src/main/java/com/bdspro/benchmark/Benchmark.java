@@ -65,14 +65,21 @@ public class Benchmark {
     }
 
     private String generateQuery(QueryTranslator queryTranslator, QueryType type) {
+//        System.out.println(type);
         switch (type){
             case EXACT_POINT -> {
-                //return queryTranslator.translateExactPoint(dataset, );
+                return queryTranslator.translateExactPoint(dataset, dataset.getExamplePointTimeStamp());
+            }
+            case RANGE_SINGLE_ENTITY -> {
+                var timeRange = dataset.getExampleSmallRange();
+                var entity = dataset.getExampleEntity();
+                return queryTranslator.translateRangeSingleEntity(dataset, entity, timeRange.getKey(), timeRange.getValue());
             }
             case RANGE_ANY_ENTITY -> {
-                //
+                var timeRange = dataset.getExampleSmallRange();
+                return queryTranslator.translateRangeAnyEntity(dataset, timeRange.getKey(), timeRange.getValue());
             }
-            // TODO
+            // TODO rest of queries
         }
         return "";
     }
@@ -106,6 +113,8 @@ public class Benchmark {
             reader.start();
             writer.start();
             //TODO: do something with the results
+
+//            db.cleanup(dataset.getTableName());
         }
     }
 

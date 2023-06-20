@@ -13,26 +13,25 @@ public class TimescaleDb implements Database {
 
     @Override
     public int setup(Dataset dataset) {
-        try (var conn = DriverManager.getConnection(connUrl)) {
-            var stmt = conn.createStatement();
-            stmt.execute(queryTranslator.translateCreateTable(dataset));
-            stmt.execute(String.format("SELECT create_hypertable('%s', '%s', if_not_exists => TRUE)", dataset.getTableName(), dataset.getTimeStampColumnName()));
-        }catch (Exception ex) {
-            System.err.println(ex.getMessage());
-            return 1;
-        }
-
-        return 0;
+        runStatement(queryTranslator.translateCreateTable(dataset));
+        var crtTableStmt = String.format(
+                "SELECT create_hypertable('%s', '%s', if_not_exists => TRUE)",
+                dataset.getTableName(), dataset.getTimeStampColumnName().toLowerCase()
+        );
+        return runQuery(crtTableStmt);
     }
 
     @Override
     public int load(String csvFile, String datasetTableName) {
+        // TODO: TimescaleDB has no such functionality in SQL, I will implement it at the end
+
         return 0;
     }
 
     @Override
     public int cleanup(String datasetTableName) {
-        return 0;
+        var stmt = String.format("DROP TABLE %s", datasetTableName);
+        return runStatement(stmt);
     }
 
     @Override
