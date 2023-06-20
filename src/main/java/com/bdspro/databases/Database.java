@@ -15,5 +15,7 @@ public interface Database {
 
     public int runQuery(String queryString);
 
+    public int getSize(String datasetTableName);
+
     public QueryTranslator getQueryTranslator();
 }

@@ -98,6 +98,11 @@ public class ClickHouse implements Database {
     }
 
     @Override
+    public int getSize(String datasetTableName) {
+        return 0;
+    }
+
+    @Override
     public QueryTranslator getQueryTranslator() {
         return null;
     }

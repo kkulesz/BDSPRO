@@ -60,6 +60,20 @@ public class TimescaleDb implements Database {
     }
 
     @Override
+    public int getSize(String datasetTableName) {
+        try (var conn = DriverManager.getConnection(connUrl)) {
+            var queryString = String.format("SELECT hypertable_size('%s')", datasetTableName);
+            var stmt = conn.prepareStatement(queryString);
+            var rs = stmt.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        }catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            return -1;
+        }
+    }
+
+    @Override
     public QueryTranslator getQueryTranslator() {
         return queryTranslator;
     }

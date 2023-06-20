@@ -103,6 +103,8 @@ public class Benchmark {
             //write whole dataset
             db.load(dataset.getCsvName(), dataset.getTableName());
 
+            System.out.println("Size of table: " + db.getSize(dataset.getTableName()) + " bytes");
+
             // TODO: check compression
 
             // start reader and writer thread
