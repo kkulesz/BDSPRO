@@ -8,29 +8,29 @@ everything that is written below is work in progress, it may slightly change whe
 - `databases` - module that includes one implementation of Database Interface for each database used (kdb+, influxDB, ...). `DBMeasurement` is a wrapper for performance measuring
 
 
+#### Project deadline - 14th August
 
 TODO:
-- come up with structure of benchmark run function
-- design main class and think about which benchmarks (which parameters)
-- implement one DB Adapter
-- think about data generators
+- Databases:
+  - [x] Clickhouse
+  - [ ] TimeScaleDB
+  - [ ] InfluxDB
+  - [ ] Druid
+- Datasets:
+  - meaning create 4 classes similar to `datasets/TestDataset` that correspond to datasets we chose
+- configure experiments
+  - log performance measurement somehow. CSV format
+  - think about visualization of those
+- figure out how to measure compression
+  - probably each database adapter should implement `getSize()` method
+- decide on how to handle docker - ask dr Pandey?
+  - one dockerfile or multiple for each database
+- run experiment on out local machines
+- report:
+  - [ ] everybody write section about their database (low prio for now)
+  - ask dr Pandey about structure of this report:
+    - design main class and think about which benchmarks (which parameters)
 
-
-
-questions:
-- can we modify datasets we use?
-  - like drop columns and choose only those of specific type in order to unify handling them.
-- should one benchmark use several datasets (+ generated data)
-- which metrics to use
-
-
-
-problems so far:
-- `QueryTranslator`s should be static? then we cannot have interfaces for them, but is that an issue? -> abstract class?
-- Dataset interface? we should introduce it i think. Creating queries would be easier
-- should we load dataset in code or can we do it by hand if database has such functionality? Maybe let's start without and if we have time then we can  add it -> do it later, its low priority. First let's focus on core of the project and then write it as well
-- maybe change `QueryTranslator` into `<language>Builder`, e.g. `SqlQueryTranslator`->`SqlBuilder` and make it also build `CREATE TABLE`, `INSERT INTO`, etc. statements.
-- also - should `Database` get prepared queries/statements as a function argument? Like it should only connect to DB, insert data into '?' in given queries and execute so we measure only this. Query/statement formation should be outside it's functions
 
 Notes:
 - command for TimescaleDB to copy data into table `psql -U postgres -d bdspro -c "\COPY test_table FROM test.csv delimiter ',' CSV HEADER"`. Maybe there is something similar in other DBs
