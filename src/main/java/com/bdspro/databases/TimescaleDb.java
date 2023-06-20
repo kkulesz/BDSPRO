@@ -26,12 +26,12 @@ public class TimescaleDb implements Database {
     }
 
     @Override
-    public int load(String csvFile) {
+    public int load(String csvFile, String datasetTableName) {
         return 0;
     }
 
     @Override
-    public int cleanup() {
+    public int cleanup(String datasetTableName) {
         return 0;
     }
 

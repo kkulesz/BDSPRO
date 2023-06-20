@@ -15,10 +15,8 @@ public class ClickHouse implements Database {
 
     ClickHouseNode server;
 
-    private Dataset dataset;
     @Override
     public int setup(Dataset dataset) {
-        this.dataset = dataset;
         server = ClickHouseNode.builder()
                 .host(System.getProperty("chHost", "localhost"))
                 .port(ClickHouseProtocol.HTTP, Integer.getInteger("chPort", 8123))
@@ -33,7 +31,7 @@ public class ClickHouse implements Database {
                 schema.append(column.getKey() + " " + columnTypeToString(column.getValue()) + ", ");
             }
             schema.delete(schema.length() - 2, schema.length());
-            String query = "create table " + dataset.getTableName() + "(" + schema.toString() + ") engine=MergeTree() order by " + dataset.getTimeStampColumnName() + ";";
+            String query = "create table if not exists " + dataset.getTableName() + "(" + schema.toString() + ") engine=MergeTree() order by " + dataset.getTimeStampColumnName() + ";";
             System.out.println(query);
             request.query(query).execute().get();
         } catch (Exception e) {
@@ -43,17 +41,18 @@ public class ClickHouse implements Database {
     }
 
     @Override
-    public int load(String csvFile) {
+    public int load(String csvFile, String datasetTableName) {
         ClickHouseFile file = ClickHouseFile.of(csvFile);
 
         try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol())) {
             client.write( server )
                     .set( "input_format_csv_skip_first_lines", "1" )
                     .set( "format_csv_delimiter", "," )
-                    .table( dataset.getTableName() )
+                    .table( datasetTableName )
                     .data( file )
                     .executeAndWait();
         } catch (ClickHouseException e) {
+            e.printStackTrace();
             return -1;
         }
         return 0;
@@ -61,18 +60,16 @@ public class ClickHouse implements Database {
         }
 
     @Override
-    public int cleanup() {
+    public int cleanup(String datasetTableName) {
         try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol())) {
             ClickHouseRequest<?> request = client.connect(server);
-            String query = "drop table " + dataset.getTableName() + ";";
-            System.out.println(query);
+            String query = "drop table " + datasetTableName + ";";
             request.query(query).execute().get();
-            return 0;
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            return -1;
         }
+        return 0;
     }
 
     @Override
@@ -82,9 +79,10 @@ public class ClickHouse implements Database {
 
     @Override
     public int runQuery(String queryString) {
+        System.out.println(queryString);
         try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol());
              ClickHouseResponse response = client.read(server)
-                     .format(ClickHouseFormat.RowBinaryWithNames)
+                     .format(ClickHouseFormat.CSV)
                      .query(queryString).execute().get()) {
             int count = 0;
             for (ClickHouseRecord r : response.records()) {
@@ -105,10 +103,12 @@ public class ClickHouse implements Database {
     }
 
     public static void main(String[] args) {
+        Dataset testdata = new TestDataset();
         ClickHouse ch = new ClickHouse();
         ch.setup(new TestDataset());
-        ch.runQuery("SELECT * FROM " + ch.dataset.getTableName() + ";");
-        ch.cleanup();
+        ch.load(testdata.getCsvName(), testdata.getTableName());
+        ch.runQuery("SELECT * FROM " + testdata.getTableName() + ";");
+        ch.cleanup(testdata.getTableName());
     }
 
     public static String columnTypeToString(ColumnType type){

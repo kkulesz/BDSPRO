@@ -94,7 +94,7 @@ public class Benchmark {
             db.setup(dataset);
 
             //write whole dataset
-            db.load(dataset.getCsvName());
+            db.load(dataset.getCsvName(), dataset.getTableName());
 
             // TODO: check compression
 
