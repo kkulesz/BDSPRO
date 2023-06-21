@@ -3,6 +3,7 @@ package com.bdspro.test;
 import com.bdspro.benchmark.Benchmark;
 import com.bdspro.databases.Database;
 import com.bdspro.databases.TimescaleDb;
+import com.bdspro.datasets.TaxiRidesDataset;
 import com.bdspro.datasets.TestDataset;
 
 import java.sql.SQLException;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 public class TestMain {
 
     public static void main(String... args) throws SQLException{
-        var ds = new TestDataset();
+        var ds = new TaxiRidesDataset();
 
         var dbs = new Database[]{
                 new TimescaleDb()

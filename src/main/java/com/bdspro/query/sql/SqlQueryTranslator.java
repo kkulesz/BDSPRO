@@ -69,7 +69,7 @@ public class SqlQueryTranslator extends QueryTranslator {
         var tsColumn = dataset.getTimeStampColumnName();
         var entityColumn = dataset.getEntityColumnName();
         return String.format(
-                "SELECT * FROM %s \n\t WHERE %s=%s AND %s>='%s' AND %s<='%s';", table, entityColumn, entity, tsColumn, from, tsColumn, until
+                "SELECT * FROM %s \n\t WHERE %s='%s' AND %s>='%s' AND %s<='%s';", table, entityColumn, entity, tsColumn, from, tsColumn, until
         );
     }
 
