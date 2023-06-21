@@ -48,7 +48,7 @@ public class TestDataset implements Dataset{
 
     @Override
     public Map.Entry<Timestamp, Timestamp> getExampleSmallRange() {
-        return new AbstractMap.SimpleEntry<Timestamp, Timestamp>(
+        return new AbstractMap.SimpleEntry<>(
                 Timestamp.valueOf("2014-01-01 00:00:00"),
                 Timestamp.valueOf("2015-01-01 00:00:00")
         );
@@ -56,7 +56,7 @@ public class TestDataset implements Dataset{
 
     @Override
     public Map.Entry<Timestamp, Timestamp> getExampleBigRange() {
-        return new AbstractMap.SimpleEntry<Timestamp, Timestamp>(
+        return new AbstractMap.SimpleEntry<>(
                 Timestamp.valueOf("1999-01-01 00:00:00"),
                 Timestamp.valueOf("2025-01-01 00:00:00")
         );
