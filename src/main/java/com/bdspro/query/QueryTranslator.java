@@ -7,7 +7,9 @@ import java.sql.Timestamp;
 public abstract class QueryTranslator {
     public abstract String translateCreateTable(Dataset dataset);
 
-    public abstract String translateInsertInto(Dataset dataset, String[][] values);
+    public abstract String translateInsertInto(Dataset dataset, String[] values);
+
+    public abstract String translateBatchInsertInto(Dataset dataset, String[][] batch);
 
     public abstract String translateExactPoint(Dataset dataset, Timestamp timestamp);
 

@@ -34,7 +34,7 @@ public class TimescaleDb implements Database {
             Files.lines(path)
                     .skip(1)
                     .map(s -> s.split(","))
-                    .map(values -> queryTranslator.translateInsertInto(dataset, new String[][]{values}))
+                    .map(values -> queryTranslator.translateInsertInto(dataset, values))
                     .forEach(this::runStatement);
         }catch(Exception e){
             System.out.println("Failed loading dataset!");

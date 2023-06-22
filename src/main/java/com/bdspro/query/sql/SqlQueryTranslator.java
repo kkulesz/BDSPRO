@@ -5,6 +5,7 @@ import com.bdspro.query.QueryTranslator;
 import com.bdspro.query.QueryType;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.IntStream;
 
@@ -24,24 +25,25 @@ public class SqlQueryTranslator extends QueryTranslator {
     }
 
     @Override
-    public String translateInsertInto(Dataset dataset, String[][] values) {
-        var columnNamesWithTypes = dataset.getColumnNamesWithTypes();
-        var columnNamesChunk = String.join(", ",
-                columnNamesWithTypes
-                        .stream()
-                        .map(kv -> kv.getKey())
-                        .toArray(String[]::new)
-        );
-
-        var valuesChunk = String.join(", ",
-                IntStream.range(0, columnNamesWithTypes.size())
-                        .mapToObj(i -> Map.entry(columnNamesWithTypes.get(i).getValue(), values[0][i]))
-                        .map(kv -> SqlColumnTypeMapper.mapValueToMatchTypeFormat(kv))
-                        .toArray(String[]::new));
-
+    public String translateInsertInto(Dataset dataset, String[] values) {
+        var columnNamesChunk = _getColumnNamesChunk(dataset);
+        var valuesChunk = _getSingleRowValuesChunk(dataset, values);
 
         return  String.format(
-                "INSERT INTO %s \n\t(%s) \n\tVALUES \n\t(%s);", dataset.getTableName(), columnNamesChunk, valuesChunk
+                "INSERT INTO %s \n\t(%s) \n\tVALUES \n\t%s;", dataset.getTableName(), columnNamesChunk, valuesChunk
+        );
+    }
+
+    @Override
+    public String translateBatchInsertInto(Dataset dataset, String[][] batch) {
+        var columnNamesChunk = _getColumnNamesChunk(dataset);
+        var valuesChunk = String.join(",",
+                Arrays.stream(batch)
+                        .map(row -> _getSingleRowValuesChunk(dataset, row))
+                        .toArray(String[]::new)
+                );
+        return  String.format(
+                "INSERT INTO %s \n\t(%s) \n\tVALUES \n\t%s;", dataset.getTableName(), columnNamesChunk, valuesChunk
         );
     }
 
@@ -80,6 +82,27 @@ public class SqlQueryTranslator extends QueryTranslator {
         return String.format(
                 "SELECT MAX(%s) FROM %s \n\t WHERE %s>='%s' AND %s<='%s';", tsColumn, table, tsColumn, from, tsColumn, until
         );
+    }
+
+    private String _getColumnNamesChunk(Dataset dataset){
+        var columnNamesWithTypes = dataset.getColumnNamesWithTypes();
+        return String.join(", ",
+                columnNamesWithTypes
+                        .stream()
+                        .map(kv -> kv.getKey())
+                        .toArray(String[]::new)
+        );
+    }
+
+    private String _getSingleRowValuesChunk(Dataset dataset, String[] values){
+        var columnNamesWithTypes = dataset.getColumnNamesWithTypes();
+        var valuesChunk = String.join(", ",
+                IntStream.range(0, columnNamesWithTypes.size())
+                        .mapToObj(i -> Map.entry(columnNamesWithTypes.get(i).getValue(), values[i]))
+                        .map(kv -> SqlColumnTypeMapper.mapValueToMatchTypeFormat(kv))
+                        .toArray(String[]::new));
+
+        return String.format("(%s)", valuesChunk);
     }
 
 }

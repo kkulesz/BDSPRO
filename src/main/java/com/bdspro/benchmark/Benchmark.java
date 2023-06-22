@@ -46,7 +46,7 @@ public class Benchmark {
         for (int i = 0; i < numberOfWriteQueries; i++) {
             String[][] data = dataGenerator.generateData(batchSize);
             for (int j = 0; j < databases.length; j++) {
-                writeQueries[j][i] = databases[j].getQueryTranslator().translateInsertInto(dataset, data);
+                writeQueries[j][i] = databases[j].getQueryTranslator().translateBatchInsertInto(dataset, data);
             }
         }
         return writeQueries;
