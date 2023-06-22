@@ -7,7 +7,7 @@ public interface Database {
 
     public int setup(Dataset dataset);
 
-    public int load(String csvFile, String databaseTableName);
+    public int load(String csvFile, Dataset dataset);
 
     public int cleanup(String datasetTableName);
 

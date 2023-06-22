@@ -101,7 +101,7 @@ public class Benchmark {
             db.setup(dataset);
 
             //write whole dataset
-            db.load(dataset.getCsvName(), dataset.getTableName());
+            db.load(dataset.getCsvName(), dataset);
 
             System.out.println("Size of table: " + db.getSize(dataset.getTableName()) + " bytes");
 

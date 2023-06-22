@@ -41,14 +41,14 @@ public class ClickHouse implements Database {
     }
 
     @Override
-    public int load(String csvFile, String datasetTableName) {
+    public int load(String csvFile, Dataset dataset) {
         ClickHouseFile file = ClickHouseFile.of(csvFile);
 
         try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol())) {
             client.write( server )
                     .set( "input_format_csv_skip_first_lines", "1" )
                     .set( "format_csv_delimiter", "," )
-                    .table( datasetTableName )
+                    .table( dataset.getTableName() )
                     .data( file )
                     .executeAndWait();
         } catch (ClickHouseException e) {
@@ -111,7 +111,7 @@ public class ClickHouse implements Database {
         Dataset testdata = new TestDataset();
         ClickHouse ch = new ClickHouse();
         ch.setup(new TestDataset());
-        ch.load(testdata.getCsvName(), testdata.getTableName());
+        ch.load(testdata.getCsvName(), testdata);
         ch.runQuery("SELECT * FROM " + testdata.getTableName() + ";");
         ch.cleanup(testdata.getTableName());
     }

@@ -1,10 +1,14 @@
 package com.bdspro.databases;
 
 import com.bdspro.datasets.Dataset;
+import com.bdspro.datasets.TaxiRidesDataset;
+import com.bdspro.datasets.TestDataset;
 import com.bdspro.query.QueryTranslator;
 import com.bdspro.query.sql.SqlQueryTranslator;
 
 import java.sql.DriverManager;
+import java.nio.file.Path;
+import java.nio.file.Files;
 
 public class TimescaleDb implements Database {
     private String connUrl = "jdbc:postgresql://localhost:5432/bdspro?user=postgres&password=123qweasdzx";
@@ -22,9 +26,20 @@ public class TimescaleDb implements Database {
     }
 
     @Override
-    public int load(String csvFile, String datasetTableName) {
-        // TODO: TimescaleDB has no such functionality in SQL, I will implement it at the end
-
+    public int load(String csvFile, Dataset dataset) {
+        // completely terrible performance of course. Will probably take ages to load few GBs of data.
+        // TODO: either batch insert or just use timescaleDB functionality in docker
+        try {
+            Path path = Path.of(csvFile);
+            Files.lines(path)
+                    .skip(1)
+                    .map(s -> s.split(","))
+                    .map(values -> queryTranslator.translateInsertInto(dataset, new String[][]{values}))
+                    .forEach(this::runStatement);
+        }catch(Exception e){
+            System.out.println("Failed loading dataset!");
+            return -1;
+        }
         return 0;
     }
 
@@ -76,6 +91,15 @@ public class TimescaleDb implements Database {
     @Override
     public QueryTranslator getQueryTranslator() {
         return queryTranslator;
+    }
+
+    public static void main(String[] args) {
+        Dataset testdata = new TaxiRidesDataset();
+        TimescaleDb db = new TimescaleDb();
+        db.setup(testdata);
+        db.load(testdata.getCsvName(), testdata);
+        db.runQuery("SELECT * FROM " + testdata.getTableName() + ";");
+//        db.cleanup(testdata.getTableName());
     }
 
 }

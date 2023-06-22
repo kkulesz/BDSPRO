@@ -42,7 +42,7 @@ public class TaxiRidesDataset implements Dataset{
     }
 
     @Override
-    public String getCsvName() { return "data/yellow_tripdata_2015-01.csv"; }
+    public String getCsvName() { return "data/taxi_rides-small.csv"; }
 
     @Override
     public String getTimeStampColumnName() { return "tpep_pickup_datetime"; }
