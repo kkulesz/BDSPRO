@@ -1,5 +1,6 @@
 package com.bdspro.databases;
 
+import com.bdspro.datasets.ClimateDataset;
 import com.bdspro.datasets.ColumnType;
 import com.bdspro.datasets.Dataset;
 import com.bdspro.datasets.TestDataset;
@@ -127,11 +128,11 @@ public class ClickHouse implements Database {
     }
 
     public static void main(String[] args) {
-        Dataset testdata = new TestDataset();
+        Dataset testdata = new ClimateDataset();
         ClickHouse ch = new ClickHouse();
-        ch.setup(new TestDataset());
+        ch.setup(testdata);
         ch.load(testdata.getCsvName(), testdata);
-        ch.getSize(testdata.getTableName());
+        System.out.println(ch.getSize(testdata.getTableName()));
         ch.runQuery("SELECT * FROM " + testdata.getTableName() + ";");
         ch.cleanup(testdata.getTableName());
     }

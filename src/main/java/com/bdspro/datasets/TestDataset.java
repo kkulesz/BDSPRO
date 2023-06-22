@@ -27,7 +27,7 @@ public class TestDataset implements Dataset{
 
     @Override
     public String getCsvName() {
-        return "TestData/test.csv";
+        return "/home/dennis/IdeaProjects/BDSPRO/src/main/java/com/bdspro/test/TestData/clickhouse_test.csv";
     }
 
     @Override
@@ -49,16 +49,16 @@ public class TestDataset implements Dataset{
     @Override
     public Map.Entry<Timestamp, Timestamp> getExampleSmallRange() {
         return new AbstractMap.SimpleEntry<>(
-                Timestamp.valueOf("2014-01-01 00:00:00"),
-                Timestamp.valueOf("2015-01-01 00:00:00")
+                Timestamp.valueOf("2019-05-01 00:00:00"),
+                Timestamp.valueOf("2019-05-06 00:00:00")
         );
     }
 
     @Override
     public Map.Entry<Timestamp, Timestamp> getExampleBigRange() {
         return new AbstractMap.SimpleEntry<>(
-                Timestamp.valueOf("1999-01-01 00:00:00"),
-                Timestamp.valueOf("2025-01-01 00:00:00")
+                Timestamp.valueOf("2019-01-01 00:00:00"),
+                Timestamp.valueOf("2019-06-30 00:00:00")
         );
     }
 }
