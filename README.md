@@ -11,28 +11,28 @@ everything that is written below is work in progress, it may slightly change whe
 #### Project deadline - 14th August
 
 TODO:
-- Databases:
-  - [x] Clickhouse
-  - [x] TimeScaleDB
+- [ ] Databases:
+  - [x] Clickhouse `Dennis`
+  - [x] TimeScaleDB `Konrad`
   - [ ] InfluxDB `Toshina`
   - [ ] Druid `Nils`
-- FluxQueryTranslator `Toshina`
-- Datasets:
-  - meaning create 4 classes similar to `datasets/TestDataset` that correspond to datasets we chose (2/4 done) 
-    - Earthquake`Toshina`
-    - Stock Market `Nils`
-- implement all queries `Konrad`
-- measure ingestion rate `Nils`
-- configure experiments
-  - class that runs Benchmark on repeat with different values for dataset, batchsize, writePercentage etc.) `Konrad`
-  - log performance measurement somehow. CSV format `Dennis`
-  - think about visualization of those
+- [ ] FluxQueryTranslator `Toshina`
+- [ ] Datasets - meaning create 4 classes similar to `datasets/TestDataset` that correspond to datasets we chose 
+  - [x] Climate change `Dennis`
+  - [x] Taxi rides `Konrad`
+  - [ ] Earthquake`Toshina`
+  - [ ] Stock Market `Nils`
+- [ ] implement all queries `Konrad`
+- [ ] measure ingestion rate `Nils`
+- [ ] configure experiments
+  - [ ] class that runs Benchmark on repeat with different values for dataset, batchsize, writePercentage etc.) `Konrad`
+  - [ ] log performance measurement somehow. CSV format `Dennis`
+  - [ ] think about visualization of those
 
-- run experiment on out local machines
-- report:
+- [ ] run experiment on out local machines
+- [ ] report:
   - [ ] everybody write section about their database (low prio for now)
-  - ask dr Pandey about structure of this report:
-    - design main class and think about which benchmarks (which parameters)
+
 
 Questions:
 - ask dr Pandey about structure of this report:
