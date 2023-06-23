@@ -17,9 +17,11 @@ public abstract class QueryTranslator {
 
     public abstract String translateRangeSingleEntity(Dataset dataset, String entity, Timestamp from, Timestamp until);
 
-    public abstract String translateRangeQueryWithAggregation(Dataset dataset, Timestamp from, Timestamp until);
+    public abstract String translateRangeWithAggregationOnTimeColumn(Dataset dataset, Timestamp from, Timestamp until);
 
+    public abstract String translateRangeWithValueFilter(Dataset dataset,  Timestamp from, Timestamp until, double value);
 
+    public abstract String translateLastNRecords(Dataset dataset, int numberOfRecords);
     //TODO: rest of queries
 
 }

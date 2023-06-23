@@ -1,6 +1,9 @@
 package com.bdspro.query.sql;
 
+import com.bdspro.databases.TimescaleDb;
 import com.bdspro.datasets.Dataset;
+import com.bdspro.datasets.TaxiRidesDataset;
+import com.bdspro.datasets.TestDataset;
 import com.bdspro.query.QueryTranslator;
 
 import java.sql.Timestamp;
@@ -75,11 +78,31 @@ public class SqlQueryTranslator extends QueryTranslator {
     }
 
     @Override
-    public String translateRangeQueryWithAggregation(Dataset dataset, Timestamp from, Timestamp until) {
+    public String translateRangeWithAggregationOnTimeColumn(Dataset dataset, Timestamp from, Timestamp until) {
         var table = dataset.getTableName();
         var tsColumn = dataset.getTimeStampColumnName();
         return String.format(
                 "SELECT MAX(%s) FROM %s \n\t WHERE %s>='%s' AND %s<='%s';", tsColumn, table, tsColumn, from, tsColumn, until
+        );
+    }
+
+    @Override
+    public String translateRangeWithValueFilter(Dataset dataset, Timestamp from, Timestamp until, double value) {
+        var table = dataset.getTableName();
+        var tsColumn = dataset.getTimeStampColumnName();
+        var valueColumn = dataset.getValueColumnName();
+
+        return String.format(
+                "SELECT * FROM %s \n\t WHERE %s>='%s' AND %s<='%s' AND %s=%s;", table, tsColumn, from, tsColumn, until, valueColumn, value
+        );
+    }
+
+    @Override
+    public String translateLastNRecords(Dataset dataset, int numberOfRecords) {
+        var table = dataset.getTableName();
+        var tsColumn = dataset.getTimeStampColumnName();
+        return String.format(
+                "SELECT * FROM %s \n\t ORDER BY %s LIMIT %s;", table, tsColumn, numberOfRecords
         );
     }
 
@@ -102,6 +125,21 @@ public class SqlQueryTranslator extends QueryTranslator {
                         .toArray(String[]::new));
 
         return String.format("(%s)", valuesChunk);
+    }
+
+    public static void main(String[] args) {
+        var dataset = new TestDataset();
+        var queryTranslator = new SqlQueryTranslator();
+
+        var range = dataset.getExampleSmallRange();
+        var from = range.getKey();
+        var until = range.getValue();
+        var value = dataset.getExampleValue();
+
+//        var result = queryTranslator.translateRangeWithValueFilter(dataset, from, until, value);
+//        var result = queryTranslator.translateRangeWithAggregationOnTimeColumn(dataset, from, until);
+        var result = queryTranslator.translateLastNRecords(dataset, 100);
+        System.out.println(result);
     }
 
 }

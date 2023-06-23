@@ -64,21 +64,31 @@ public class Benchmark {
     }
 
     private String generateQuery(QueryTranslator queryTranslator, QueryType type) {
-//        System.out.println(type);
         switch (type){
             case EXACT_POINT -> {
                 return queryTranslator.translateExactPoint(dataset, dataset.getExamplePointTimeStamp());
+            }
+            case RANGE_ANY_ENTITY -> {
+                var timeRange = dataset.getExampleSmallRange();
+                return queryTranslator.translateRangeAnyEntity(dataset, timeRange.getKey(), timeRange.getValue());
             }
             case RANGE_SINGLE_ENTITY -> {
                 var timeRange = dataset.getExampleSmallRange();
                 var entity = dataset.getExampleEntity();
                 return queryTranslator.translateRangeSingleEntity(dataset, entity, timeRange.getKey(), timeRange.getValue());
             }
-            case RANGE_ANY_ENTITY -> {
+            case RANGE_WITH_VALUE_FILTER -> {
                 var timeRange = dataset.getExampleSmallRange();
-                return queryTranslator.translateRangeAnyEntity(dataset, timeRange.getKey(), timeRange.getValue());
+                var value = dataset.getExampleValue();
+                return queryTranslator.translateRangeWithValueFilter(dataset, timeRange.getKey(), timeRange.getValue(), value);
             }
-            // TODO rest of queries
+            case RANGE_WITH_AGGREGATION_ON_TIME_COLUMN -> {
+                var timeRange = dataset.getExampleSmallRange();
+                return queryTranslator.translateRangeWithAggregationOnTimeColumn(dataset, timeRange.getKey(), timeRange.getValue());
+            }
+            case LAST_N_RECORDS -> {
+                return queryTranslator.translateLastNRecords(dataset, 100);
+            }
         }
         return "";
     }
