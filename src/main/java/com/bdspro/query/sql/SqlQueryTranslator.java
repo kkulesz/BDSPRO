@@ -2,7 +2,6 @@ package com.bdspro.query.sql;
 
 import com.bdspro.datasets.Dataset;
 import com.bdspro.query.QueryTranslator;
-import com.bdspro.query.QueryType;
 
 import java.sql.Timestamp;
 import java.util.Arrays;

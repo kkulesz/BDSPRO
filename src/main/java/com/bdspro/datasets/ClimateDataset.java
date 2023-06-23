@@ -58,11 +58,17 @@ public class ClimateDataset  implements Dataset{
 
     @Override
     public Map.Entry<Timestamp, Timestamp> getExampleSmallRange() {
-        return null;
+        return new AbstractMap.SimpleEntry<>(
+                Timestamp.valueOf("2019-01-15 00:00:00"),
+                Timestamp.valueOf("2019-01-10 00:00:00")
+        );
     }
 
     @Override
     public Map.Entry<Timestamp, Timestamp> getExampleBigRange() {
-        return null;
+        return new AbstractMap.SimpleEntry<>(
+                Timestamp.valueOf("2019-01-15 00:00:00"),
+                Timestamp.valueOf("2019-08-10 00:00:00")
+        );
     }
 }

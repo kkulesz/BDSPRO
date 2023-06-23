@@ -15,6 +15,7 @@ import java.util.concurrent.ExecutionException;
 public class ClickHouse implements Database {
 
     ClickHouseNode server;
+    private final QueryTranslator queryTranslator = new SqlQueryTranslator();
 
     @Override
     public int setup(Dataset dataset) {
@@ -124,7 +125,7 @@ public class ClickHouse implements Database {
 
     @Override
     public QueryTranslator getQueryTranslator() {
-        return new SqlQueryTranslator();
+        return queryTranslator;
     }
 
     public static void main(String[] args) {

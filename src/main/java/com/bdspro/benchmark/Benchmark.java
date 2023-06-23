@@ -25,7 +25,6 @@ public class Benchmark {
 
     private int batchSize;
 
-
     private DataGenerator dataGenerator;
 
     public Benchmark(int writePercentage, int writeFrequency, Database[] databases, int numberOfNodes, Dataset dataset, int numberOfQueries, int batchSize) {
@@ -55,7 +54,7 @@ public class Benchmark {
     public String[][] generateReadQueryWorkload() {
         String[][] readQueries = new String[databases.length][numberOfReadQueries];
         Random random = new Random();
-        for (int i = 0; i < numberOfWriteQueries; i++) {
+        for (int i = 0; i < numberOfReadQueries; i++) {
              QueryType type = QueryType.values()[random.nextInt(QueryType.values().length)];
             for (int j=0; j<databases.length; j++) {
                 readQueries[j][i] = generateQuery(databases[j].getQueryTranslator(), type);
