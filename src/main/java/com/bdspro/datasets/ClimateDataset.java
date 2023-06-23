@@ -74,4 +74,9 @@ public class ClimateDataset  implements Dataset{
                 Timestamp.valueOf("2019-08-10 00:00:00")
         );
     }
+
+    @Override
+    public double getExampleValue() {
+        return 10; //TODO: insert some value that actually is present in dataset
+    }
 }

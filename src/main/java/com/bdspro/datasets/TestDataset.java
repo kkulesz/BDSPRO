@@ -64,4 +64,9 @@ public class TestDataset implements Dataset{
                 Timestamp.valueOf("2019-06-30 00:00:00")
         );
     }
+
+    @Override
+    public double getExampleValue() {
+        return 1257.76354148008;
+    }
 }

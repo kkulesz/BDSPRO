@@ -17,5 +17,6 @@ public interface Dataset {
     Timestamp getExamplePointTimeStamp();
     Map.Entry<Timestamp, Timestamp> getExampleSmallRange();
     Map.Entry<Timestamp, Timestamp> getExampleBigRange();
+    double getExampleValue();
 
 }

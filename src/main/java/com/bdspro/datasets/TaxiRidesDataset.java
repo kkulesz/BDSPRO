@@ -74,4 +74,9 @@ public class TaxiRidesDataset implements Dataset{
                 Timestamp.valueOf("2015-01-24 00:26:42")
         );
     }
+
+    @Override
+    public double getExampleValue() {
+        return 1;
+    }
 }
