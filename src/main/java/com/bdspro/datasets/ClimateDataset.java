@@ -47,6 +47,9 @@ public class ClimateDataset  implements Dataset{
     }
 
     @Override
+    public String getValueColumnName() { return "Value1"; }
+
+    @Override
     public String getExampleEntity() {
         return "USS0011G06S";
     }

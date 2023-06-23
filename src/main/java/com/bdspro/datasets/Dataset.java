@@ -10,6 +10,7 @@ public interface Dataset {
     String getCsvName();
     String getTimeStampColumnName();
     String getEntityColumnName();
+    String getValueColumnName();
 
     // those methods below are for query generation purpose
     String getExampleEntity();

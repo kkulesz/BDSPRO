@@ -39,6 +39,9 @@ public class TestDataset implements Dataset{
     public String getEntityColumnName() { return "The_average_annual_payroll_of_the_region"; }
 
     @Override
+    public String getValueColumnName() { return "Average_cost"; }
+
+    @Override
     public String getExampleEntity() { return "30024676"; }
 
     @Override

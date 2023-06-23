@@ -18,10 +18,10 @@ public class TaxiRidesDataset implements Dataset{
 
         list.add(new AbstractMap.SimpleEntry<>("VendorID", ColumnType.STRING));
         list.add(new AbstractMap.SimpleEntry<>("tpep_pickup_datetime", ColumnType.TIMESTAMP));
+        list.add(new AbstractMap.SimpleEntry<>("passenger_count", ColumnType.NUMERIC));
 
         // rest do not matter, setting strings everywhere
         list.add(new AbstractMap.SimpleEntry<>("tpep_dropoff_datetime", ColumnType.STRING));
-        list.add(new AbstractMap.SimpleEntry<>("passenger_count", ColumnType.STRING));
         list.add(new AbstractMap.SimpleEntry<>("trip_distance", ColumnType.STRING));
         list.add(new AbstractMap.SimpleEntry<>("pickup_longitude", ColumnType.STRING));
         list.add(new AbstractMap.SimpleEntry<>("pickup_latitude", ColumnType.STRING));
@@ -49,6 +49,9 @@ public class TaxiRidesDataset implements Dataset{
 
     @Override
     public String getEntityColumnName() { return "VendorID"; }
+
+    @Override
+    public String getValueColumnName() { return "passenger_count";}
 
     @Override
     public String getExampleEntity() { return "1"; }
