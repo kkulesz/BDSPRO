@@ -3,8 +3,8 @@ package com.bdspro.databases;
 import com.bdspro.datasets.ClimateDataset;
 import com.bdspro.datasets.ColumnType;
 import com.bdspro.datasets.Dataset;
-import com.bdspro.datasets.TestDataset;
 import com.bdspro.query.QueryTranslator;
+import com.bdspro.query.sql.SqlQueryTranslator;
 import com.clickhouse.client.*;
 import com.clickhouse.data.ClickHouseFile;
 import com.clickhouse.data.ClickHouseFormat;
@@ -124,7 +124,7 @@ public class ClickHouse implements Database {
 
     @Override
     public QueryTranslator getQueryTranslator() {
-        return null;
+        return new SqlQueryTranslator();
     }
 
     public static void main(String[] args) {
