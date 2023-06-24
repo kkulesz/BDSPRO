@@ -106,6 +106,28 @@ public class SqlQueryTranslator extends QueryTranslator {
         );
     }
 
+    @Override
+    public String translateRangeWithAggregation(Dataset dataset, Timestamp from, Timestamp until) {
+        var table = dataset.getTableName();
+        var tsColumn = dataset.getTimeStampColumnName();
+        var valueColumn = dataset.getValueColumnName();
+
+        return String.format(
+                "SELECT MAX(%s) FROM %s \n\t WHERE %s>='%s' AND %s<='%s';",valueColumn, table, tsColumn, from, tsColumn, until
+        );
+    }
+
+    @Override
+    public String translateRangeWithAggregationWithinGroup(Dataset dataset, Timestamp from, Timestamp until) {
+        var table = dataset.getTableName();
+        var tsColumn = dataset.getTimeStampColumnName();
+        var valueColumn = dataset.getValueColumnName();
+        var entityColumn = dataset.getEntityColumnName();
+        return String.format(
+                "SELECT MAX(%s), %s FROM %s \n\t WHERE %s>='%s' AND %s<='%s' GROUP BY %s;", valueColumn, entityColumn, table, tsColumn, from, tsColumn, until, entityColumn
+        );
+    }
+
     private String _getColumnNamesChunk(Dataset dataset){
         var columnNamesWithTypes = dataset.getColumnNamesWithTypes();
         return String.join(", ",
@@ -138,7 +160,9 @@ public class SqlQueryTranslator extends QueryTranslator {
 
 //        var result = queryTranslator.translateRangeWithValueFilter(dataset, from, until, value);
 //        var result = queryTranslator.translateRangeWithAggregationOnTimeColumn(dataset, from, until);
-        var result = queryTranslator.translateLastNRecords(dataset, 100);
+//        var result = queryTranslator.translateLastNRecords(dataset, 100);
+//        var result = queryTranslator.translateRangeWithAggregation(dataset, from, until);
+        var result = queryTranslator.translateRangeWithAggregationWithinGroup(dataset, from, until);
         System.out.println(result);
     }
 

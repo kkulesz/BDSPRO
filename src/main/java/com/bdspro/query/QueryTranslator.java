@@ -22,6 +22,10 @@ public abstract class QueryTranslator {
     public abstract String translateRangeWithValueFilter(Dataset dataset,  Timestamp from, Timestamp until, double value);
 
     public abstract String translateLastNRecords(Dataset dataset, int numberOfRecords);
+
+    public abstract String translateRangeWithAggregation(Dataset dataset,  Timestamp from, Timestamp until);
+
+    public abstract String translateRangeWithAggregationWithinGroup(Dataset dataset,  Timestamp from, Timestamp until);
     //TODO: rest of queries
 
 }

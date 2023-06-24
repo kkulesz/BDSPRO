@@ -27,7 +27,8 @@ public class TestDataset implements Dataset{
 
     @Override
     public String getCsvName() {
-        return "/home/dennis/IdeaProjects/BDSPRO/src/main/java/com/bdspro/test/TestData/clickhouse_test.csv";
+//        return "/home/dennis/IdeaProjects/BDSPRO/src/main/java/com/bdspro/test/TestData/clickhouse_test.csv";
+        return "src/main/java/com/bdspro/test/TestData/test.csv";
     }
 
     @Override

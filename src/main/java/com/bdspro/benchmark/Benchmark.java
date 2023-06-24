@@ -89,6 +89,14 @@ public class Benchmark {
             case LAST_N_RECORDS -> {
                 return queryTranslator.translateLastNRecords(dataset, 100);
             }
+            case RANGE_WITH_AGGREGATION -> {
+                var timeRange = dataset.getExampleSmallRange();
+                return queryTranslator.translateRangeWithAggregation(dataset, timeRange.getKey(), timeRange.getValue());
+            }
+            case RANGE_WITH_AGGREGATION_WITHIN_GROUP -> {
+                var timeRange = dataset.getExampleSmallRange();
+                return queryTranslator.translateRangeWithAggregationWithinGroup(dataset, timeRange.getKey(), timeRange.getValue());
+            }
         }
         return "";
     }
@@ -125,6 +133,7 @@ public class Benchmark {
             writer.start();
             //TODO: do something with the results
 
+            // TODO: we shouldn't call cleanup() there because it drops table before other threads finish their work. First wait for all threads to finish their job
 //            db.cleanup(dataset.getTableName());
         }
     }

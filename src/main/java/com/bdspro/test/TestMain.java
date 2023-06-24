@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class TestMain {
 
     public static void main(String... args) throws SQLException{
-        var ds = new TaxiRidesDataset();
+        var ds = new TestDataset();
 
         var dbs = new Database[]{
                 new TimescaleDb()
