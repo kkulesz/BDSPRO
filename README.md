@@ -22,7 +22,7 @@ TODO:
   - [x] Taxi rides `Konrad`
   - [ ] Earthquake`Toshina`
   - [ ] Stock Market `Nils`
-- [ ] implement all queries `Konrad`
+- [x] implement all queries `Konrad`
 - [ ] measure ingestion rate `Nils`
 - [ ] configure experiments
   - [ ] class that runs Benchmark on repeat with different values for dataset, batchsize, writePercentage etc.) `Konrad`
