@@ -57,6 +57,7 @@ public class Benchmark {
         for (int i = 0; i < numberOfReadQueries; i++) {
              QueryType type = QueryType.values()[random.nextInt(QueryType.values().length)];
             for (int j=0; j<databases.length; j++) {
+                System.out.println(type);
                 readQueries[j][i] = generateQuery(databases[j].getQueryTranslator(), type);
             }
         }
@@ -105,6 +106,16 @@ public class Benchmark {
             case RANGE_WITH_LIMIT -> {
                 var timeRange = dataset.getExampleSmallRange();
                 return queryTranslator.translateRangeWithLimit(dataset, timeRange.getKey(), timeRange.getValue(), 100);
+            }
+//            case RANGE_WITH_GROUP_BY_TIME -> {
+//
+//            }
+            case RANGE_WITH_ORDER_BY_VALUE -> {
+                var timeRange = dataset.getExampleSmallRange();
+                return queryTranslator.translateRangeWithOrderByValue(dataset, timeRange.getKey(), timeRange.getValue());
+            }
+            case LATEST_POINT -> {
+                return queryTranslator.translateLatestPoint(dataset);
             }
         }
         return "";

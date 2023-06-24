@@ -159,6 +159,26 @@ public class SqlQueryTranslator extends QueryTranslator {
 //                "SELECT MAX(%s) FROM %s \n\t WHERE %s>='%s' AND %s<='%s' GROUP BY time;", valueColumn, table, tsColumn, from, tsColumn, until,
 //        );
 //    }
+    @Override
+    public String translateRangeWithOrderByValue(Dataset dataset, Timestamp from, Timestamp until) {
+        var table = dataset.getTableName();
+        var tsColumn = dataset.getTimeStampColumnName();
+        var valueColumn = dataset.getValueColumnName();
+
+        return String.format(
+                "SELECT * FROM %s \n\t WHERE %s>='%s' AND %s<='%s' ORDER BY %s;", table, tsColumn, from, tsColumn, until, valueColumn
+        );
+    }
+
+    @Override
+    public String translateLatestPoint(Dataset dataset) {
+        var table = dataset.getTableName();
+        var tsColumn = dataset.getTimeStampColumnName();
+
+        return String.format(
+                "SELECT * FROM %s \n\t ORDER BY %s DESC LIMIT 1;", table, tsColumn
+        );
+    }
 
     private String _getColumnNamesChunk(Dataset dataset){
         var columnNamesWithTypes = dataset.getColumnNamesWithTypes();
@@ -196,7 +216,9 @@ public class SqlQueryTranslator extends QueryTranslator {
 //        var result = queryTranslator.translateRangeWithAggregation(dataset, from, until);
 //        var result = queryTranslator.translateRangeWithAggregationWithinGroup(dataset, from, until);
 //        var result = queryTranslator.translateRangeWithAggregationAndValueFilter(dataset, from, until, value);
-        var result = queryTranslator.translateRangeWithLimit(dataset, from, until, 100);
+//        var result = queryTranslator.translateRangeWithLimit(dataset, from, until, 100);
+//        var result = queryTranslator.translateRangeWithOrderByValue(dataset, from, until);
+        var result = queryTranslator.translateLatestPoint(dataset);
         System.out.println(result);
     }
 

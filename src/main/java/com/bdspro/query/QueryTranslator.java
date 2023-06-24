@@ -32,6 +32,10 @@ public abstract class QueryTranslator {
     public abstract String translateRangeWithLimit(Dataset dataset, Timestamp from, Timestamp until, int limit);
 
 //    public abstract String translateRangeWithGroupByTime(Dataset dataset, Timestamp from, Timestamp until);
+
+    public abstract String translateRangeWithOrderByValue(Dataset dataset, Timestamp from, Timestamp until);
+
+    public abstract String translateLatestPoint(Dataset dataset);
     //TODO: rest of queries
 
 }
