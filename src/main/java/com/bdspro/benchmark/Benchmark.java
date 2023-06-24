@@ -97,6 +97,15 @@ public class Benchmark {
                 var timeRange = dataset.getExampleSmallRange();
                 return queryTranslator.translateRangeWithAggregationWithinGroup(dataset, timeRange.getKey(), timeRange.getValue());
             }
+            case RANGE_WITH_AGGREGATION_AND_VALUE_FILTER -> {
+                var timeRange = dataset.getExampleSmallRange();
+                var value = dataset.getExampleValue();
+                return queryTranslator.translateRangeWithAggregationAndValueFilter(dataset, timeRange.getKey(), timeRange.getValue(), value);
+            }
+            case RANGE_WITH_LIMIT -> {
+                var timeRange = dataset.getExampleSmallRange();
+                return queryTranslator.translateRangeWithLimit(dataset, timeRange.getKey(), timeRange.getValue(), 100);
+            }
         }
         return "";
     }

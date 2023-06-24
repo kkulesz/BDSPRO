@@ -128,6 +128,38 @@ public class SqlQueryTranslator extends QueryTranslator {
         );
     }
 
+    @Override
+    public String translateRangeWithAggregationAndValueFilter(Dataset dataset, Timestamp from, Timestamp until, double value) {
+        var table = dataset.getTableName();
+        var tsColumn = dataset.getTimeStampColumnName();
+        var valueColumn = dataset.getValueColumnName();
+
+        return String.format(
+                "SELECT SUM(%s) FROM %s \n\t WHERE %s>='%s' AND %s<='%s' AND %s>%s;", valueColumn, table, tsColumn, from, tsColumn, until, valueColumn, value
+        );
+    }
+
+    @Override
+    public String translateRangeWithLimit(Dataset dataset, Timestamp from, Timestamp until, int limit) {
+        var table = dataset.getTableName();
+        var tsColumn = dataset.getTimeStampColumnName();
+
+        return String.format(
+                "SELECT * FROM %s \n\t WHERE %s>='%s' AND %s<='%s' LIMIT %s;", table, tsColumn, from, tsColumn, until, limit
+        );
+    }
+
+//    @Override
+//    public String translateRangeWithGroupByTime(Dataset dataset, Timestamp from, Timestamp until) {
+//        var table = dataset.getTableName();
+//        var tsColumn = dataset.getTimeStampColumnName();
+//        var valueColumn = dataset.getValueColumnName();
+//
+//        return String.format(
+//                "SELECT MAX(%s) FROM %s \n\t WHERE %s>='%s' AND %s<='%s' GROUP BY time;", valueColumn, table, tsColumn, from, tsColumn, until,
+//        );
+//    }
+
     private String _getColumnNamesChunk(Dataset dataset){
         var columnNamesWithTypes = dataset.getColumnNamesWithTypes();
         return String.join(", ",
@@ -162,7 +194,9 @@ public class SqlQueryTranslator extends QueryTranslator {
 //        var result = queryTranslator.translateRangeWithAggregationOnTimeColumn(dataset, from, until);
 //        var result = queryTranslator.translateLastNRecords(dataset, 100);
 //        var result = queryTranslator.translateRangeWithAggregation(dataset, from, until);
-        var result = queryTranslator.translateRangeWithAggregationWithinGroup(dataset, from, until);
+//        var result = queryTranslator.translateRangeWithAggregationWithinGroup(dataset, from, until);
+//        var result = queryTranslator.translateRangeWithAggregationAndValueFilter(dataset, from, until, value);
+        var result = queryTranslator.translateRangeWithLimit(dataset, from, until, 100);
         System.out.println(result);
     }
 

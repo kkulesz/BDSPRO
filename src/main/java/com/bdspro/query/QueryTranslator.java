@@ -26,6 +26,12 @@ public abstract class QueryTranslator {
     public abstract String translateRangeWithAggregation(Dataset dataset,  Timestamp from, Timestamp until);
 
     public abstract String translateRangeWithAggregationWithinGroup(Dataset dataset,  Timestamp from, Timestamp until);
+
+    public abstract String translateRangeWithAggregationAndValueFilter(Dataset dataset, Timestamp from, Timestamp until, double value);
+
+    public abstract String translateRangeWithLimit(Dataset dataset, Timestamp from, Timestamp until, int limit);
+
+//    public abstract String translateRangeWithGroupByTime(Dataset dataset, Timestamp from, Timestamp until);
     //TODO: rest of queries
 
 }
