@@ -17,6 +17,7 @@ TODO:
   - [ ] InfluxDB `Toshina`
   - [ ] Druid `Nils`
 - [ ] FluxQueryTranslator `Toshina`
+- [ ] Loading method in TimescaleDB - try to execute shell command from java code `Konrad`
 - [ ] Datasets - meaning create 4 classes similar to `datasets/TestDataset` that correspond to datasets we chose 
   - [x] Climate change `Dennis`
   - [x] Taxi rides `Konrad`
@@ -26,7 +27,7 @@ TODO:
 - [ ] measure ingestion rate `Nils`
 - [ ] configure experiments
   - [ ] class that runs Benchmark on repeat with different values for dataset, batchsize, writePercentage etc.) `Konrad`
-  - [ ] log performance measurement somehow. CSV format `Dennis`
+  - [ ] log performance measurement somehow. JSON format `Dennis`
   - [ ] think about visualization of those
 
 - [ ] run experiment on out local machines
