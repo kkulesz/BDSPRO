@@ -57,7 +57,7 @@ public class Benchmark {
         for (int i = 0; i < numberOfReadQueries; i++) {
              QueryType type = QueryType.values()[random.nextInt(QueryType.values().length)];
             for (int j=0; j<databases.length; j++) {
-                System.out.println(type);
+//                System.out.println(type);
                 readQueries[j][i] = generateQuery(databases[j].getQueryTranslator(), type);
             }
         }
@@ -147,8 +147,6 @@ public class Benchmark {
             // start reader and writer thread
             ReadThread reader = new ReadThread(db, readQueries[j]);
             WriteThread writer = new WriteThread(writeFrequency, db, writeQueries[j]);
-
-
             reader.start();
             writer.start();
             //TODO: do something with the results

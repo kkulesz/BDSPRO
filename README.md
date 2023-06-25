@@ -17,7 +17,6 @@ TODO:
   - [ ] InfluxDB `Toshina`
   - [ ] Druid `Nils`
 - [ ] FluxQueryTranslator `Toshina`
-- [ ] Loading method in TimescaleDB - try to execute shell command from java code `Konrad`
 - [ ] Datasets - meaning create 4 classes similar to `datasets/TestDataset` that correspond to datasets we chose 
   - [x] Climate change `Dennis`
   - [x] Taxi rides `Konrad`
