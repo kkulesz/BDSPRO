@@ -1,6 +1,5 @@
 package com.bdspro.databases;
 
-import com.bdspro.datasets.ClimateDataset;
 import com.bdspro.datasets.ColumnType;
 import com.bdspro.datasets.Dataset;
 import com.bdspro.query.QueryTranslator;
@@ -34,7 +33,6 @@ public class ClickHouse implements Database {
             }
             schema.delete(schema.length() - 2, schema.length());
             String query = "create table if not exists " + dataset.getTableName() + "(" + schema.toString() + ") engine=MergeTree() order by " + dataset.getTimeStampColumnName() + ";";
-            System.out.println(query);
             request.query(query).execute().get();
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,7 +79,6 @@ public class ClickHouse implements Database {
 
     @Override
     public int runQuery(String queryString) {
-        System.out.println(queryString);
         try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol());
              ClickHouseResponse response = client.read(server)
                      .format(ClickHouseFormat.CSV)
@@ -109,8 +106,7 @@ public class ClickHouse implements Database {
                      .query(query).execute().get()) {
             int count = 0;
             for (ClickHouseRecord r : response.records()) {
-                int bytes = Integer.parseInt(r.getValue(0).asString().split("\\.")[0].substring(1));
-                return bytes;
+                return Integer.parseInt(r.getValue(0).asString().split("\\.")[0].substring(1));
             }
             return count;
         } catch (InterruptedException e) {
@@ -126,16 +122,6 @@ public class ClickHouse implements Database {
     @Override
     public QueryTranslator getQueryTranslator() {
         return queryTranslator;
-    }
-
-    public static void main(String[] args) {
-        Dataset testdata = new ClimateDataset();
-        ClickHouse ch = new ClickHouse();
-        ch.setup(testdata);
-        ch.load(testdata.getCsvName(), testdata);
-        System.out.println(ch.getSize(testdata.getTableName()));
-        ch.runQuery("SELECT * FROM " + testdata.getTableName() + ";");
-        ch.cleanup(testdata.getTableName());
     }
 
     public static String columnTypeToString(ColumnType type){

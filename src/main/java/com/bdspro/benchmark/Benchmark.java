@@ -1,11 +1,15 @@
 package com.bdspro.benchmark;
 
+import com.bdspro.databases.ClickHouse;
 import com.bdspro.databases.Database;
+import com.bdspro.databases.TimescaleDb;
+import com.bdspro.datasets.ClimateDataset;
 import com.bdspro.datasets.Dataset;
 import com.bdspro.query.QueryTranslator;
 import com.bdspro.query.QueryType;
+import kotlin.Pair;
 
-import java.util.Random;
+import java.util.*;
 
 
 // This class should be called with the different possible values for the parameters to test different scenarios.
@@ -27,6 +31,8 @@ public class Benchmark {
 
     private DataGenerator dataGenerator;
 
+    BenchmarkResult result;
+
     public Benchmark(int writePercentage, int writeFrequency, Database[] databases, int numberOfNodes, Dataset dataset, int numberOfQueries, int batchSize) {
         this.writePercentage = writePercentage;
         this.writeFrequency = writeFrequency;
@@ -38,9 +44,10 @@ public class Benchmark {
         this.batchSize = batchSize;
 
         this.dataGenerator = new DataGenerator(dataset);
+        result = new BenchmarkResult(writePercentage, writeFrequency, databases, numberOfNodes, dataset, batchSize);
     }
 
-    public String[][] generateWriteQueryWorkload() {
+    private String[][] generateWriteQueryWorkload() {
         String[][] writeQueries = new String[databases.length][numberOfWriteQueries];
         for (int i = 0; i < numberOfWriteQueries; i++) {
             String[][] data = dataGenerator.generateData(batchSize);
@@ -51,14 +58,14 @@ public class Benchmark {
         return writeQueries;
     }
 
-    public String[][] generateReadQueryWorkload() {
-        String[][] readQueries = new String[databases.length][numberOfReadQueries];
+    private Pair<QueryType, String>[][] generateReadQueryWorkload() {
+        Pair<QueryType, String>[][] readQueries = new Pair[databases.length][numberOfReadQueries];
         Random random = new Random();
         for (int i = 0; i < numberOfReadQueries; i++) {
              QueryType type = QueryType.values()[random.nextInt(QueryType.values().length)];
+             if (type == QueryType.RANGE_WITH_GROUP_BY_TIME)type=QueryType.EXACT_POINT; //TODO: remove once this query is implemented
             for (int j=0; j<databases.length; j++) {
-//                System.out.println(type);
-                readQueries[j][i] = generateQuery(databases[j].getQueryTranslator(), type);
+                readQueries[j][i] = new Pair<>(type, generateQuery(databases[j].getQueryTranslator(), type));
             }
         }
         return readQueries;
@@ -125,7 +132,7 @@ public class Benchmark {
 
     public void run(){
         // generate queries for all databases
-        String[][] readQueries = generateReadQueryWorkload();
+        Pair<QueryType, String>[][] readQueries = generateReadQueryWorkload();
         String[][] writeQueries = generateWriteQueryWorkload();
 
         //loop through all databases
@@ -142,18 +149,37 @@ public class Benchmark {
 
             System.out.println("Size of table: " + db.getSize(dataset.getTableName()) + " bytes");
 
-            // TODO: check compression
+            result.compressionRates[j] = db.getSize(dataset.getTableName());
 
             // start reader and writer thread
             ReadThread reader = new ReadThread(db, readQueries[j]);
             WriteThread writer = new WriteThread(writeFrequency, db, writeQueries[j]);
+
+
             reader.start();
             writer.start();
+            try{
+                reader.join();
+                writer.join();
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            result.readResults.put(db.getClass().getSimpleName(), reader.results);
+
             //TODO: do something with the results
 
-            // TODO: we shouldn't call cleanup() there because it drops table before other threads finish their work. First wait for all threads to finish their job
-//            db.cleanup(dataset.getTableName());
+            // cleanup database
+            db.cleanup(dataset.getTableName());
         }
+    }
+
+
+
+    public static void main(String[] args) {
+        Benchmark b = new Benchmark(50, 1, new Database[]{new ClickHouse(), new TimescaleDb()}, 1, new ClimateDataset(), 100, 1);
+        b.run();
     }
 
 }

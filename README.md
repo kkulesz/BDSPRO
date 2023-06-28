@@ -36,9 +36,12 @@ TODO:
 
 
 Questions:
-- ask dr Pandey about structure of this report:
+- ask dr Pandey about structure of this report
+  - similar to the midterm presentation (databases, why this benchmark, background: intro each db, compare) plus the results
+  - TU thesis template, length min. 40 pages
 - decide on how to handle docker - ask dr Pandey?
-  - one dockerfile or multiple for each database
+  - one dockerfile or multiple for each database -> multiple, but all in one is ok, but make sure that only one is running at a time
+    - one is better tho, because otherwise the environment might be different
 
 
 Notes:
