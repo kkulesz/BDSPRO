@@ -14,6 +14,7 @@ TODO:
 - [ ] Databases:
   - [x] Clickhouse `Dennis`
   - [x] TimeScaleDB `Konrad`
+    - make runQuery return count of selected rows and -1 on failure `Konrad`
   - [ ] InfluxDB `Toshina`
   - [ ] Druid `Nils`
 - [ ] FluxQueryTranslator `Toshina`
