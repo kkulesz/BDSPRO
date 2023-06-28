@@ -5,6 +5,7 @@ import com.bdspro.databases.Database;
 import com.bdspro.databases.TimescaleDb;
 import com.bdspro.datasets.ClimateDataset;
 import com.bdspro.datasets.Dataset;
+import com.bdspro.datasets.TestDataset;
 import com.bdspro.query.QueryTranslator;
 import com.bdspro.query.QueryType;
 import kotlin.Pair;
@@ -62,8 +63,8 @@ public class Benchmark {
         Pair<QueryType, String>[][] readQueries = new Pair[databases.length][numberOfReadQueries];
         Random random = new Random();
         for (int i = 0; i < numberOfReadQueries; i++) {
-             QueryType type = QueryType.values()[random.nextInt(QueryType.values().length)];
-             if (type == QueryType.RANGE_WITH_GROUP_BY_TIME)type=QueryType.EXACT_POINT; //TODO: remove once this query is implemented
+            QueryType type = QueryType.values()[random.nextInt(QueryType.values().length)];
+//            System.out.println(type);
             for (int j=0; j<databases.length; j++) {
                 readQueries[j][i] = new Pair<>(type, generateQuery(databases[j].getQueryTranslator(), type));
             }
@@ -114,9 +115,6 @@ public class Benchmark {
                 var timeRange = dataset.getExampleSmallRange();
                 return queryTranslator.translateRangeWithLimit(dataset, timeRange.getKey(), timeRange.getValue(), 100);
             }
-//            case RANGE_WITH_GROUP_BY_TIME -> {
-//
-//            }
             case RANGE_WITH_ORDER_BY_VALUE -> {
                 var timeRange = dataset.getExampleSmallRange();
                 return queryTranslator.translateRangeWithOrderByValue(dataset, timeRange.getKey(), timeRange.getValue());
@@ -178,7 +176,13 @@ public class Benchmark {
 
 
     public static void main(String[] args) {
-        Benchmark b = new Benchmark(50, 1, new Database[]{new ClickHouse(), new TimescaleDb()}, 1, new ClimateDataset(), 100, 1);
+        var databases =  new Database[]{
+//                new ClickHouse(),
+                new TimescaleDb()
+        };
+        var dataset = new TestDataset();
+
+        Benchmark b = new Benchmark(50, 1, databases, 1, dataset, 100, 1);
         b.run();
     }
 
