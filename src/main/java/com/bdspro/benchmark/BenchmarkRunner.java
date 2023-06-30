@@ -3,6 +3,7 @@ package com.bdspro.benchmark;
 import com.bdspro.databases.ClickHouse;
 import com.bdspro.databases.Database;
 import com.bdspro.databases.TimescaleDb;
+import com.bdspro.datasets.ClimateDataset;
 import com.bdspro.datasets.Dataset;
 import com.bdspro.datasets.TestDataset;
 
@@ -13,12 +14,12 @@ public class BenchmarkRunner {
 
         // !Careful with the number of parameters below, number of runs will be equal to p1*p2*p3...
         var datasets = new Dataset[] {
-                new TestDataset()
+                new ClimateDataset()
         };
         var batchSizes = new int[] {1, 10};
         var writePercentages = new int[] {25, 50};
         var writeFrequencies = new int[] {1, 100};
-        var numberOfQueries = new int[] {1, 10};
+        var numberOfQueries = new int[] {10, 10};
         var numberOfNodes = new int[] {1, 3};
         var databases = new Database[]{
                 //new TimescaleDb(),
@@ -46,7 +47,8 @@ public class BenchmarkRunner {
                                 );
                                 System.out.println(msg);
                                 Benchmark b = (new Benchmark(wp, wf, databases, non, ds, noq, bs));
-                                //b.run();
+                                b.run();
+                                return;
                             }
     }
 

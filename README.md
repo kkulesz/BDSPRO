@@ -25,19 +25,26 @@ TODO:
 - [x] implement all queries `Konrad`
 - [ ] measure ingestion rate `Nils`
 - [ ] configure experiments
-  - [ ] class that runs Benchmark on repeat with different values for dataset, batchsize, writePercentage etc.) `Konrad`
-  - [ ] log performance measurement somehow. JSON format `Dennis`
-  - [ ] think about visualization of those
-
+  - [x] class that runs Benchmark on repeat with different values for dataset, batchsize, writePercentage etc.) `Konrad`
+  - [x] log performance measurement somehow. JSON format `Dennis`
+  - [ ] think about visualization of those `Dennis`
+- [ ] take a look at GROUP BY TIME RANGE QUERY `Dennis`
 - [ ] run experiment on out local machines
+- [ ] Docker Images `Konrad`
+- [ ] implement getRowCount() for each DB `Konrad`
 - [ ] report:
+  - [ ] plan structure of report (how many pages for what?)
   - [ ] everybody write section about their database (low prio for now)
 
 
-Questions:
 - ask dr Pandey about structure of this report
-  - similar to the midterm presentation (databases, why this benchmark, background: intro each db, compare) plus the results
+  - similar to the midterm presentation (databases, datasets, why this benchmark, background: intro each db, compare) plus the results
   - TU thesis template, length min. 40 pages
 - decide on how to handle docker - ask dr Pandey?
   - one dockerfile or multiple for each database -> multiple, but all in one is ok, but make sure that only one is running at a time
     - one is better tho, because otherwise the environment might be different
+
+Questions:
+- How to visualize? By what parameters? Should we differentiate between write and read latency?
+- specific plot types (what to be on what axis)
+- can we use Python for visualization

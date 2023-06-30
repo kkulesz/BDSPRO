@@ -66,7 +66,7 @@ public class Benchmark {
         Random random = new Random();
         for (int i = 0; i < numberOfReadQueries; i++) {
              QueryType type = QueryType.values()[random.nextInt(QueryType.values().length)];
-             if (type == QueryType.RANGE_WITH_GROUP_BY_TIME)type=QueryType.EXACT_POINT; //TODO: remove once this query is implemented
+             //if (type == QueryType.RANGE_WITH_GROUP_BY_TIME)type=QueryType.EXACT_POINT; //TODO: remove once this query is implemented
             for (int j=0; j<databases.length; j++) {
                 readQueries[j][i] = new Pair<>(type, generateQuery(databases[j].getQueryTranslator(), type));
             }
@@ -183,7 +183,7 @@ public class Benchmark {
     public String getResultAsJSONString(){
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.writeValueAsString(result);
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "";
