@@ -10,6 +10,7 @@ import com.clickhouse.data.ClickHouseFormat;
 import com.clickhouse.data.ClickHouseRecord;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.concurrent.ExecutionException;
 public class ClickHouse implements Database {
 
@@ -106,17 +107,26 @@ public class ClickHouse implements Database {
                      .query(query).execute().get()) {
             int count = 0;
             for (ClickHouseRecord r : response.records()) {
-                return Integer.parseInt(r.getValue(0).asString().split("\\.")[0].substring(1));
+                int multiplier = getMultiplier(r.getValue(0).asString().split(" ")[1].split("\"")[0]);
+                return multiplier * Integer.parseInt(r.getValue(0).asString().split("\\.")[0].substring(1));
             }
             return count;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             e.printStackTrace();
             return -1;
-        } catch (ExecutionException e) {
+        } catch (ExecutionException | NoSuchElementException e) {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    private int getMultiplier(String unit) {
+        switch (unit) {
+            case "MiB":
+                return 1048576;
+        }
+        throw new NoSuchElementException("Multiplier " + unit + " not known yet");
     }
 
     @Override
