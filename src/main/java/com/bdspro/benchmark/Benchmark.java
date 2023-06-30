@@ -7,6 +7,8 @@ import com.bdspro.datasets.ClimateDataset;
 import com.bdspro.datasets.Dataset;
 import com.bdspro.query.QueryTranslator;
 import com.bdspro.query.QueryType;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import kotlin.Pair;
 
 import java.util.*;
@@ -128,8 +130,6 @@ public class Benchmark {
         return "";
     }
 
-
-
     public void run(){
         // generate queries for all databases
         Pair<QueryType, String>[][] readQueries = generateReadQueryWorkload();
@@ -148,11 +148,11 @@ public class Benchmark {
             db.load(dataset.getCsvName(), dataset);
 
             System.out.println("Size of table: " + db.getSize(dataset.getTableName()) + " bytes");
+            System.out.println("Size of CSV: " + dataset.getCsvFileSize());
+            result.compressionRates[j] = db.getSize(dataset.getTableName()) * 1.0 / dataset.getCsvFileSize();
 
-            result.compressionRates[j] = db.getSize(dataset.getTableName());
-
-            // start reader and writer thread
-            ReadThread reader = new ReadThread(db, readQueries[j]);
+            //start reader and writer thread
+            ReadThread reader = new ReadThread(db, readQueries[j], db.getRowCount(dataset.getTableName()));
             WriteThread writer = new WriteThread(writeFrequency, db, writeQueries[j]);
 
 
@@ -167,18 +167,30 @@ public class Benchmark {
             }
 
             result.readResults.put(db.getClass().getSimpleName(), reader.results);
+            result.writeResults.put(db.getClass().getSimpleName(), writer.results);
 
             //TODO: do something with the results
+            System.out.println("Compression Rate: " + result.compressionRates[j]);
+            System.out.println(getResultAsJSONString());
+
 
             // cleanup database
             db.cleanup(dataset.getTableName());
         }
     }
 
-
+    public String getResultAsJSONString(){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(result);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 
     public static void main(String[] args) {
-        Benchmark b = new Benchmark(50, 1, new Database[]{new ClickHouse(), new TimescaleDb()}, 1, new ClimateDataset(), 100, 1);
+        Benchmark b = new Benchmark(50, 1, new Database[]{new ClickHouse()}, 1, new ClimateDataset(), 100, 1);
         b.run();
     }
 

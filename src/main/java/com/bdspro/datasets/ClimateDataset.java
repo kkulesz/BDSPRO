@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ClimateDataset  implements Dataset{
+public class ClimateDataset implements Dataset{
 
     @Override
     public String getTableName() {
