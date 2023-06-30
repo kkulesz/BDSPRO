@@ -189,10 +189,4 @@ public class Benchmark {
             return "";
         }
     }
-
-    public static void main(String[] args) {
-        Benchmark b = new Benchmark(50, 1, new Database[]{new ClickHouse()}, 1, new ClimateDataset(), 100, 1);
-        b.run();
-    }
-
 }

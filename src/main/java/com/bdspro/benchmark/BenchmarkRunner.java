@@ -15,35 +15,38 @@ public class BenchmarkRunner {
         var datasets = new Dataset[] {
                 new TestDataset()
         };
-        var batch_sizes = new int[] {1, 10};
-        var write_percentages = new int[] {25, 50};
-        var write_frequencies = new int[] {1, 100};
-        var number_of_queries = new int[] {1, 10};
-        var number_of_nodes = new int[] {1, 3};
+        var batchSizes = new int[] {1, 10};
+        var writePercentages = new int[] {25, 50};
+        var writeFrequencies = new int[] {1, 100};
+        var numberOfQueries = new int[] {1, 10};
+        var numberOfNodes = new int[] {1, 3};
         var databases = new Database[]{
-                new TimescaleDb(),
-//                new ClickHouse()
+                //new TimescaleDb(),
+                new ClickHouse()
         };
 
         // TODO: it is so stupid and unreadable that i will change it for sure. It is just cartesian product of those arrays, right?
-        for (var wp : write_percentages)
-            for( var wf :write_frequencies )
-                for (var non: number_of_nodes)
+        for (var wp : writePercentages)
+            for( var wf :writeFrequencies )
+                for (var non: numberOfNodes)
                     for (var ds : datasets)
-                        for (var noq: number_of_queries)
-                            for (var bs: batch_sizes) {
+                        for (var noq: numberOfQueries)
+                            for (var bs: batchSizes) {
                                 var msg = String.format(
-                                        "Running benchmark with configuration:\n" +
-                                                "\twrite_percentage=%s\n" +
-                                                "\twrite_frequency=%s\n" +
-                                                "\tnumber_of_nodes=%s\n" +
-                                                "\tdataset=%s\n" +
-                                                "\tnumber_of_queries=%s\n" +
-                                                "\tbatch_size=%s\n",
+                                        """
+                                                Running benchmark with configuration:
+                                                twrite_percentage=%s
+                                                twrite_frequency=%s
+                                                tnumber_of_nodes=%s
+                                                tdataset=%s
+                                                tnumber_of_queries=%s
+                                                tbatch_size=%s
+                                            """,
                                         wp, wf, non, ds.getTableName(), noq, bs
                                 );
                                 System.out.println(msg);
-//                                (new Benchmark(wp, wf, databases, non, ds, noq, bs)).run();
+                                Benchmark b = (new Benchmark(wp, wf, databases, non, ds, noq, bs));
+                                //b.run();
                             }
     }
 
