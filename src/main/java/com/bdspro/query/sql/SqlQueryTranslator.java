@@ -27,6 +27,13 @@ public class SqlQueryTranslator extends QueryTranslator {
     }
 
     @Override
+    public String translateSelectCount(String tableName) {
+        return String.format(
+                "SELECT COUNT(*) FROM %s", tableName
+        );
+    }
+
+    @Override
     public String translateInsertInto(Dataset dataset, String[] values) {
         var columnNamesChunk = _getColumnNamesChunk(dataset);
         var valuesChunk = _getSingleRowValuesChunk(dataset, values);

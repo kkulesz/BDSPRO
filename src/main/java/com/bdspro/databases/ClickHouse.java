@@ -121,6 +121,24 @@ public class ClickHouse implements Database {
         }
     }
 
+    @Override
+    public int getRowCount(String datasetTableName) {
+        try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol());
+             ClickHouseResponse response = client.read(server)
+                     .format(ClickHouseFormat.CSV)
+                     .query(queryTranslator.translateSelectCount(datasetTableName))
+                     .execute()
+                     .get()
+        ) {
+            return response.firstRecord().getValue(1).asInteger(); // TODO: check whether it works
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return -1;
+        } catch (ExecutionException e) {
+            return -1;
+        }
+    }
+
     private int getMultiplier(String unit) {
         switch (unit) {
             case "MiB":

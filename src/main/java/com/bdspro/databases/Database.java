@@ -17,9 +17,7 @@ public interface Database {
 
     public int getSize(String datasetTableName);
 
-    public default int getRowCount(String datasetTableName){
-        return runQuery("SELECT * FROM " + datasetTableName);
-    }
+    public int getRowCount(String datasetTableName);
 
     public QueryTranslator getQueryTranslator();
 }
