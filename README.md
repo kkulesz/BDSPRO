@@ -14,7 +14,6 @@ TODO:
 - [ ] Databases:
   - [x] Clickhouse `Dennis`
   - [x] TimeScaleDB `Konrad`
-    - make runQuery return count of selected rows and -1 on failure `Konrad`
   - [ ] InfluxDB `Toshina`
   - [ ] Druid `Nils`
 - [ ] FluxQueryTranslator `Toshina`
@@ -42,7 +41,3 @@ Questions:
 - decide on how to handle docker - ask dr Pandey?
   - one dockerfile or multiple for each database -> multiple, but all in one is ok, but make sure that only one is running at a time
     - one is better tho, because otherwise the environment might be different
-
-
-Notes:
-- command for TimescaleDB to copy data into table `psql -U postgres -d bdspro -c "\COPY test_table FROM test.csv delimiter ',' CSV HEADER"`. Maybe there is something similar in other DBs

@@ -42,12 +42,12 @@ public class TimescaleDb implements Database {
     public int runStatement(String stmtString) {
         try (var conn = DriverManager.getConnection(connUrl)) {
             var stmt = conn.prepareStatement(stmtString);
-            var rs = stmt.executeUpdate();
+            stmt.executeUpdate();
+            return 0;
         }catch (Exception ex) {
             System.err.println(ex.getMessage());
-            return 1;
+            return -1;
         }
-        return 0;
     }
 
     @Override
@@ -55,12 +55,17 @@ public class TimescaleDb implements Database {
         try (var conn = DriverManager.getConnection(connUrl)) {
             var stmt = conn.prepareStatement(queryString);
             var rs = stmt.executeQuery();
-            // we do not really care about the result
+
+            var count = 0;
+            while(rs.next()) {
+                count++;
+            }
+
+            return count;
         }catch (Exception ex) {
             System.err.println(ex.getMessage());
-            return 1;
+            return -1;
         }
-        return 0;
     }
 
     @Override
