@@ -83,6 +83,19 @@ public class TimescaleDb implements Database {
     }
 
     @Override
+    public int getRowCount(String datasetTableName) {
+        try (var conn = DriverManager.getConnection(connUrl)) {
+            var stmt = conn.prepareStatement(queryTranslator.translateSelectCount(datasetTableName));
+            var rs = stmt.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        }catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            return -1;
+        }
+    }
+
+    @Override
     public QueryTranslator getQueryTranslator() {
         return queryTranslator;
     }

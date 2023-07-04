@@ -82,6 +82,12 @@ public class InfluxDB implements Database {
     }
 
     @Override
+    public int getRowCount(String datasetTableName) {
+        //TODO
+        return 0;
+    }
+
+    @Override
     public QueryTranslator getQueryTranslator() {
         //TODO: implement class FluxQueryTranslator and return an instance here
         return null;
