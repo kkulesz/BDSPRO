@@ -7,9 +7,14 @@ import com.bdspro.datasets.ClimateDataset;
 import com.bdspro.datasets.Dataset;
 import com.bdspro.datasets.TestDataset;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
 public class BenchmarkRunner {
 
-    public void run(){
+    public String run(){
         // TODO: read file with configuration?
 
         // !Careful with the number of parameters below, number of runs will be equal to p1*p2*p3...
@@ -25,15 +30,14 @@ public class BenchmarkRunner {
                 //new TimescaleDb(),
                 new ClickHouse()
         };
-
-        // TODO: it is so stupid and unreadable that i will change it for sure. It is just cartesian product of those arrays, right?
+        StringBuilder resultJson = new StringBuilder();
         for (var wp : writePercentages)
             for( var wf :writeFrequencies )
                 for (var non: numberOfNodes)
                     for (var ds : datasets)
                         for (var noq: numberOfQueries)
                             for (var bs: batchSizes) {
-                                var msg = String.format(
+                                String msg = String.format(
                                         """
                                                 Running benchmark with configuration:
                                                 twrite_percentage=%s
@@ -48,12 +52,22 @@ public class BenchmarkRunner {
                                 System.out.println(msg);
                                 Benchmark b = (new Benchmark(wp, wf, databases, non, ds, noq, bs));
                                 b.run();
-                                return;
+                                resultJson.append(b.getResultAsJSONString());
+                                resultJson.append(",");
+
                             }
+        resultJson.deleteCharAt(resultJson.length()-1);
+        return resultJson.toString();
     }
 
     public static void main(String[] args) {
         var br = new BenchmarkRunner();
-        br.run();
+        String resultJson = br.run();
+        String resultString = "[" + resultJson.toString() + "]";
+        try (PrintWriter out = new PrintWriter("benchmark_result")) {
+            out.println(resultString);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
