@@ -37,10 +37,10 @@ TODO:
   - [ ] everybody write section about their database (low prio for now)
 
 
-- ask dr Pandey about structure of this report
+- structure of this report
   - similar to the midterm presentation (databases, datasets, why this benchmark, background: intro each db, compare) plus the results
   - TU thesis template, length min. 40 pages
-- decide on how to handle docker - ask dr Pandey?
+- how to handle docker
   - one dockerfile or multiple for each database -> multiple, but all in one is ok, but make sure that only one is running at a time
     - one is better tho, because otherwise the environment might be different
 
@@ -48,3 +48,21 @@ Questions:
 - How to visualize? By what parameters? Should we differentiate between write and read latency?
 - specific plot types (what to be on what axis)
 - can we use Python for visualization
+
+- plot for each dataset 3 different plots.
+  - plot 1: 
+    - x-axis: writePercentage
+    - y-axis average latency
+    - for each value, have bar for each db
+    - fix batch size to specific value
+  - plot 2:
+    - x-axis: selectivity
+    - y-axis: latency
+    - only for benchmark runs with write% = 0
+    - fix batch size again
+  - plot 3:
+    - x-axis: ?
+    - y-axis: latency or ingestion rate
+    - only for benchmark runs with write% = 100
+    - fix batch size
+  - CHECK: how can we ensure we measure execution time of actual write -> query call might return before actual write happened
