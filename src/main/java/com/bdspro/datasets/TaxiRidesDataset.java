@@ -16,12 +16,10 @@ public class TaxiRidesDataset implements Dataset{
     public List<Map.Entry<String, ColumnType>> getColumnNamesWithTypes() {
         var list = new ArrayList<Map.Entry<String, ColumnType>>(){};
 
-        list.add(new AbstractMap.SimpleEntry<>("VendorID", ColumnType.STRING));
-        list.add(new AbstractMap.SimpleEntry<>("tpep_pickup_datetime", ColumnType.TIMESTAMP));
-        list.add(new AbstractMap.SimpleEntry<>("passenger_count", ColumnType.NUMERIC));
-
-        // rest do not matter, setting strings everywhere
+        list.add(new AbstractMap.SimpleEntry<>("VendorID", ColumnType.STRING));                 //entity column
+        list.add(new AbstractMap.SimpleEntry<>("tpep_pickup_datetime", ColumnType.TIMESTAMP));  // ts column
         list.add(new AbstractMap.SimpleEntry<>("tpep_dropoff_datetime", ColumnType.STRING));
+        list.add(new AbstractMap.SimpleEntry<>("passenger_count", ColumnType.NUMERIC));         //value column
         list.add(new AbstractMap.SimpleEntry<>("trip_distance", ColumnType.STRING));
         list.add(new AbstractMap.SimpleEntry<>("pickup_longitude", ColumnType.STRING));
         list.add(new AbstractMap.SimpleEntry<>("pickup_latitude", ColumnType.STRING));
