@@ -20,24 +20,34 @@ public class BenchmarkResult {
     private int numberOfNodes;
     @JsonIgnore
     private Dataset dataset;
+    private int datasetRows;
     private int batchSize;
 
     public final Map<String, List<ReadQueryResult>> readResults = new HashMap<>();
     public final Map<String, List<WriteQueryResult>> writeResults = new HashMap<>();
 
-    public BenchmarkResult(int writePercentage, int writeFrequency, Database[] databases, int numberOfNodes, Dataset dataset, int batchSize) {
+    public void setDatasetRows(int datasetRows) {
+        this.datasetRows = datasetRows;
+    }
+
+    public int getDatasetRows() {
+        return datasetRows;
+    }
+
+    public BenchmarkResult(int writePercentage, int writeFrequency, Database[] databases, int numberOfNodes, Dataset dataset, int rowCount, int batchSize) {
         this.writePercentage = writePercentage;
         this.writeFrequency = writeFrequency;
         this.databases = databases;
         this.numberOfNodes = numberOfNodes;
         this.dataset = dataset;
+        this.datasetRows = rowCount;
         this.batchSize = batchSize;
         this.compressionRates = new double[databases.length];
     }
 
     public static class ReadQueryResult {
-        public double getSelectivity() {
-            return selectivity;
+        public double getRowCount() {
+            return rowCount;
         }
 
         public long getLatency() {
@@ -48,12 +58,12 @@ public class BenchmarkResult {
             return queryType;
         }
 
-        double selectivity;
+        double rowCount;
         long latency;
         QueryType queryType;
 
         public ReadQueryResult(double selectivity, long latency, QueryType queryType) {
-            this.selectivity = selectivity;
+            this.rowCount = selectivity;
             this.latency = latency;
             this.queryType = queryType;
         }

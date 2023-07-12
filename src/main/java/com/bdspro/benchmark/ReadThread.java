@@ -32,7 +32,7 @@ public class ReadThread  extends Thread{
             int count = db.runQuery(queries[i].component2());
             long finish = System.nanoTime();
             long elapsedTime = finish - start;
-            ReadQueryResult result = new ReadQueryResult(count*1.0/rowCount, elapsedTime, queries[i].component1());
+            ReadQueryResult result = new ReadQueryResult(count, elapsedTime, queries[i].component1());
             results.add(result);
         }
     }

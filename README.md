@@ -11,27 +11,14 @@ everything that is written below is work in progress, it may slightly change whe
 #### Project deadline - 14th August
 
 TODO:
-- [ ] Databases:
-  - [x] Clickhouse `Dennis`
-  - [x] TimeScaleDB `Konrad`
-  - [ ] InfluxDB `Toshina`
-  - [ ] Druid `Nils`
-- [ ] FluxQueryTranslator `Toshina`
-- [ ] Datasets - meaning create 4 classes similar to `datasets/TestDataset` that correspond to datasets we chose 
-  - [x] Climate change `Dennis`
-  - [x] Taxi rides `Konrad`
-  - [ ] Earthquake`Toshina`
-  - [ ] Stock Market `Nils`
-- [x] implement all queries `Konrad`
 - [ ] measure ingestion rate `Nils`
 - [ ] configure experiments
   - [x] class that runs Benchmark on repeat with different values for dataset, batchsize, writePercentage etc.) `Konrad`
   - [x] log performance measurement somehow. JSON format `Dennis`
   - [ ] think about visualization of those `Dennis`
-- [ ] take a look at GROUP BY TIME RANGE QUERY `Dennis`
 - [ ] run experiment on out local machines
 - [ ] Docker Images `Konrad`
-- [ ] implement getRowCount() for each DB `Konrad`
+- [ ] tweak selectivity to get meaningful results
 - [ ] report:
   - [ ] plan structure of report (how many pages for what?)
   - [ ] everybody write section about their database (low prio for now)
@@ -66,3 +53,5 @@ Questions:
     - only for benchmark runs with write% = 100
     - fix batch size
   - CHECK: how can we ensure we measure execution time of actual write -> query call might return before actual write happened
+
+for selectivity, we should use buckets like 0 rows, 1 row, <0.01%, 0.01 - 0.1%, 0.1 - 1%, 1-10%, 10-100%

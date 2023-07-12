@@ -21,11 +21,11 @@ public class BenchmarkRunner {
         var datasets = new Dataset[] {
                 new ClimateDataset()
         };
-        var batchSizes = new int[] {1, 10};
-        var writePercentages = new int[] {25, 50};
-        var writeFrequencies = new int[] {1, 100};
-        var numberOfQueries = new int[] {10, 10};
-        var numberOfNodes = new int[] {1, 3};
+        var batchSizes = new int[] {1000};
+        var writePercentages = new int[] {0, 25, 50, 75, 100};
+        var writeFrequencies = new int[] {100};
+        var numberOfQueries = new int[] {100};
+        var numberOfNodes = new int[] {1};
         var databases = new Database[]{
                 //new TimescaleDb(),
                 new ClickHouse()

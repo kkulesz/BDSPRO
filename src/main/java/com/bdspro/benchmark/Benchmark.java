@@ -1,11 +1,7 @@
 package com.bdspro.benchmark;
 
-import com.bdspro.databases.ClickHouse;
 import com.bdspro.databases.Database;
-import com.bdspro.databases.TimescaleDb;
-import com.bdspro.datasets.ClimateDataset;
 import com.bdspro.datasets.Dataset;
-import com.bdspro.datasets.TestDataset;
 import com.bdspro.query.QueryTranslator;
 import com.bdspro.query.QueryType;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -47,7 +43,7 @@ public class Benchmark {
         this.batchSize = batchSize;
 
         this.dataGenerator = new DataGenerator(dataset);
-        result = new BenchmarkResult(writePercentage, writeFrequency, databases, numberOfNodes, dataset, batchSize);
+        result = new BenchmarkResult(writePercentage, writeFrequency, databases, numberOfNodes, dataset, 0, batchSize);
     }
 
     private String[][] generateWriteQueryWorkload() {
@@ -148,8 +144,7 @@ public class Benchmark {
             //write whole dataset
             db.load(dataset.getCsvName(), dataset);
 
-            System.out.println("Size of table: " + db.getSize(dataset.getTableName()) + " bytes");
-            System.out.println("Size of CSV: " + dataset.getCsvFileSize());
+            result.setDatasetRows(db.getRowCount(dataset.getTableName()));
             result.compressionRates[j] = db.getSize(dataset.getTableName()) * 1.0 / dataset.getCsvFileSize();
 
             //start reader and writer thread
@@ -172,8 +167,6 @@ public class Benchmark {
 
             //TODO: do something with the results
             System.out.println("Compression Rate: " + result.compressionRates[j]);
-            System.out.println(getResultAsJSONString());
-
 
             // cleanup database
             db.cleanup(dataset.getTableName());

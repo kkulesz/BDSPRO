@@ -23,7 +23,7 @@ public class ClickHouse implements Database {
                 .host(System.getProperty("chHost", "localhost"))
                 .port(ClickHouseProtocol.HTTP, Integer.getInteger("chPort", 8123))
                 .database("benchmark").credentials(ClickHouseCredentials.fromUserAndPassword(
-                        System.getProperty("chUser", "default"), System.getProperty("chPassword", "InYourFace")))
+                        System.getProperty("chUser", "default"), System.getProperty("chPassword", "UgIWa+DZ")))
                 .build();
 
         try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol())) {
@@ -130,7 +130,7 @@ public class ClickHouse implements Database {
                      .execute()
                      .get()
         ) {
-            return response.firstRecord().getValue(1).asInteger(); // TODO: check whether it works
+            return response.firstRecord().getValue(0).asInteger(); // TODO: check whether it works
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             return -1;
