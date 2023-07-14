@@ -26,7 +26,7 @@ TODO:
 
 - structure of this report
   - similar to the midterm presentation (databases, datasets, why this benchmark, background: intro each db, compare) plus the results
-  - TU thesis template, length min. 40 pages
+  - TU thesis template, length min. 7 pages in double column format
 - how to handle docker
   - one dockerfile or multiple for each database -> multiple, but all in one is ok, but make sure that only one is running at a time
     - one is better tho, because otherwise the environment might be different
@@ -54,4 +54,4 @@ Questions:
     - fix batch size
   - CHECK: how can we ensure we measure execution time of actual write -> query call might return before actual write happened
 
-for selectivity, we should use buckets like 0 rows, 1 row, <0.01%, 0.01 - 0.1%, 0.1 - 1%, 1-10%, 10-100%
+Presentation: Add slide "Lessons Learned" -> ppl drop out / dont do anything -> talk about it

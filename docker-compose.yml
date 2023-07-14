@@ -1,0 +1,62 @@
+services:
+  timescaledb:
+    image: timescale/timescaledb:latest-pg12
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: timescaledb
+      POSTGRES_PASSWORD: password
+    volumes:
+      - /data/timescaledb:/var/lib/postgresql/data
+  prometheus_postgresql_adapter:
+    depends_on:
+      - timescaledb
+    environment:
+      TS_PROM_LOG_LEVEL: debug
+      TS_PROM_DB_CONNECT_RETRIES: 10
+      TS_PROM_DB_HOST: timescaledb
+      TS_PROM_DB_USER: timescaledb
+      TS_PROM_DB_PASSWORD: password
+      TS_PROM_DB_NAME: postgres
+      TS_PROM_WEB_TELEMETRY_PATH: /metrics-text
+    image: timescale/timescale-prometheus:latest
+    restart: always
+    ports:
+      - 9201:9201/tcp
+  clickhouse:
+    image: clickhouse/clickhouse-server
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - ./db:/var/lib/clickhouse
+    environment:
+      - CLICKHOUSE_PASSWORD=password
+      - CLICKHOUSE_DB=benchmark
+    networks:
+      - ntw
+  clickhouse-client:
+    image: clickhouse/clickhouse-client
+    entrypoint:
+      - /bin/sleep
+    command:
+      - infinity
+    networks:
+      - ntw
+
+  benchmark:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./src/main/java:/app
+    networks:
+      - ntw
+
+networks:
+  ntw:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.222.1.0/24
