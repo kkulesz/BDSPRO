@@ -40,7 +40,7 @@ public class TaxiRidesDataset implements Dataset{
     }
 
     @Override
-    public String getCsvName() { return "data/taxi_rides-small.csv"; }
+    public String getCsvName() { return "src/main/java/com/bdspro/test/TestData/taxi_rides-small.csv"; }
 
     @Override
     public String getTimeStampColumnName() { return "tpep_pickup_datetime"; }

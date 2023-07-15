@@ -33,7 +33,7 @@ public class ClimateDataset implements Dataset{
 
     @Override
     public String getCsvName() {
-        return "/home/dennis/IdeaProjects/BDSPRO/src/main/java/com/bdspro/test/TestData/2019.csv";
+        return "src/main/java/com/bdspro/test/TestData/2019_c.csv";
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ClimateDataset implements Dataset{
     @Override
     public Map.Entry<Timestamp, Timestamp> getExampleSmallRange() {
         return new AbstractMap.SimpleEntry<>(
-                Timestamp.valueOf("2019-01-15 00:00:00"),
+                Timestamp.valueOf("2019-01-05 00:00:00"),
                 Timestamp.valueOf("2019-01-10 00:00:00")
         );
     }
@@ -77,6 +77,6 @@ public class ClimateDataset implements Dataset{
 
     @Override
     public double getExampleValue() {
-        return 10; //TODO: insert some value that actually is present in dataset
+        return 39; //TODO: insert some value that actually is present in dataset
     }
 }

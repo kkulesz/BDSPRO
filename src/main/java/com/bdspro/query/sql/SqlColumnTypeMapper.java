@@ -8,7 +8,7 @@ import java.util.Map;
 public final class SqlColumnTypeMapper {
     public static String mapColumnType(ColumnType type){
         if (type == ColumnType.TIMESTAMP)
-            return "TIMESTAMPTZ";
+            return "DATE";
         else if (type == ColumnType.NUMERIC)
             return "NUMERIC";
         else if (type == ColumnType.STRING)

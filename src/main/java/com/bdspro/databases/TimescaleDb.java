@@ -4,9 +4,14 @@ import com.bdspro.datasets.Dataset;
 import com.bdspro.datasets.TaxiRidesDataset;
 import com.bdspro.query.QueryTranslator;
 import com.bdspro.query.sql.SqlQueryTranslator;
+import org.postgresql.copy.CopyManager;
+import org.postgresql.core.BaseConnection;
 
-import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class TimescaleDb implements Database {
     private String connUrl = "jdbc:postgresql://localhost:5432/bdspro?user=timescaledb&password=password";
@@ -25,11 +30,24 @@ public class TimescaleDb implements Database {
 
     @Override
     public int load(String csvFile, Dataset dataset) {
-        File f = new File(csvFile);
+        try {
+            CopyManager copyManager = new CopyManager((BaseConnection) DriverManager.getConnection(connUrl));
+            FileReader reader = new FileReader(csvFile);
+            copyManager.copyIn("COPY " + dataset.getTableName() + " FROM STDIN (DELIMITER(','))", reader );
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        /*File f = new File(csvFile);
         var stmt = String.format(
-              "COPY %s FROM '%s' delimiter ',' CSV HEADER", dataset.getTableName(), f.getAbsolutePath()
+              //"COPY %s FROM '%s' delimiter ',' CSV HEADER", dataset.getTableName(), f.getAbsolutePath()
+                "psql -c \"\\copy sample FROM \'/home/MyUser/data/TableName.csv\' WITH (FORMAT CSV)"
             );
-        return runStatement(stmt);
+        return runStatement(stmt);*/
+        return 0;
     }
 
     @Override
