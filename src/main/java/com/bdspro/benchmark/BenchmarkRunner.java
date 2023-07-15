@@ -5,12 +5,10 @@ import com.bdspro.databases.Database;
 import com.bdspro.databases.TimescaleDb;
 import com.bdspro.datasets.ClimateDataset;
 import com.bdspro.datasets.Dataset;
-import com.bdspro.datasets.TestDataset;
+import com.bdspro.datasets.TaxiRidesDataset;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BenchmarkRunner {
 
@@ -19,7 +17,8 @@ public class BenchmarkRunner {
 
         // !Careful with the number of parameters below, number of runs will be equal to p1*p2*p3...
         var datasets = new Dataset[] {
-                new ClimateDataset()
+                new ClimateDataset(),
+                //new TaxiRidesDataset()
         };
         var batchSizes = new int[] {1000};
         var writePercentages = new int[] {0, 25, 50, 75, 100};
@@ -27,7 +26,7 @@ public class BenchmarkRunner {
         var numberOfQueries = new int[] {100};
         var numberOfNodes = new int[] {1};
         var databases = new Database[]{
-                //new TimescaleDb(),
+                new TimescaleDb(),
                 new ClickHouse()
         };
         StringBuilder resultJson = new StringBuilder();

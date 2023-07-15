@@ -1,3 +1,3 @@
 FROM openjdk:17
-COPY target/bdspro-1.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+COPY out/artifacts/BDSPRO_jar/BDSPRO.jar BDSPRO.jar
+ENTRYPOINT ["java","-jar","/BDSPRO.jar"]

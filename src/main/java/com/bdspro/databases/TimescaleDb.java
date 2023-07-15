@@ -9,7 +9,7 @@ import java.io.File;
 import java.sql.DriverManager;
 
 public class TimescaleDb implements Database {
-    private String connUrl = "jdbc:postgresql://localhost:5432/bdspro?user=postgres&password=123qweasdzx";
+    private String connUrl = "jdbc:postgresql://localhost:5432/bdspro?user=timescaledb&password=password";
     private QueryTranslator queryTranslator = new SqlQueryTranslator();
 
 
