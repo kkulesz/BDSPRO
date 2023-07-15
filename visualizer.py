@@ -56,7 +56,7 @@ def visualize_write_percentages(json, batch_size):
     x = numpy.array(values)
     ax = plt.subplot(111)
     ax.bar(x-1, results_by_db[dbs[0]], width=2, color='b', align='center')
-   # ax.bar(x+1, results_by_db[dbs[1]], width=2, color='r', align='center')
+    ax.bar(x+1, results_by_db[dbs[1]], width=2, color='r', align='center')
 
     plt.show()
 
@@ -77,29 +77,68 @@ def visualize_read_only(json, row_count, batch_size):
                     if queryRes["rowCount"] <= buckets[i] or i == len(buckets)-1:
                         latencies_by_selectivity[str(buckets[i])].append(queryRes["latency"])
                         break
-        results_by_db[db] = latencies_by_selectivity
+        latencies = []
+        for key in latencies_by_selectivity.keys():
+            if len(latencies_by_selectivity[key]) == 0:
+                latencies.append(0)
+                continue
+            latencies.append(mean(latencies_by_selectivity[key]))
+        results_by_db[db] = latencies
+    x = numpy.array(buckets)
     print(results_by_db)
+    ax = plt.subplot(111)
+    ax.bar(x-0.1, results_by_db[dbs[0]], width=2, color='b', align='center')
+    ax.bar(x+0.1, results_by_db[dbs[1]], width=2, color='r', align='center')
 
-
-
-
-## displays a line chart with the readResult averages for each database on the y axis and with batchSize on the x axis
-def visualize_batch_sizes(json):
-    values = getAllValues(json, 'batchSize')
-    dbs = getAllDBs(json)
-    results = {}
-    for db in dbs:
-        results[db] = [getAveragesForDBAndValue(json, db, 'batchSize', v) for v in values]
-    plt.plot(values, [res[0] for res in results['ClickHouse']])
     plt.show()
-    print(results)
+def getAllLatencies(json, db):
+    latencies = []
+    for benchmark in json:
+        for res in benchmark["readResults"][db]:
+            latencies.append(res["latency"])
+    return latencies
 
+def getLatenciesForDBAndQueryType(json, db, type):
+    latencies = []
+    for benchmark in json:
+        for res in benchmark["readResults"][db]:
+            if res["queryType"] == type:
+                latencies.append(res["latency"])
+    return latencies
+def showLatencies(json, db):
+    lat = getAllLatencies(json, db)
+    lat = sorted(lat)
+    x = range(len(lat))
+    plt.plot(lat)
+    plt.show()
+
+def groupByQueryType(json):
+    results_by_db = {}
+    dbs = getAllDBs(json)
+    qTypes = []
+    for res in json[0]["readResults"][dbs[0]]:
+        qTypes.append(res["queryType"])
+    for db in dbs:
+        results_by_qType = {}
+        for type in qTypes:
+            results_by_qType[type] = mean(getLatenciesForDBAndQueryType(json, db, type))
+        results_by_db[db] = results_by_qType
+    x = list(results_by_db[dbs[0]].keys())
+    print(max(results_by_db["TimescaleDb"]))
+    y_tsdb = list(results_by_db["TimescaleDb"].values())
+    y_ch = list(results_by_db["ClickHouse"].values())
+    plt.plot(x, y_ch, color='red')
+    plt.plot(x, y_tsdb)
+    plt.show()
 
 with open("benchmark_result") as json_file:
     json_result = json.load(json_file)
     datasets = getAllValues(json_result, "dataset")
     for dataset in datasets:
-        #visualize_write_percentages(json_result, 1000)
+        #showLatencies(json_result, "ClickHouse")
+        #showLatencies(json_result, "TimescaleDb")
+        groupByQueryType(json_result)
+        visualize_write_percentages(json_result, 1000)
         visualize_read_only(json_result, 13192591, 1000)
 
 

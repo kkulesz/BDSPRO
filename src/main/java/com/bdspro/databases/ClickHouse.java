@@ -23,7 +23,7 @@ public class ClickHouse implements Database {
                 .host(System.getProperty("chHost", "localhost"))
                 .port(ClickHouseProtocol.HTTP, Integer.getInteger("chPort", 8123))
                 .database("benchmark").credentials(ClickHouseCredentials.fromUserAndPassword(
-                        System.getProperty("chUser", "default"), System.getProperty("chPassword", "password")))
+                        System.getProperty("chUser", "bdspro"), System.getProperty("chPassword", "password")))
                 .build();
 
         try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol())) {

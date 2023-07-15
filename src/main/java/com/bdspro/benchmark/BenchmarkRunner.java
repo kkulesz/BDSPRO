@@ -23,7 +23,7 @@ public class BenchmarkRunner {
         var batchSizes = new int[] {1000};
         var writePercentages = new int[] {0, 25, 50, 75, 100};
         var writeFrequencies = new int[] {100};
-        var numberOfQueries = new int[] {100};
+        var numberOfQueries = new int[] {1000};
         var numberOfNodes = new int[] {1};
         var databases = new Database[]{
                 new TimescaleDb(),
@@ -39,12 +39,12 @@ public class BenchmarkRunner {
                                 String msg = String.format(
                                         """
                                                 Running benchmark with configuration:
-                                                twrite_percentage=%s
-                                                twrite_frequency=%s
-                                                tnumber_of_nodes=%s
-                                                tdataset=%s
-                                                tnumber_of_queries=%s
-                                                tbatch_size=%s
+                                                write_percentage=%s
+                                                write_frequency=%s
+                                                number_of_nodes=%s
+                                                dataset=%s
+                                                number_of_queries=%s
+                                                batch_size=%s
                                             """,
                                         wp, wf, non, ds.getTableName(), noq, bs
                                 );
