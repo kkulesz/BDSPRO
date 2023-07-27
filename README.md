@@ -18,11 +18,12 @@ TODO:
   - [ ] think about visualization of those `Dennis`
 - [ ] run experiment on out local machines
 - [ ] Docker Images `Konrad`
-- [ ] tweak selectivity to get meaningful results
 - [ ] report:
   - [ ] plan structure of report (how many pages for what?)
   - [ ] everybody write section about their database (low prio for now)
-
+- [ ] make sure that both DBs have same Memory and Cores in their respective Containers
+- [ ] add TSDB with Columnar Storage as third DB
+- [ ] check Partitioning
 
 - structure of this report
   - similar to the midterm presentation (databases, datasets, why this benchmark, background: intro each db, compare) plus the results
@@ -30,11 +31,6 @@ TODO:
 - how to handle docker
   - one dockerfile or multiple for each database -> multiple, but all in one is ok, but make sure that only one is running at a time
     - one is better tho, because otherwise the environment might be different
-
-Questions:
-- How to visualize? By what parameters? Should we differentiate between write and read latency?
-- specific plot types (what to be on what axis)
-- can we use Python for visualization
 
 - plot for each dataset 3 different plots.
   - plot 1: 
@@ -53,5 +49,3 @@ Questions:
     - only for benchmark runs with write% = 100
     - fix batch size
   - CHECK: how can we ensure we measure execution time of actual write -> query call might return before actual write happened
-
-Presentation: Add slide "Lessons Learned" -> ppl drop out / dont do anything -> talk about it

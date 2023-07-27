@@ -9,6 +9,11 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DATABASE: bdspro
       #todo: the database creation doesnt seem to work yet, add manually for now
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4G
     volumes:
       - ./data/timescaledb:/var/lib/postgresql/data
   prometheus_postgresql_adapter:
@@ -38,11 +43,19 @@ services:
       - CLICKHOUSE_PASSWORD=password
       - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
       - CLICKHOUSE_DB=benchmark
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4G
     networks:
       - ntw
 
 
   benchmark_run:
+    depends_on:
+      - timescaledb_1
+      - clickhouse
     build:
       context: ./
       dockerfile: Dockerfile

@@ -50,14 +50,15 @@ def visualize_write_percentages(json, batch_size):
         for wp in values:
             # TODO: write values are ignored right now
             r, _ = getAveragesForDBAndValue(json, db, "writePercentage", wp)
-            means.append(r)
+            means.append(r / 1000000.0 )
         results_by_db[db] = means
-    print(results_by_db)
     x = numpy.array(values)
     ax = plt.subplot(111)
-    ax.bar(x-1, results_by_db[dbs[0]], width=2, color='b', align='center')
-    ax.bar(x+1, results_by_db[dbs[1]], width=2, color='r', align='center')
-
+    ax.bar(x-1, results_by_db[dbs[0]], width=2, color='b', align='center', label=dbs[0])
+    ax.bar(x+1, results_by_db[dbs[1]], width=2, color='r', align='center', label=dbs[1])
+    plt.legend(loc="upper left")
+    plt.xlabel('Write Percentage')
+    plt.ylabel('Average Latency in ms')
     plt.show()
 
 
@@ -82,15 +83,20 @@ def visualize_read_only(json, row_count, batch_size):
             if len(latencies_by_selectivity[key]) == 0:
                 latencies.append(0)
                 continue
-            latencies.append(mean(latencies_by_selectivity[key]))
+            latencies.append(mean(latencies_by_selectivity[key]) / 1000000.0)
         results_by_db[db] = latencies
-    x = numpy.array(buckets)
-    print(results_by_db)
+    x = numpy.array(range(len(buckets))) #numpy.array(buckets)
     ax = plt.subplot(111)
-    ax.bar(x-0.1, results_by_db[dbs[0]], width=2, color='b', align='center')
-    ax.bar(x+0.1, results_by_db[dbs[1]], width=2, color='r', align='center')
-
+    plt.xticks(ticks=range(len(x)), labels=["0", "1", "<0.01%", "<0.1%", "<1%", "<10%", ">=10%"], rotation=45)
+    ax.bar(x-0.1, results_by_db[dbs[0]], width=.2, color='b', align='center', label=dbs[0])
+    ax.bar(x+0.1, results_by_db[dbs[1]], width=.2, color='r', align='center', label=dbs[1])
+    plt.legend(loc="upper left")
+    plt.xlabel('Selectivity')
+    plt.ylabel('Average Latency in ms')
+    plt.tight_layout()
     plt.show()
+
+
 def getAllLatencies(json, db):
     latencies = []
     for benchmark in json:
@@ -113,6 +119,7 @@ def showLatencies(json, db):
     plt.show()
 
 def groupByQueryType(json):
+    plt.rcParams["figure.figsize"]= (10, 10)
     results_by_db = {}
     dbs = getAllDBs(json)
     qTypes = []
@@ -121,15 +128,23 @@ def groupByQueryType(json):
     for db in dbs:
         results_by_qType = {}
         for type in qTypes:
-            results_by_qType[type] = mean(getLatenciesForDBAndQueryType(json, db, type))
+            results_by_qType[type] = mean(getLatenciesForDBAndQueryType(json, db, type)) / 1000000.0
         results_by_db[db] = results_by_qType
     x = list(results_by_db[dbs[0]].keys())
     print(max(results_by_db["TimescaleDb"]))
+    plt.xticks(ticks=range(len(x)), labels=x, rotation=90)
     y_tsdb = list(results_by_db["TimescaleDb"].values())
     y_ch = list(results_by_db["ClickHouse"].values())
-    plt.plot(x, y_ch, color='red')
-    plt.plot(x, y_tsdb)
+    plt.plot(x, y_ch, color='red', label='Clickhouse')
+    plt.plot(x, y_tsdb, label='TimescaleDB')
+    plt.legend(loc="upper left")
+    plt.xlabel('Query Type')
+    plt.ylabel('Average Latency in ms')
+    plt.title(" Group by Query Type")
+    plt.gcf().subplots_adjust(bottom=.35)
+   # plt.tight_layout()
     plt.show()
+    plt.rcParams["figure.figsize"] = plt.rcParamsDefault["figure.figsize"]
 
 with open("benchmark_result") as json_file:
     json_result = json.load(json_file)
@@ -137,8 +152,9 @@ with open("benchmark_result") as json_file:
     for dataset in datasets:
         #showLatencies(json_result, "ClickHouse")
         #showLatencies(json_result, "TimescaleDb")
-        groupByQueryType(json_result)
         visualize_write_percentages(json_result, 1000)
         visualize_read_only(json_result, 13192591, 1000)
+        groupByQueryType(json_result)
+
 
 
