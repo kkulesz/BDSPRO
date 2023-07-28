@@ -70,7 +70,6 @@ public class BenchmarkResult {
     }
 
     public static class WriteQueryResult {
-        //TODO: what do we need here? ingestion rate??
         long latency;
 
         public long getLatency() {

@@ -13,10 +13,10 @@ def getAveragesForDBAndValue(json, db_name, value_name, value):
             read_results = read_results + [res['latency'] for res in benchmark['readResults'][db_name]]
             write_results = write_results + [res['latency'] for res in benchmark['writeResults'][db_name]]
     if (read_results == []):
-        return 0, mean(write_results)
+        return 0, mean(write_results), 0
     if (write_results == []):
-        return mean(read_results), 0
-    return mean(read_results), mean(write_results)
+        return mean(read_results), 0, 0
+    return mean(read_results), mean(write_results), mean(read_results + write_results)
 
 
 ## returns list of all values found in the json for the parameter 'value_name'
@@ -49,8 +49,11 @@ def visualize_write_percentages(json, batch_size):
         means = []
         for wp in values:
             # TODO: write values are ignored right now
-            r, _ = getAveragesForDBAndValue(json, db, "writePercentage", wp)
-            means.append(r / 1000000.0 )
+            r, w, m = getAveragesForDBAndValue(json, db, "writePercentage", wp)
+            if m==0:
+                means.append(max(r, w) / 1000000.0)
+            else:
+                means.append(m / 1000000.0)
         results_by_db[db] = means
     x = numpy.array(values)
     ax = plt.subplot(111)
@@ -58,7 +61,7 @@ def visualize_write_percentages(json, batch_size):
     ax.bar(x+1, results_by_db[dbs[1]], width=2, color='r', align='center', label=dbs[1])
     plt.legend(loc="upper left")
     plt.xlabel('Write Percentage')
-    plt.ylabel('Average Latency in ms')
+    plt.ylabel('Average Query Latency in ms')
     plt.show()
 
 

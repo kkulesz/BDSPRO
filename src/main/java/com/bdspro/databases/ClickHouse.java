@@ -75,7 +75,18 @@ public class ClickHouse implements Database {
 
     @Override
     public int runStatement(String stmtString) {
-        return 0;
+
+        try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol());
+             ClickHouseResponse response = client.write(server)
+                     .format(ClickHouseFormat.CSV)
+                     .query(stmtString).execute().get()) {
+            return 0;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return -1;
+        } catch (ExecutionException e) {
+            return -1;
+        }
     }
 
     @Override
