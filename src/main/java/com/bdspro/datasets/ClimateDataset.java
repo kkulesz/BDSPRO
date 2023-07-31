@@ -16,7 +16,7 @@ public class ClimateDataset implements Dataset{
     @Override
     public List<Map.Entry<String, ColumnType>> getColumnNamesWithTypes() {
 
-        var list = new ArrayList<Map.Entry<String, ColumnType>>(){};
+        List<Map.Entry<String, ColumnType>> list = new ArrayList<>(){};
 
         list.add(new AbstractMap.SimpleEntry<>("SensorID", ColumnType.STRING));
         list.add(new AbstractMap.SimpleEntry<>("Date", ColumnType.TIMESTAMP));

@@ -14,7 +14,7 @@ public class TaxiRidesDataset implements Dataset{
 
     @Override
     public List<Map.Entry<String, ColumnType>> getColumnNamesWithTypes() {
-        var list = new ArrayList<Map.Entry<String, ColumnType>>(){};
+        List<Map.Entry<String, ColumnType>> list = new ArrayList<Map.Entry<String, ColumnType>>(){};
 
         list.add(new AbstractMap.SimpleEntry<>("VendorID", ColumnType.STRING));                 //entity column
         list.add(new AbstractMap.SimpleEntry<>("tpep_pickup_datetime", ColumnType.TIMESTAMP));  // ts column

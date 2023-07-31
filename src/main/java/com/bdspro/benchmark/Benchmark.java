@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kotlin.Pair;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 
@@ -75,48 +76,48 @@ public class Benchmark {
                 return queryTranslator.translateExactPoint(dataset, dataset.getExamplePointTimeStamp());
             }
             case RANGE_ANY_ENTITY -> {
-                var timeRange = dataset.getExampleSmallRange();
+                Map.Entry<Timestamp, Timestamp> timeRange = dataset.getExampleSmallRange();
                 return queryTranslator.translateRangeAnyEntity(dataset, timeRange.getKey(), timeRange.getValue());
             }
             case RANGE_SINGLE_ENTITY -> {
-                var timeRange = dataset.getExampleSmallRange();
-                var entity = dataset.getExampleEntity();
+                Map.Entry<Timestamp, Timestamp> timeRange = dataset.getExampleSmallRange();
+                String entity = dataset.getExampleEntity();
                 return queryTranslator.translateRangeSingleEntity(dataset, entity, timeRange.getKey(), timeRange.getValue());
             }
             case RANGE_WITH_VALUE_FILTER -> {
-                var timeRange = dataset.getExampleSmallRange();
-                var value = dataset.getExampleValue();
+                Map.Entry<Timestamp, Timestamp> timeRange = dataset.getExampleSmallRange();
+                double value = dataset.getExampleValue();
                 return queryTranslator.translateRangeWithValueFilter(dataset, timeRange.getKey(), timeRange.getValue(), value);
             }
             case RANGE_WITH_AGGREGATION_ON_TIME_COLUMN -> {
-                var timeRange = dataset.getExampleSmallRange();
+                Map.Entry<Timestamp, Timestamp> timeRange = dataset.getExampleSmallRange();
                 return queryTranslator.translateRangeWithAggregationOnTimeColumn(dataset, timeRange.getKey(), timeRange.getValue());
             }
             case LAST_N_RECORDS -> {
                 return queryTranslator.translateLastNRecords(dataset, 100);
             }
             case RANGE_WITH_AGGREGATION -> {
-                var timeRange = dataset.getExampleSmallRange();
+                Map.Entry<Timestamp, Timestamp> timeRange = dataset.getExampleSmallRange();
                 return queryTranslator.translateRangeWithAggregation(dataset, timeRange.getKey(), timeRange.getValue());
             }
             case RANGE_WITH_AGGREGATION_WITHIN_GROUP -> {
-                var timeRange = dataset.getExampleSmallRange();
+                Map.Entry<Timestamp, Timestamp> timeRange = dataset.getExampleSmallRange();
                 return queryTranslator.translateRangeWithAggregationWithinGroup(dataset, timeRange.getKey(), timeRange.getValue());
             }
             case RANGE_WITH_AGGREGATION_AND_VALUE_FILTER -> {
-                var timeRange = dataset.getExampleSmallRange();
-                var value = dataset.getExampleValue();
+                Map.Entry<Timestamp, Timestamp> timeRange = dataset.getExampleSmallRange();
+                double value = dataset.getExampleValue();
                 return queryTranslator.translateRangeWithAggregationAndValueFilter(dataset, timeRange.getKey(), timeRange.getValue(), value);
             }
             case RANGE_WITH_LIMIT -> {
-                var timeRange = dataset.getExampleSmallRange();
+                Map.Entry<Timestamp, Timestamp> timeRange = dataset.getExampleSmallRange();
                 return queryTranslator.translateRangeWithLimit(dataset, timeRange.getKey(), timeRange.getValue(), 100);
             }
 //            case RANGE_WITH_GROUP_BY_TIME -> {
 //
 //            }
             case RANGE_WITH_ORDER_BY_VALUE -> {
-                var timeRange = dataset.getExampleSmallRange();
+                Map.Entry<Timestamp, Timestamp> timeRange = dataset.getExampleSmallRange();
                 return queryTranslator.translateRangeWithOrderByValue(dataset, timeRange.getKey(), timeRange.getValue());
             }
             case LATEST_POINT -> {

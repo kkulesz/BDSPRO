@@ -13,39 +13,29 @@ import java.io.PrintWriter;
 public class BenchmarkRunner {
 
     public String run(){
-        // TODO: read file with configuration?
-
         // !Careful with the number of parameters below, number of runs will be equal to p1*p2*p3...
-        var datasets = new Dataset[] {
+        Dataset[] datasets = new Dataset[] {
                 new ClimateDataset(),
-                //new TaxiRidesDataset()
+                new TaxiRidesDataset()
         };
-        var batchSizes = new int[] {1000};
-        var writePercentages = new int[] {0, 25, 50, 75, 100};
-        var writeFrequencies = new int[] {100};
-        var numberOfQueries = new int[] {1000};
-        var numberOfNodes = new int[] {1};
-        var databases = new Database[]{
-                new TimescaleDb(),
-                new ClickHouse()
+        int[] batchSizes = new int[] {10000};
+        int[] writePercentages = new int[] {0, 50, 100};
+        int[] writeFrequencies = new int[] {0};
+        int[] numberOfQueries = new int[] {1000};
+        int[] numberOfNodes = new int[] {1};
+        Database[] databases = new Database[]{
+                new ClickHouse(),
+                new TimescaleDb()
         };
         StringBuilder resultJson = new StringBuilder();
-        for (var wp : writePercentages)
-            for( var wf :writeFrequencies )
-                for (var non: numberOfNodes)
-                    for (var ds : datasets)
-                        for (var noq: numberOfQueries)
-                            for (var bs: batchSizes) {
+        for (int wp : writePercentages)
+            for( int wf :writeFrequencies )
+                for (int non: numberOfNodes)
+                    for (Dataset ds : datasets)
+                        for (int noq: numberOfQueries)
+                            for (int bs: batchSizes) {
                                 String msg = String.format(
-                                        """
-                                                Running benchmark with configuration:
-                                                write_percentage=%s
-                                                write_frequency=%s
-                                                number_of_nodes=%s
-                                                dataset=%s
-                                                number_of_queries=%s
-                                                batch_size=%s
-                                            """,
+                                        "Running benchmark with configuration: write_percentage=%s, write_frequency=%s, number_of_nodes=%s, dataset=%s, number_of_queries=%s, batch_size=%s",
                                         wp, wf, non, ds.getTableName(), noq, bs
                                 );
                                 System.out.println(msg);
@@ -60,9 +50,9 @@ public class BenchmarkRunner {
     }
 
     public static void main(String[] args) {
-        var br = new BenchmarkRunner();
+        BenchmarkRunner br = new BenchmarkRunner();
         String resultJson = br.run();
-        String resultString = "[" + resultJson.toString() + "]";
+        String resultString = "[" + resultJson + "]";
         try (PrintWriter out = new PrintWriter("benchmark_result")) {
             out.println(resultString);
         } catch (FileNotFoundException e) {

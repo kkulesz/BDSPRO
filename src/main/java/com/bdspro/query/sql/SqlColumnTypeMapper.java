@@ -18,8 +18,8 @@ public final class SqlColumnTypeMapper {
     }
 
     public static String mapValueToMatchTypeFormat(Map.Entry<ColumnType, String> kv){
-        var type = kv.getKey();
-        var value = kv.getValue();
+        ColumnType type = kv.getKey();
+        String value = kv.getValue();
 
         if (type == ColumnType.TIMESTAMP || type == ColumnType.STRING)
             return String.format("'%s'", value);
