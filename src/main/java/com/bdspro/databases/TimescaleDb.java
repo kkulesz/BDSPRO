@@ -1,7 +1,6 @@
 package com.bdspro.databases;
 
 import com.bdspro.datasets.Dataset;
-import com.bdspro.datasets.TaxiRidesDataset;
 import com.bdspro.query.QueryTranslator;
 import com.bdspro.query.sql.SqlQueryTranslator;
 import org.postgresql.copy.CopyManager;
@@ -13,8 +12,8 @@ import java.io.IOException;
 import java.sql.*;
 
 public class TimescaleDb implements Database {
-    private String connUrl = "jdbc:postgresql://localhost:5432/bdspro?user=timescaledb&password=password";
-    private QueryTranslator queryTranslator = new SqlQueryTranslator();
+    private final String connUrl = "jdbc:postgresql://timescaledb:5432/bdspro?user=timescaledb&password=password";
+    private final QueryTranslator queryTranslator = new SqlQueryTranslator();
 
 
     @Override
@@ -33,11 +32,7 @@ public class TimescaleDb implements Database {
             CopyManager copyManager = new CopyManager((BaseConnection) DriverManager.getConnection(connUrl));
             FileReader reader = new FileReader(csvFile);
             copyManager.copyIn("COPY " + dataset.getTableName() + " FROM STDIN (DELIMITER(','))", reader );
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
         return 0;

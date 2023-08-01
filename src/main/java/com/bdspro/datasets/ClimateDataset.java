@@ -33,7 +33,7 @@ public class ClimateDataset implements Dataset{
 
     @Override
     public String getCsvName() {
-        return "src/main/java/com/bdspro/test/TestData/2019_c.csv";
+        return "dataFiles/2019_c.csv";
     }
 
     @Override

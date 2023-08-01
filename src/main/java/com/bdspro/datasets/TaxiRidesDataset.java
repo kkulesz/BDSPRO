@@ -14,7 +14,8 @@ public class TaxiRidesDataset implements Dataset{
 
     @Override
     public List<Map.Entry<String, ColumnType>> getColumnNamesWithTypes() {
-        List<Map.Entry<String, ColumnType>> list = new ArrayList<Map.Entry<String, ColumnType>>(){};
+        List<Map.Entry<String, ColumnType>> list = new ArrayList<>() {
+        };
 
         list.add(new AbstractMap.SimpleEntry<>("VendorID", ColumnType.STRING));                 //entity column
         list.add(new AbstractMap.SimpleEntry<>("tpep_pickup_datetime", ColumnType.TIMESTAMP));  // ts column
@@ -40,7 +41,7 @@ public class TaxiRidesDataset implements Dataset{
     }
 
     @Override
-    public String getCsvName() { return "src/main/java/com/bdspro/test/TestData/taxi_rides-small.csv"; }
+    public String getCsvName() { return "dataFiles/taxi_rides.csv"; }
 
     @Override
     public String getTimeStampColumnName() { return "tpep_pickup_datetime"; }

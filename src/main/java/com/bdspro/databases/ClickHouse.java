@@ -20,7 +20,7 @@ public class ClickHouse implements Database {
     @Override
     public int setup(Dataset dataset) {
         server = ClickHouseNode.builder()
-                .host(System.getProperty("chHost", "localhost"))
+                .host(System.getProperty("chHost", "clickhouse"))
                 .port(ClickHouseProtocol.HTTP, Integer.getInteger("chPort", 8123))
                 .database("benchmark").credentials(ClickHouseCredentials.fromUserAndPassword(
                         System.getProperty("chUser", "bdspro"), System.getProperty("chPassword", "password")))
@@ -30,10 +30,10 @@ public class ClickHouse implements Database {
             ClickHouseRequest<?> request = client.connect(server);
             StringBuilder schema = new StringBuilder();
             for (Map.Entry<String, ColumnType> column :dataset.getColumnNamesWithTypes()) {
-                schema.append(column.getKey() + " " + columnTypeToString(column.getValue()) + ", ");
+                schema.append(column.getKey()).append(" ").append(columnTypeToString(column.getValue())).append(", ");
             }
             schema.delete(schema.length() - 2, schema.length());
-            String query = "create table if not exists " + dataset.getTableName() + "(" + schema.toString() + ") engine=MergeTree() order by " + dataset.getTimeStampColumnName() + ";";
+            String query = "create table if not exists " + dataset.getTableName() + "(" + schema + ") engine=MergeTree() order by " + dataset.getTimeStampColumnName() + ";";
             request.query(query).execute().get();
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,6 +154,8 @@ public class ClickHouse implements Database {
         switch (unit) {
             case "MiB":
                 return 1048576;
+            case "KiB":
+                return 1024;
         }
         throw new NoSuchElementException("Multiplier " + unit + " not known yet");
     }
