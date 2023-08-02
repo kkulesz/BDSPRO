@@ -27,6 +27,8 @@ public class BenchmarkRunner {
                 new ClickHouse(),
                 new TimescaleDb()
         };
+
+        int i = 1;
         StringBuilder resultJson = new StringBuilder();
         for (int wp : writePercentages)
             for( int wf :writeFrequencies )
@@ -42,21 +44,29 @@ public class BenchmarkRunner {
                                 Benchmark b = (new Benchmark(wp, wf, databases, non, ds, noq, bs));
                                 b.run();
                                 resultJson.append(b.getResultAsJSONString());
-                                resultJson.append(",");
 
+                                //save intermediate result ,so we do not lose them when tasks fails
+                                //file is "benchmark_result-{NUMBER}", where NUMBER is number of successful runs during this execution
+                                saveResult(resultJson.toString(), "benchmark_result-" + i++);
+
+                                resultJson.append(",");
                             }
         resultJson.deleteCharAt(resultJson.length()-1);
         return resultJson.toString();
     }
 
-    public static void main(String[] args) {
-        BenchmarkRunner br = new BenchmarkRunner();
-        String resultJson = br.run();
-        String resultString = "[" + resultJson + "]";
-        try (PrintWriter out = new PrintWriter("benchmark_result")) {
+    private static void saveResult(String jsonString, String fileName){
+        String resultString = "[" + jsonString + "]";
+        try (PrintWriter out = new PrintWriter(fileName)) {
             out.println(resultString);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void main(String[] args) {
+        BenchmarkRunner br = new BenchmarkRunner();
+        String resultJson = br.run();
+        saveResult(resultJson, "benchmark_result");
     }
 }
