@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Create arrays with values
-writeFrequency=(1000)
-writePercentage=(0 50 100)
+writeFrequency=(0 100)
+writePercentage=(0 25 50 75 100)
 batchSize=(1000)
 datasets=("Climate" "Taxi")
 numQueries=(1000)
-databases=("TimescaleDB" "Clickhouse")
+databases=("Clickhouse" "TimescaleDB")
 
 # Function to wait for the specific message in logs
 function wait_for_message_in_logs() {
@@ -17,6 +17,7 @@ function wait_for_message_in_logs() {
     while ! docker logs "$container_name" | grep -q "$message"; do
         sleep 1
     done
+    echo "Message found: $message"
 }
 
 # Nested for loops
@@ -32,13 +33,18 @@ for wf in "${writeFrequency[@]}"; do
 
             # start database container and wait for boot
             if [ "$db" == "TimescaleDB" ]; then
-                docker compose up --build -d timescaledb
+                echo "Starting TimescaleDB"
+                docker compose up --build -d timescaledb 1> /dev/null
                 wait_for_message_in_logs bdspro-timescaledb-1 "database system is ready to accept connections"
                 docker exec -it bdspro-timescaledb-1 psql -U timescaledb -c "CREATE DATABASE bdspro;"
+                docker exec -it bdspro-timescaledb-1 psql -U timescaledb -d bdspro -c "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;"
             elif [ "$db" == "Clickhouse" ]; then
-                docker compose up --build -d clickhouse
+                echo "Starting Clickhouse"
+                docker compose up --build -d clickhouse 1> /dev/null
                 wait_for_message_in_logs bdspro-clickhouse-1 "create database 'benchmark'"
             fi
+
+            # prepare parameters
             echo "counter=$counter" > parameters.txt
             echo "wf=$wf" >> parameters.txt
             echo "wp=$wp" >> parameters.txt
@@ -50,7 +56,8 @@ for wf in "${writeFrequency[@]}"; do
 
             docker compose up --no-deps --build benchmark_single
 
-            docker compose down -v
+            echo "Tearing all containers down"
+            docker compose down -v 1> /dev/null
 
           done
         done

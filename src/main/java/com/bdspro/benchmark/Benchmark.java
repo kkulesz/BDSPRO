@@ -21,25 +21,21 @@ import java.util.*;
 // Databases should always include all available databases
 public class Benchmark {
 
-
-    private int writePercentage;
-
     //write frequency in millis
-    private int writeFrequency;
-    private Database[] databases;
-    private int numberOfNodes;
-    private Dataset dataset;
-    private int numberOfReadQueries;
-    private int numberOfWriteQueries;
+    private final int writeFrequency;
+    private final Database[] databases;
+    private final int numberOfNodes;
+    private final Dataset dataset;
+    private final int numberOfReadQueries;
+    private final int numberOfWriteQueries;
 
-    private int batchSize;
+    private final int batchSize;
 
-    private DataGenerator dataGenerator;
+    private final DataGenerator dataGenerator;
 
     BenchmarkResult result;
 
     public Benchmark(int writePercentage, int writeFrequency, Database[] databases, int numberOfNodes, Dataset dataset, int numberOfQueries, int batchSize) {
-        this.writePercentage = writePercentage;
         this.writeFrequency = writeFrequency;
         this.databases = databases;
         this.numberOfNodes = numberOfNodes;
@@ -118,9 +114,6 @@ public class Benchmark {
                 Map.Entry<Timestamp, Timestamp> timeRange = dataset.getExampleSmallRange();
                 return queryTranslator.translateRangeWithLimit(dataset, timeRange.getKey(), timeRange.getValue(), 100);
             }
-//            case RANGE_WITH_GROUP_BY_TIME -> {
-//
-//            }
             case RANGE_WITH_ORDER_BY_VALUE -> {
                 Map.Entry<Timestamp, Timestamp> timeRange = dataset.getExampleSmallRange();
                 return queryTranslator.translateRangeWithOrderByValue(dataset, timeRange.getKey(), timeRange.getValue());
@@ -202,43 +195,23 @@ public class Benchmark {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("=");
                 switch (parts[0]) {
-                    case "counter":
-                        j = Integer.parseInt(parts[1]);
-                        break;
-                    case "wp":
-                        wp = Integer.parseInt(parts[1]);
-                        break;
-                    case "wf":
-                        wf = Integer.parseInt(parts[1]);
-                        break;
-                    case "nq":
-                        noq = Integer.parseInt(parts[1]);
-                        break;
-                    case "bs":
-                        bs = Integer.parseInt(parts[1]);
-                        break;
-                    case "db":
-                        switch (parts[1]){
-                            case "TimescaleDB":
-                                databases[0] = new TimescaleDb();
-                                break;
-                            case "Clickhouse":
-                                databases[0] = new ClickHouse();
-                                break;
-                        }
-                        break;
-                    case "ds":
+                    case "counter" -> j = Integer.parseInt(parts[1]);
+                    case "wp" -> wp = Integer.parseInt(parts[1]);
+                    case "wf" -> wf = Integer.parseInt(parts[1]);
+                    case "nq" -> noq = Integer.parseInt(parts[1]);
+                    case "bs" -> bs = Integer.parseInt(parts[1]);
+                    case "db" -> {
                         switch (parts[1]) {
-                            case "Climate":
-                                ds = new ClimateDataset();
-                                break;
-                            case "Taxi":
-                                ds = new TaxiRidesDataset();
-                                break;
-                            default:
-                                throw new IllegalStateException("Unexpected value: " + parts[1]);
+                            case "TimescaleDB" -> databases[0] = new TimescaleDb();
+                            case "Clickhouse" -> databases[0] = new ClickHouse();
                         }
-                        break;
+                    }
+                    case "ds" -> ds = switch (parts[1]) {
+                        case "Climate" -> new ClimateDataset();
+                        case "Taxi" -> new TaxiRidesDataset();
+                        default -> throw new IllegalStateException("Unexpected value: " + parts[1]);
+                    };
+                    default -> throw new IllegalStateException("Unexpected Parameter: " + parts[0]);
                 }
             }
         } catch (IOException e) {
@@ -257,7 +230,7 @@ public class Benchmark {
 
         //save intermediate result ,so we do not lose them when tasks fails
         //file is "benchmark_result-{NUMBER}", where NUMBER is number of successful runs during this execution
-        saveResult(resultJson.toString(), "benchmark_result-" + j);
+        saveResult(resultJson.toString(), "/results/benchmark_result-" + j);
 
         resultJson.append(",");
     }

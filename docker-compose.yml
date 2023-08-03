@@ -63,6 +63,7 @@ services:
     volumes:
       - ./src/main/java:/app
       - ./parameters.txt:/app/parameters.txt
+      - ./results:/results
     networks:
       - ntw
 
