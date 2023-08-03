@@ -6,9 +6,7 @@ import com.bdspro.query.sql.SqlQueryTranslator;
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 
 public class TimescaleDb implements Database {
@@ -18,6 +16,11 @@ public class TimescaleDb implements Database {
 
     @Override
     public int setup(Dataset dataset) {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         runStatement(queryTranslator.translateCreateTable(dataset));
         String crtTableStmt = String.format(
                 "SELECT create_hypertable('%s', '%s', if_not_exists => TRUE)",

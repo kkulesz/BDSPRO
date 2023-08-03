@@ -3,7 +3,7 @@ services:
     image: timescale/timescaledb:latest-pg12
     restart: always
     ports:
-      - 5432:5432
+      - 5433:5432
     environment:
       POSTGRES_USER: timescaledb
       POSTGRES_PASSWORD: password
@@ -14,8 +14,8 @@ services:
         limits:
           cpus: "2"
           memory: 4G
-    volumes:
-      - ./data/timescaledb:/var/lib/postgresql/data
+    #volumes:
+      #- ./dataTSDB/timescaledb:/var/lib/postgresql/data
     networks:
       - ntw
   prometheus_postgresql_adapter:
@@ -38,8 +38,8 @@ services:
     ports:
       - "8123:8123"
       - "9000:9000"
-    volumes:
-      - ./db:/var/lib/clickhouse
+  #  volumes:
+ #     - ./db:/var/lib/clickhouse
     environment:
       - CLICKHOUSE_USER=bdspro
       - CLICKHOUSE_PASSWORD=password
@@ -53,18 +53,30 @@ services:
     networks:
       - ntw
 
-
-  benchmark_run:
+  benchmark_single:
     depends_on:
       - timescaledb
       - clickhouse
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: DockerfileSingle
     volumes:
       - ./src/main/java:/app
+      - ./parameters.txt:/app/parameters.txt
     networks:
       - ntw
+
+  #benchmark_run:
+  #  depends_on:
+  #    - timescaledb
+  #    - clickhouse
+  #  build:
+  #    context: ./
+  #    dockerfile: Dockerfile
+  #  volumes:
+  #    - ./src/main/java:/app
+  #  networks:
+  #    - ntw
 
 networks:
   ntw:

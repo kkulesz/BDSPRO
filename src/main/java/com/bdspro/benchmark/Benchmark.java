@@ -1,13 +1,18 @@
 package com.bdspro.benchmark;
 
+import com.bdspro.databases.ClickHouse;
 import com.bdspro.databases.Database;
+import com.bdspro.databases.TimescaleDb;
+import com.bdspro.datasets.ClimateDataset;
 import com.bdspro.datasets.Dataset;
+import com.bdspro.datasets.TaxiRidesDataset;
 import com.bdspro.query.QueryTranslator;
 import com.bdspro.query.QueryType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kotlin.Pair;
 
+import java.io.*;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -180,6 +185,89 @@ public class Benchmark {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "";
+        }
+    }
+
+    public static void main(String[] args) {
+        int j = 0;
+        int wp = 0;
+        int wf= 0;
+        int noq = 0;
+        int bs = 0;
+        int non = 1;
+        Dataset ds = null;
+        Database[] databases = new Database[1];
+        try (BufferedReader reader = new BufferedReader(new FileReader("/app/parameters.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("=");
+                switch (parts[0]) {
+                    case "counter":
+                        j = Integer.parseInt(parts[1]);
+                        break;
+                    case "wp":
+                        wp = Integer.parseInt(parts[1]);
+                        break;
+                    case "wf":
+                        wf = Integer.parseInt(parts[1]);
+                        break;
+                    case "nq":
+                        noq = Integer.parseInt(parts[1]);
+                        break;
+                    case "bs":
+                        bs = Integer.parseInt(parts[1]);
+                        break;
+                    case "db":
+                        switch (parts[1]){
+                            case "TimescaleDB":
+                                databases[0] = new TimescaleDb();
+                                break;
+                            case "Clickhouse":
+                                databases[0] = new ClickHouse();
+                                break;
+                        }
+                        break;
+                    case "ds":
+                        switch (parts[1]) {
+                            case "Climate":
+                                ds = new ClimateDataset();
+                                break;
+                            case "Taxi":
+                                ds = new TaxiRidesDataset();
+                                break;
+                            default:
+                                throw new IllegalStateException("Unexpected value: " + parts[1]);
+                        }
+                        break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StringBuilder resultJson = new StringBuilder();
+        String msg = String.format(
+                "Running benchmark with configuration: write_percentage=%s, write_frequency=%s, number_of_nodes=%s, dataset=%s, number_of_queries=%s, batch_size=%s",
+                wp, wf, non, ds.getTableName(), noq, bs
+        );
+        System.out.println(msg);
+        Benchmark b = (new Benchmark(wp, wf, databases, non, ds, noq, bs));
+        b.run();
+        resultJson.append(b.getResultAsJSONString());
+
+        //save intermediate result ,so we do not lose them when tasks fails
+        //file is "benchmark_result-{NUMBER}", where NUMBER is number of successful runs during this execution
+        saveResult(resultJson.toString(), "benchmark_result-" + j);
+
+        resultJson.append(",");
+    }
+
+    private static void saveResult(String jsonString, String fileName){
+        String resultString = "[" + jsonString + "]";
+        try (PrintWriter out = new PrintWriter(fileName)) {
+            out.println(resultString);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }

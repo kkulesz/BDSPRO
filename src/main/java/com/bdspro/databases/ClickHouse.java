@@ -156,6 +156,8 @@ public class ClickHouse implements Database {
                 return 1048576;
             case "KiB":
                 return 1024;
+            case "GiB":
+                return 1073741824;
         }
         throw new NoSuchElementException("Multiplier " + unit + " not known yet");
     }
