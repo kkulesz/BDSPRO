@@ -5,6 +5,7 @@ import com.bdspro.datasets.Dataset;
 import com.bdspro.query.QueryTranslator;
 import com.bdspro.query.sql.SqlQueryTranslator;
 import com.clickhouse.client.*;
+import com.clickhouse.client.config.ClickHouseClientOption;
 import com.clickhouse.data.ClickHouseFile;
 import com.clickhouse.data.ClickHouseFormat;
 import com.clickhouse.data.ClickHouseRecord;
@@ -24,6 +25,7 @@ public class ClickHouse implements Database {
                 .port(ClickHouseProtocol.HTTP, Integer.getInteger("chPort", 8123))
                 .database("benchmark").credentials(ClickHouseCredentials.fromUserAndPassword(
                         System.getProperty("chUser", "bdspro"), System.getProperty("chPassword", "password")))
+                .addOption(ClickHouseClientOption.SOCKET_TIMEOUT.getKey(), "300000") // 10x bigger than default
                 .build();
 
         try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol())) {
