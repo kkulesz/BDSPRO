@@ -34,6 +34,7 @@ public class TimescaleDb implements Database {
         try {
             CopyManager copyManager = new CopyManager((BaseConnection) DriverManager.getConnection(connUrl));
             FileReader reader = new FileReader(csvFile);
+            while (reader.read() != '\n'){} // skip first line
             copyManager.copyIn("COPY " + dataset.getTableName() + " FROM STDIN (DELIMITER(','))", reader );
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
