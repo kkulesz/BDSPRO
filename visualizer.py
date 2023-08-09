@@ -2,6 +2,15 @@ import json
 from statistics import mean
 import matplotlib.pyplot as plt
 import numpy
+import os
+
+RESULTS_DIR = "results"
+RUN_DIR = "run2-big-taxi"  # !change there only if you want to plot results of other run
+RESULTS_FILE = "benchmark_result"
+PLOTS_DIR_NAME = "plots"
+
+RESULT_FILE_PATH = os.path.join(RESULTS_DIR, RUN_DIR, RESULTS_FILE)
+PLOTS_DIR_PATH = os.path.join(RESULTS_DIR, RUN_DIR, PLOTS_DIR_NAME)
 
 
 ## returns list of tuples with read and write latency averages for database 'db_name', filtered by parameter value_name having value value
@@ -66,6 +75,7 @@ def visualize_write_percentages(json, batch_size):
     plt.legend(loc="upper left")
     plt.xlabel('Write Percentage')
     plt.ylabel('Average Query Latency in ms')
+    plt.savefig(os.path.join(PLOTS_DIR_PATH, "avg-que-latency-writes"))
     plt.show()
 
 
@@ -101,6 +111,7 @@ def visualize_read_only(json, row_count, batch_size):
     plt.xlabel('Selectivity')
     plt.ylabel('Average Latency in ms')
     plt.tight_layout()
+    plt.savefig(os.path.join(PLOTS_DIR_PATH, "avg-que-latency-selectivity"))
     plt.show()
 
 
@@ -126,6 +137,7 @@ def showLatencies(json, db):
     lat = sorted(lat)
     x = range(len(lat))
     plt.plot(lat)
+    plt.savefig(os.path.join(PLOTS_DIR_PATH, f"latencies-{db}"))
     plt.show()
 
 
@@ -154,20 +166,23 @@ def groupByQueryType(json):
     plt.title(" Group by Query Type")
     plt.gcf().subplots_adjust(bottom=.35)
     # plt.tight_layout()
+    plt.savefig(os.path.join(PLOTS_DIR_PATH, "avg-que-latency-query-type"))
     plt.show()
     plt.rcParams["figure.figsize"] = plt.rcParamsDefault["figure.figsize"]
 
 
 def main():
-    with open("results/run1/benchmark_result") as json_file:
+    if not os.path.exists(PLOTS_DIR_PATH):
+        os.makedirs(PLOTS_DIR_PATH)
+    with open(RESULT_FILE_PATH) as json_file:
         json_result = json.load(json_file)
-        datasets = getAllValues(json_result, "dataset")
-        for dataset in datasets:
-            # showLatencies(json_result, "ClickHouse")
-            # showLatencies(json_result, "TimescaleDb")
-            visualize_write_percentages(json_result, 1000)
-            visualize_read_only(json_result, 13192591, 1000)
-            groupByQueryType(json_result)
+        # datasets = getAllValues(json_result, "dataset")
+        # for dataset in datasets:
+        showLatencies(json_result, "ClickHouse")
+        showLatencies(json_result, "TimescaleDb")
+        visualize_write_percentages(json_result, 1000)
+        visualize_read_only(json_result, 13192591, 1000)
+        groupByQueryType(json_result)
 
 
 if __name__ == "__main__":
