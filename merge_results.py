@@ -77,7 +77,7 @@ def merge_json_files(jsons_dir):
 
 def main():
     experiments_dir = "results"
-    run_dir = "run1"
+    run_dir = "run3-write-only"
     sub_experiments_dir = "results"
     results_path = os.path.join(experiments_dir, run_dir, sub_experiments_dir)
 
