@@ -3,9 +3,10 @@ from statistics import mean
 import matplotlib.pyplot as plt
 import numpy
 import os
+import numpy as np
 
 RESULTS_DIR = "results"
-RUN_DIR = "run1"  # !change there only if you want to plot results of other run
+RUN_DIR = "run3-write-only"  # !change there only if you want to plot results of other run
 RESULTS_FILE = "benchmark_result"
 PLOTS_DIR_NAME = "plots"
 
@@ -43,7 +44,7 @@ def getAllDBs(json):
     return list(json[0]['readResults'].keys())
 
 
-def filter(json, value_name, value):
+def filter_json(json, value_name, value):
     res = []
     for benchmark in json:
         if benchmark[value_name] == value:
@@ -53,7 +54,7 @@ def filter(json, value_name, value):
 
 ## displays a multiple bar chart with the latency results on the y axis and the writePercentage on the x axis
 def visualize_write_percentages(json, batch_size):
-    json = filter(json, "batchSize", batch_size)
+    json = filter_json(json, "batchSize", batch_size)
     values = getAllValues(json, "writePercentage")
     values = sorted(values)
     dbs = getAllDBs(json)
@@ -80,7 +81,7 @@ def visualize_write_percentages(json, batch_size):
 
 
 def visualize_read_only(json, row_count, batch_size):
-    json = filter(json, "batchSize", batch_size)
+    json = filter_json(json, "batchSize", batch_size)
     dbs = getAllDBs(json)
     results_by_db = {}
     buckets = [0, 1, 0.0001 * row_count, 0.001 * row_count, 0.01 * row_count, 0.1 * row_count, row_count]
@@ -147,7 +148,6 @@ def groupByQueryType(json):
     dbs = getAllDBs(json)
     qTypes = []
     for res in json[1]["readResults"][dbs[0]]:
-        # print(res)
         qTypes.append(res["queryType"])
     for db in dbs:
         results_by_qType = {}
@@ -172,6 +172,31 @@ def groupByQueryType(json):
     plt.rcParams["figure.figsize"] = plt.rcParamsDefault["figure.figsize"]
 
 
+def visualize_write_only(json, dataset):
+    json = list(filter(lambda j: j["dataset"] == dataset, json))
+    values = sorted(getAllValues(json, "batchSize"))
+    dbs = getAllDBs(json)
+    results_by_db = {}
+    for db in dbs:
+        means = []
+        for bs in values:
+            _, w, _ = getAveragesForDBAndValue(json, db, "batchSize", bs)
+            means.append(w / 1000000.0)
+        results_by_db[db] = means
+    x = numpy.array(values)
+    plt.xscale("log")
+    plt.plot(x, results_by_db[dbs[0]], color='b', label=dbs[0])
+    plt.plot(x, results_by_db[dbs[1]], color='r', label=dbs[1])
+    plt.legend(loc="upper left")
+    plt.xlabel('Batch size')
+    plt.ylabel('Average write latency in ms')
+    plt.tight_layout()
+    plt.savefig(os.path.join(PLOTS_DIR_PATH, f"avg-latency-batch-size-{dataset}"))
+    plt.show()
+
+
+
+
 def main():
     if not os.path.exists(PLOTS_DIR_PATH):
         os.makedirs(PLOTS_DIR_PATH)
@@ -184,6 +209,14 @@ def main():
         visualize_write_percentages(json_result, 1000)
         visualize_read_only(json_result, 13192591, 1000)
         groupByQueryType(json_result)
+
+        # use those with run that points to the results where:
+        #   - both databases
+        #   - both datasets
+        #   - batch_size changes
+        #   - rest of parameters are fixed
+        # visualize_write_only(json_result, "TaxiRidesDataset")
+        # visualize_write_only(json_result, "ClimateDataset")
 
 
 if __name__ == "__main__":
