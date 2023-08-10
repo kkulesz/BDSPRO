@@ -155,16 +155,6 @@ public class SqlQueryTranslator extends QueryTranslator {
         );
     }
 
-//    @Override
-//    public String translateRangeWithGroupByTime(Dataset dataset, Timestamp from, Timestamp until) {
-//        String table = dataset.getTableName();
-//        String tsColumn = dataset.getTimeStampColumnName();
-//        String valueColumn = dataset.getValueColumnName();
-//
-//        return String.format(
-//                "SELECT MAX(%s) FROM %s \n\t WHERE %s>='%s' AND %s<='%s' GROUP BY time;", valueColumn, table, tsColumn, from, tsColumn, until,
-//        );
-//    }
     @Override
     public String translateRangeWithOrderByValue(Dataset dataset, Timestamp from, Timestamp until) {
         String table = dataset.getTableName();
@@ -191,7 +181,7 @@ public class SqlQueryTranslator extends QueryTranslator {
         return String.join(", ",
                 columnNamesWithTypes
                         .stream()
-                        .map(kv -> kv.getKey())
+                        .map(Map.Entry::getKey)
                         .toArray(String[]::new)
         );
     }
@@ -201,7 +191,7 @@ public class SqlQueryTranslator extends QueryTranslator {
         String valuesChunk = String.join(", ",
                 IntStream.range(0, columnNamesWithTypes.size())
                         .mapToObj(i -> Map.entry(columnNamesWithTypes.get(i).getValue(), values[i]))
-                        .map(kv -> SqlColumnTypeMapper.mapValueToMatchTypeFormat(kv))
+                        .map(SqlColumnTypeMapper::mapValueToMatchTypeFormat)
                         .toArray(String[]::new));
 
         return String.format("(%s)", valuesChunk);
