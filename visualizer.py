@@ -146,7 +146,8 @@ def groupByQueryType(json):
     results_by_db = {}
     dbs = getAllDBs(json)
     qTypes = []
-    for res in json[0]["readResults"][dbs[0]]:
+    for res in json[1]["readResults"][dbs[0]]:
+        # print(res)
         qTypes.append(res["queryType"])
     for db in dbs:
         results_by_qType = {}
@@ -154,7 +155,7 @@ def groupByQueryType(json):
             results_by_qType[type] = mean(getLatenciesForDBAndQueryType(json, db, type)) / 1000000.0
         results_by_db[db] = results_by_qType
     x = list(results_by_db[dbs[0]].keys())
-    # print(max(results_by_db["TimescaleDb"]))
+    print(max(results_by_db["TimescaleDb"]))
     plt.xticks(ticks=range(len(x)), labels=x, rotation=90)
     y_tsdb = list(results_by_db["TimescaleDb"].values())
     y_ch = list(results_by_db["ClickHouse"].values())
