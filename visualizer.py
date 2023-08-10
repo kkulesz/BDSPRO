@@ -5,7 +5,7 @@ import numpy
 import os
 
 RESULTS_DIR = "results"
-RUN_DIR = "run2-big-taxi"  # !change there only if you want to plot results of other run
+RUN_DIR = "run1"  # !change there only if you want to plot results of other run
 RESULTS_FILE = "benchmark_result"
 PLOTS_DIR_NAME = "plots"
 
@@ -154,7 +154,7 @@ def groupByQueryType(json):
             results_by_qType[type] = mean(getLatenciesForDBAndQueryType(json, db, type)) / 1000000.0
         results_by_db[db] = results_by_qType
     x = list(results_by_db[dbs[0]].keys())
-    print(max(results_by_db["TimescaleDb"]))
+    # print(max(results_by_db["TimescaleDb"]))
     plt.xticks(ticks=range(len(x)), labels=x, rotation=90)
     y_tsdb = list(results_by_db["TimescaleDb"].values())
     y_ch = list(results_by_db["ClickHouse"].values())

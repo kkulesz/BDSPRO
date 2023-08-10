@@ -22,10 +22,20 @@ public class TimescaleDb implements Database {
             throw new RuntimeException(e);
         }
         runStatement(queryTranslator.translateCreateTable(dataset));
+
+//        runQuery("SELECT add_data_node('dn1', 'cloud-12.dima.tu-berlin.de')");
+//        runQuery("SELECT add_data_node('dn2', 'cloud-13.dima.tu-berlin.de')");
+//        runQuery("SELECT add_data_node('dn3', 'cloud-14.dima.tu-berlin.de')");
+
         String crtTableStmt = String.format(
                 "SELECT create_hypertable('%s', '%s', if_not_exists => TRUE)",
                 dataset.getTableName(), dataset.getTimeStampColumnName().toLowerCase()
         );
+//        String crtTableStmt = String.format(
+//                "SELECT create_distributed_hypertable('%s', '%s', if_not_exists => TRUE)",
+//                dataset.getTableName(), dataset.getTimeStampColumnName().toLowerCase()
+//        );
+
         return runQuery(crtTableStmt);
     }
 

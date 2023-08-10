@@ -1,0 +1,2515 @@
+[{
+  "writePercentage" : 75,
+  "writeFrequency" : 100,
+  "compressionRates" : [ 2.2541286079499834 ],
+  "numberOfNodes" : 1,
+  "datasetRows" : 2999999,
+  "batchSize" : 1000,
+  "readResults" : {
+    "TimescaleDb" : [ {
+      "rowCount" : 1.0,
+      "latency" : 256188958,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 24875666,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 509595665,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 519287173,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 18840369,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1956726082,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 18368878,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 300761919,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 20615211,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 22300995,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 209757264,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1176094554,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 191665251,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 206465318,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 205241542,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 18848622,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 205430651,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 2262771896,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 298222767,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 91816802,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 72343147,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 2217052509,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 18790446,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 196922354,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 193081280,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 272381652,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 219339635,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 224506751,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 252484755,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 2208342683,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 22264805,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 21121638,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 102322236,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 19688114,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 157429376,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 585956730,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 20032780,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 165304896,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 23490803,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 20317125,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 19756986,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 182082704,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 22537312,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 975878512,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1962576974,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1963179551,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1950626278,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 582518519,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 205312925,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1191210739,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 17191371,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 16799777,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 768900587,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 728756843,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 225375729,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 144038454,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 122104951,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 178157955,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 538388580,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 178699136,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 2053223840,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 19853642,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 172437727,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 19333700,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 19693142,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 173848263,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1955425558,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 172255786,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 132071202,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 168818632,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 20189501,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 117152419,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 187168000,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 107803366,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 20651563,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 2308858337,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 22393943,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 196949370,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 142841744,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 18916832,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 253504295,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 225169980,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 795622505,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 17498468,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 177520170,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 19676042,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 17342570,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 52127444,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 208470153,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 286469964,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 114398672,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 584180494,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 17840501,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 21195636,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1002958919,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 112700926,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 49093309,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 579104557,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 169650906,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 17856265,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1970954753,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 20291803,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 19959903,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 19244260,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 132134039,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 19952813,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 2195701343,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 19932715,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 33589796,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 215868515,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 19758086,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 262672282,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 16579136,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 223155686,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 71138073,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 15368564,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 20354723,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1159761202,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 126936801,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 209790869,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 69875816,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 191433538,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 18678575,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 18179895,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 569963424,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 171516271,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 545343918,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 21733836,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 983044171,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 526780638,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 152504662,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 139759807,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 53823332,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 172280646,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 150327588,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 20566598,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 166849514,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 167525319,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 20172580,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 143922413,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 20210022,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 38066200,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 118678590,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 188876583,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 964274380,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 583950185,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 45071872,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 734855319,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1157442761,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 201229208,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 18736562,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 200090914,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 18560299,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 66792879,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 211140184,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 15931960,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 197911334,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 66792117,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 19939641,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 198977049,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 2219926095,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 21283617,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 995927956,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 963842192,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 20195145,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1960222108,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 139666210,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1024850676,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 162105490,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 2274022237,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1147620914,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 155246046,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 966828553,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 18212986,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 156359567,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 16523992,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 579762182,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 574755496,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 110627440,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 973772324,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 19487805,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 18854720,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 540173905,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 156747478,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 194362073,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 20133988,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 536877731,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 17778460,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 147862072,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 166195872,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 570948495,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 152495911,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 190884700,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 179091605,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 141084600,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 51630433,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 547356880,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 156454715,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 957202200,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 960524294,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 127061575,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1031830517,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 175250703,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 151811781,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1969912549,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 20373253,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 21171906,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1991363063,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 523683324,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 169832634,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 169904980,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 17395421,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 20649214,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 102017350,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1128172144,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 753901592,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 2496567720,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 19010234,
+      "queryType" : "LAST_N_RECORDS"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 20428931,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 19504755,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 150693397,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 16721503,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 21145874,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 157149545,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 119363477,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 172395792,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 156666135,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 193803955,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 19007342,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 37947280,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 17693428,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 20387112,
+      "queryType" : "LATEST_POINT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 120368867,
+      "queryType" : "RANGE_WITH_AGGREGATION_AND_VALUE_FILTER"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 158860088,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 962452388,
+      "queryType" : "RANGE_ANY_ENTITY"
+    }, {
+      "rowCount" : 93230.0,
+      "latency" : 179461828,
+      "queryType" : "EXACT_POINT"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 550754003,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 16186878,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 176733096,
+      "queryType" : "RANGE_WITH_AGGREGATION"
+    }, {
+      "rowCount" : 3042.0,
+      "latency" : 138974394,
+      "queryType" : "RANGE_WITH_VALUE_FILTER"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 16932228,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 45903721,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 18257858,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 18052061,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 100.0,
+      "latency" : 16064748,
+      "queryType" : "RANGE_WITH_LIMIT"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 531708638,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    }, {
+      "rowCount" : 42.0,
+      "latency" : 111713880,
+      "queryType" : "RANGE_SINGLE_ENTITY"
+    }, {
+      "rowCount" : 1.0,
+      "latency" : 20406148,
+      "queryType" : "RANGE_WITH_AGGREGATION_ON_TIME_COLUMN"
+    }, {
+      "rowCount" : 564199.0,
+      "latency" : 1972844742,
+      "queryType" : "RANGE_WITH_ORDER_BY_VALUE"
+    }, {
+      "rowCount" : 32901.0,
+      "latency" : 547568178,
+      "queryType" : "RANGE_WITH_AGGREGATION_WITHIN_GROUP"
+    } ]
+  },
+  "writeResults" : {
+    "TimescaleDb" : [ {
+      "latency" : 198300088
+    }, {
+      "latency" : 94861531
+    }, {
+      "latency" : 308285958
+    }, {
+      "latency" : 78799854
+    }, {
+      "latency" : 86026027
+    }, {
+      "latency" : 76116476
+    }, {
+      "latency" : 68545164
+    }, {
+      "latency" : 88026853
+    }, {
+      "latency" : 69268013
+    }, {
+      "latency" : 80719932
+    }, {
+      "latency" : 89273613
+    }, {
+      "latency" : 68461898
+    }, {
+      "latency" : 68509392
+    }, {
+      "latency" : 100381111
+    }, {
+      "latency" : 81266012
+    }, {
+      "latency" : 87609104
+    }, {
+      "latency" : 117943858
+    }, {
+      "latency" : 77859754
+    }, {
+      "latency" : 78536598
+    }, {
+      "latency" : 104961713
+    }, {
+      "latency" : 70379025
+    }, {
+      "latency" : 114729682
+    }, {
+      "latency" : 106934642
+    }, {
+      "latency" : 104143368
+    }, {
+      "latency" : 79344820
+    }, {
+      "latency" : 81185198
+    }, {
+      "latency" : 63366056
+    }, {
+      "latency" : 74758501
+    }, {
+      "latency" : 95005040
+    }, {
+      "latency" : 75932509
+    }, {
+      "latency" : 77193301
+    }, {
+      "latency" : 96565346
+    }, {
+      "latency" : 77654296
+    }, {
+      "latency" : 72365636
+    }, {
+      "latency" : 100074412
+    }, {
+      "latency" : 105832538
+    }, {
+      "latency" : 101128820
+    }, {
+      "latency" : 100499886
+    }, {
+      "latency" : 113933670
+    }, {
+      "latency" : 85935559
+    }, {
+      "latency" : 97373545
+    }, {
+      "latency" : 98700489
+    }, {
+      "latency" : 79566962
+    }, {
+      "latency" : 87518954
+    }, {
+      "latency" : 60546335
+    }, {
+      "latency" : 91974226
+    }, {
+      "latency" : 108928634
+    }, {
+      "latency" : 79574183
+    }, {
+      "latency" : 295946329
+    }, {
+      "latency" : 72485880
+    }, {
+      "latency" : 74427485
+    }, {
+      "latency" : 84010484
+    }, {
+      "latency" : 63558821
+    }, {
+      "latency" : 108972756
+    }, {
+      "latency" : 103068477
+    }, {
+      "latency" : 73793831
+    }, {
+      "latency" : 114191617
+    }, {
+      "latency" : 120851312
+    }, {
+      "latency" : 135822095
+    }, {
+      "latency" : 99835129
+    }, {
+      "latency" : 100044154
+    }, {
+      "latency" : 128059141
+    }, {
+      "latency" : 98687451
+    }, {
+      "latency" : 99259713
+    }, {
+      "latency" : 73286429
+    }, {
+      "latency" : 90240016
+    }, {
+      "latency" : 81747622
+    }, {
+      "latency" : 79857266
+    }, {
+      "latency" : 153921917
+    }, {
+      "latency" : 160158009
+    }, {
+      "latency" : 128046563
+    }, {
+      "latency" : 151959450
+    }, {
+      "latency" : 81235041
+    }, {
+      "latency" : 118514121
+    }, {
+      "latency" : 101598171
+    }, {
+      "latency" : 97229465
+    }, {
+      "latency" : 68623195
+    }, {
+      "latency" : 103996607
+    }, {
+      "latency" : 78327080
+    }, {
+      "latency" : 76167760
+    }, {
+      "latency" : 74447176
+    }, {
+      "latency" : 67989570
+    }, {
+      "latency" : 64650965
+    }, {
+      "latency" : 72079818
+    }, {
+      "latency" : 65449938
+    }, {
+      "latency" : 76673066
+    }, {
+      "latency" : 74299470
+    }, {
+      "latency" : 84598906
+    }, {
+      "latency" : 81167817
+    }, {
+      "latency" : 72092598
+    }, {
+      "latency" : 69353903
+    }, {
+      "latency" : 73637700
+    }, {
+      "latency" : 85587751
+    }, {
+      "latency" : 300499753
+    }, {
+      "latency" : 74316916
+    }, {
+      "latency" : 74638098
+    }, {
+      "latency" : 66129871
+    }, {
+      "latency" : 110035247
+    }, {
+      "latency" : 136191172
+    }, {
+      "latency" : 155599276
+    }, {
+      "latency" : 126569544
+    }, {
+      "latency" : 97267195
+    }, {
+      "latency" : 113283000
+    }, {
+      "latency" : 82349859
+    }, {
+      "latency" : 98936665
+    }, {
+      "latency" : 134503633
+    }, {
+      "latency" : 120568049
+    }, {
+      "latency" : 71745645
+    }, {
+      "latency" : 65835840
+    }, {
+      "latency" : 76442897
+    }, {
+      "latency" : 70296328
+    }, {
+      "latency" : 62265646
+    }, {
+      "latency" : 73120329
+    }, {
+      "latency" : 78550911
+    }, {
+      "latency" : 75524401
+    }, {
+      "latency" : 76015690
+    }, {
+      "latency" : 96519233
+    }, {
+      "latency" : 89594700
+    }, {
+      "latency" : 153004016
+    }, {
+      "latency" : 94566434
+    }, {
+      "latency" : 65784726
+    }, {
+      "latency" : 74183038
+    }, {
+      "latency" : 92683264
+    }, {
+      "latency" : 80084166
+    }, {
+      "latency" : 71048803
+    }, {
+      "latency" : 70543574
+    }, {
+      "latency" : 165213332
+    }, {
+      "latency" : 127997573
+    }, {
+      "latency" : 94915158
+    }, {
+      "latency" : 185738730
+    }, {
+      "latency" : 463014072
+    }, {
+      "latency" : 102374331
+    }, {
+      "latency" : 97745047
+    }, {
+      "latency" : 140671460
+    }, {
+      "latency" : 110424219
+    }, {
+      "latency" : 105987406
+    }, {
+      "latency" : 66335651
+    }, {
+      "latency" : 66081792
+    }, {
+      "latency" : 75181524
+    }, {
+      "latency" : 345262135
+    }, {
+      "latency" : 67995453
+    }, {
+      "latency" : 76980480
+    }, {
+      "latency" : 82659347
+    }, {
+      "latency" : 69550399
+    }, {
+      "latency" : 67014484
+    }, {
+      "latency" : 91349554
+    }, {
+      "latency" : 81165301
+    }, {
+      "latency" : 65942255
+    }, {
+      "latency" : 74471602
+    }, {
+      "latency" : 71603745
+    }, {
+      "latency" : 65273468
+    }, {
+      "latency" : 65635355
+    }, {
+      "latency" : 97727062
+    }, {
+      "latency" : 61626953
+    }, {
+      "latency" : 77256393
+    }, {
+      "latency" : 73120943
+    }, {
+      "latency" : 72457333
+    }, {
+      "latency" : 74325503
+    }, {
+      "latency" : 101682197
+    }, {
+      "latency" : 114344723
+    }, {
+      "latency" : 128022908
+    }, {
+      "latency" : 131466703
+    }, {
+      "latency" : 128126096
+    }, {
+      "latency" : 91689077
+    }, {
+      "latency" : 72201171
+    }, {
+      "latency" : 74435225
+    }, {
+      "latency" : 75276556
+    }, {
+      "latency" : 60685238
+    }, {
+      "latency" : 81160460
+    }, {
+      "latency" : 61111444
+    }, {
+      "latency" : 68858168
+    }, {
+      "latency" : 79887716
+    }, {
+      "latency" : 91609088
+    }, {
+      "latency" : 74023547
+    }, {
+      "latency" : 64290543
+    }, {
+      "latency" : 85395146
+    }, {
+      "latency" : 87481669
+    }, {
+      "latency" : 80045061
+    }, {
+      "latency" : 73157207
+    }, {
+      "latency" : 61367678
+    }, {
+      "latency" : 152496226
+    }, {
+      "latency" : 67686826
+    }, {
+      "latency" : 149289377
+    }, {
+      "latency" : 118038821
+    }, {
+      "latency" : 112719141
+    }, {
+      "latency" : 328429505
+    }, {
+      "latency" : 81740480
+    }, {
+      "latency" : 109976161
+    }, {
+      "latency" : 141482161
+    }, {
+      "latency" : 61472812
+    }, {
+      "latency" : 104692484
+    }, {
+      "latency" : 86869862
+    }, {
+      "latency" : 77858328
+    }, {
+      "latency" : 75187231
+    }, {
+      "latency" : 63278067
+    }, {
+      "latency" : 99908633
+    }, {
+      "latency" : 67300233
+    }, {
+      "latency" : 82274047
+    }, {
+      "latency" : 59018297
+    }, {
+      "latency" : 74396118
+    }, {
+      "latency" : 103485358
+    }, {
+      "latency" : 94098024
+    }, {
+      "latency" : 68764951
+    }, {
+      "latency" : 61724173
+    }, {
+      "latency" : 73185285
+    }, {
+      "latency" : 65547787
+    }, {
+      "latency" : 76877527
+    }, {
+      "latency" : 70167811
+    }, {
+      "latency" : 79405054
+    }, {
+      "latency" : 65087247
+    }, {
+      "latency" : 62024786
+    }, {
+      "latency" : 73333719
+    }, {
+      "latency" : 71692748
+    }, {
+      "latency" : 84476427
+    }, {
+      "latency" : 67709510
+    }, {
+      "latency" : 56627901
+    }, {
+      "latency" : 78521553
+    }, {
+      "latency" : 63795256
+    }, {
+      "latency" : 69025671
+    }, {
+      "latency" : 72733524
+    }, {
+      "latency" : 75582287
+    }, {
+      "latency" : 67874210
+    }, {
+      "latency" : 74015885
+    }, {
+      "latency" : 86936052
+    }, {
+      "latency" : 94094990
+    }, {
+      "latency" : 99651835
+    }, {
+      "latency" : 75634067
+    }, {
+      "latency" : 77626113
+    }, {
+      "latency" : 77892641
+    }, {
+      "latency" : 152489240
+    }, {
+      "latency" : 116895670
+    }, {
+      "latency" : 451015769
+    }, {
+      "latency" : 76231773
+    }, {
+      "latency" : 71839811
+    }, {
+      "latency" : 74801799
+    }, {
+      "latency" : 61893685
+    }, {
+      "latency" : 80865309
+    }, {
+      "latency" : 90179174
+    }, {
+      "latency" : 110819712
+    }, {
+      "latency" : 155598921
+    }, {
+      "latency" : 68967693
+    }, {
+      "latency" : 100551199
+    }, {
+      "latency" : 107976290
+    }, {
+      "latency" : 77859659
+    }, {
+      "latency" : 124290456
+    }, {
+      "latency" : 133102736
+    }, {
+      "latency" : 75556419
+    }, {
+      "latency" : 58870354
+    }, {
+      "latency" : 77970259
+    }, {
+      "latency" : 80079550
+    }, {
+      "latency" : 64349491
+    }, {
+      "latency" : 69622676
+    }, {
+      "latency" : 62114829
+    }, {
+      "latency" : 52857783
+    }, {
+      "latency" : 103575370
+    }, {
+      "latency" : 79966877
+    }, {
+      "latency" : 102058721
+    }, {
+      "latency" : 113947581
+    }, {
+      "latency" : 88037681
+    }, {
+      "latency" : 91164879
+    }, {
+      "latency" : 74746869
+    }, {
+      "latency" : 73793886
+    }, {
+      "latency" : 72739995
+    }, {
+      "latency" : 83851631
+    }, {
+      "latency" : 80233386
+    }, {
+      "latency" : 71838364
+    }, {
+      "latency" : 68396907
+    }, {
+      "latency" : 77953210
+    }, {
+      "latency" : 71961960
+    }, {
+      "latency" : 59726840
+    }, {
+      "latency" : 86936479
+    }, {
+      "latency" : 175862468
+    }, {
+      "latency" : 89181493
+    }, {
+      "latency" : 125949952
+    }, {
+      "latency" : 160767261
+    }, {
+      "latency" : 66879729
+    }, {
+      "latency" : 334251959
+    }, {
+      "latency" : 67705571
+    }, {
+      "latency" : 85598284
+    }, {
+      "latency" : 75947805
+    }, {
+      "latency" : 78176105
+    }, {
+      "latency" : 57618822
+    }, {
+      "latency" : 57611974
+    }, {
+      "latency" : 130761778
+    }, {
+      "latency" : 155677793
+    }, {
+      "latency" : 130050229
+    }, {
+      "latency" : 84067492
+    }, {
+      "latency" : 80664807
+    }, {
+      "latency" : 63316713
+    }, {
+      "latency" : 70882609
+    }, {
+      "latency" : 86346555
+    }, {
+      "latency" : 76322472
+    }, {
+      "latency" : 70336579
+    }, {
+      "latency" : 66452873
+    }, {
+      "latency" : 60942190
+    }, {
+      "latency" : 80823058
+    }, {
+      "latency" : 69784903
+    }, {
+      "latency" : 75110455
+    }, {
+      "latency" : 69990695
+    }, {
+      "latency" : 64168204
+    }, {
+      "latency" : 64569648
+    }, {
+      "latency" : 86222240
+    }, {
+      "latency" : 71755596
+    }, {
+      "latency" : 68320374
+    }, {
+      "latency" : 89402994
+    }, {
+      "latency" : 72657216
+    }, {
+      "latency" : 67527730
+    }, {
+      "latency" : 69942011
+    }, {
+      "latency" : 80733153
+    }, {
+      "latency" : 88521030
+    }, {
+      "latency" : 71856273
+    }, {
+      "latency" : 66172387
+    }, {
+      "latency" : 76173289
+    }, {
+      "latency" : 75513276
+    }, {
+      "latency" : 66991340
+    }, {
+      "latency" : 87694232
+    }, {
+      "latency" : 78982441
+    }, {
+      "latency" : 82297712
+    }, {
+      "latency" : 84367828
+    }, {
+      "latency" : 63877558
+    }, {
+      "latency" : 66486127
+    }, {
+      "latency" : 68911851
+    }, {
+      "latency" : 1801905064
+    }, {
+      "latency" : 81412785
+    }, {
+      "latency" : 78792852
+    }, {
+      "latency" : 85501460
+    }, {
+      "latency" : 71820119
+    }, {
+      "latency" : 87065459
+    }, {
+      "latency" : 73900981
+    }, {
+      "latency" : 96233267
+    }, {
+      "latency" : 64525367
+    }, {
+      "latency" : 74721592
+    }, {
+      "latency" : 86849184
+    }, {
+      "latency" : 82347570
+    }, {
+      "latency" : 57256088
+    }, {
+      "latency" : 67287931
+    }, {
+      "latency" : 87701094
+    }, {
+      "latency" : 80345983
+    }, {
+      "latency" : 55707775
+    }, {
+      "latency" : 71675920
+    }, {
+      "latency" : 93129272
+    }, {
+      "latency" : 70069783
+    }, {
+      "latency" : 69618010
+    }, {
+      "latency" : 63460585
+    }, {
+      "latency" : 82392082
+    }, {
+      "latency" : 70836786
+    }, {
+      "latency" : 70098947
+    }, {
+      "latency" : 73851282
+    }, {
+      "latency" : 108160247
+    }, {
+      "latency" : 101487078
+    }, {
+      "latency" : 83372659
+    }, {
+      "latency" : 120534883
+    }, {
+      "latency" : 95655538
+    }, {
+      "latency" : 76717377
+    }, {
+      "latency" : 67436868
+    }, {
+      "latency" : 95199255
+    }, {
+      "latency" : 73502948
+    }, {
+      "latency" : 84860112
+    }, {
+      "latency" : 66990138
+    }, {
+      "latency" : 61652948
+    }, {
+      "latency" : 77530652
+    }, {
+      "latency" : 92267723
+    }, {
+      "latency" : 68624276
+    }, {
+      "latency" : 62498777
+    }, {
+      "latency" : 83290861
+    }, {
+      "latency" : 96727473
+    }, {
+      "latency" : 102307752
+    }, {
+      "latency" : 275100713
+    }, {
+      "latency" : 85444850
+    }, {
+      "latency" : 110843857
+    }, {
+      "latency" : 103778828
+    }, {
+      "latency" : 99112409
+    }, {
+      "latency" : 103130613
+    }, {
+      "latency" : 97889736
+    }, {
+      "latency" : 107875115
+    }, {
+      "latency" : 95149007
+    }, {
+      "latency" : 103555106
+    }, {
+      "latency" : 80640444
+    }, {
+      "latency" : 79535603
+    }, {
+      "latency" : 69340142
+    }, {
+      "latency" : 60929310
+    }, {
+      "latency" : 70259452
+    }, {
+      "latency" : 60579667
+    }, {
+      "latency" : 82582474
+    }, {
+      "latency" : 64792476
+    }, {
+      "latency" : 69006027
+    }, {
+      "latency" : 69336630
+    }, {
+      "latency" : 64197213
+    }, {
+      "latency" : 68925664
+    }, {
+      "latency" : 77828814
+    }, {
+      "latency" : 104834246
+    }, {
+      "latency" : 63573769
+    }, {
+      "latency" : 82655207
+    }, {
+      "latency" : 70779021
+    }, {
+      "latency" : 98638350
+    }, {
+      "latency" : 77540614
+    }, {
+      "latency" : 78704505
+    }, {
+      "latency" : 109931342
+    }, {
+      "latency" : 60771746
+    }, {
+      "latency" : 67826578
+    }, {
+      "latency" : 74166882
+    }, {
+      "latency" : 68429857
+    }, {
+      "latency" : 62171717
+    }, {
+      "latency" : 77440425
+    }, {
+      "latency" : 82212189
+    }, {
+      "latency" : 66004361
+    }, {
+      "latency" : 64588332
+    }, {
+      "latency" : 68015154
+    }, {
+      "latency" : 68607106
+    }, {
+      "latency" : 62053831
+    }, {
+      "latency" : 78217381
+    }, {
+      "latency" : 65792341
+    }, {
+      "latency" : 73244800
+    }, {
+      "latency" : 292457028
+    }, {
+      "latency" : 70153204
+    }, {
+      "latency" : 63278647
+    }, {
+      "latency" : 62789541
+    }, {
+      "latency" : 77738518
+    }, {
+      "latency" : 70042758
+    }, {
+      "latency" : 69684064
+    }, {
+      "latency" : 70902488
+    }, {
+      "latency" : 85463402
+    }, {
+      "latency" : 70650736
+    }, {
+      "latency" : 107913774
+    }, {
+      "latency" : 72651750
+    }, {
+      "latency" : 70529603
+    }, {
+      "latency" : 68707429
+    }, {
+      "latency" : 60841921
+    }, {
+      "latency" : 54758263
+    }, {
+      "latency" : 70404336
+    }, {
+      "latency" : 69393159
+    }, {
+      "latency" : 62705859
+    }, {
+      "latency" : 74431104
+    }, {
+      "latency" : 193452601
+    }, {
+      "latency" : 115708500
+    }, {
+      "latency" : 82042631
+    }, {
+      "latency" : 75588367
+    }, {
+      "latency" : 58360648
+    }, {
+      "latency" : 89593768
+    }, {
+      "latency" : 78485590
+    }, {
+      "latency" : 98853200
+    }, {
+      "latency" : 94544540
+    }, {
+      "latency" : 92081154
+    }, {
+      "latency" : 77934489
+    }, {
+      "latency" : 69743200
+    }, {
+      "latency" : 67196698
+    }, {
+      "latency" : 87481656
+    }, {
+      "latency" : 78365949
+    }, {
+      "latency" : 68191980
+    }, {
+      "latency" : 64544819
+    }, {
+      "latency" : 102850255
+    }, {
+      "latency" : 99324619
+    }, {
+      "latency" : 70028622
+    }, {
+      "latency" : 68060557
+    }, {
+      "latency" : 85921343
+    }, {
+      "latency" : 92109477
+    }, {
+      "latency" : 103776145
+    }, {
+      "latency" : 66961938
+    }, {
+      "latency" : 67576622
+    }, {
+      "latency" : 297359020
+    }, {
+      "latency" : 66219238
+    }, {
+      "latency" : 70710816
+    }, {
+      "latency" : 61884391
+    }, {
+      "latency" : 74880190
+    }, {
+      "latency" : 104194664
+    }, {
+      "latency" : 69600017
+    }, {
+      "latency" : 94443622
+    }, {
+      "latency" : 89002780
+    }, {
+      "latency" : 97947440
+    }, {
+      "latency" : 101888661
+    }, {
+      "latency" : 81886260
+    }, {
+      "latency" : 78869718
+    }, {
+      "latency" : 67627581
+    }, {
+      "latency" : 62438096
+    }, {
+      "latency" : 66529126
+    }, {
+      "latency" : 73807705
+    }, {
+      "latency" : 69497617
+    }, {
+      "latency" : 70255342
+    }, {
+      "latency" : 80564836
+    }, {
+      "latency" : 69179130
+    }, {
+      "latency" : 63801338
+    }, {
+      "latency" : 68216019
+    }, {
+      "latency" : 70892320
+    }, {
+      "latency" : 82524501
+    }, {
+      "latency" : 107202606
+    }, {
+      "latency" : 77101256
+    }, {
+      "latency" : 61613957
+    }, {
+      "latency" : 66248333
+    }, {
+      "latency" : 66207665
+    }, {
+      "latency" : 67582169
+    }, {
+      "latency" : 68018798
+    }, {
+      "latency" : 79220330
+    }, {
+      "latency" : 69166371
+    }, {
+      "latency" : 62008021
+    }, {
+      "latency" : 75692822
+    }, {
+      "latency" : 61772650
+    }, {
+      "latency" : 69373870
+    }, {
+      "latency" : 66429001
+    }, {
+      "latency" : 63928565
+    }, {
+      "latency" : 67973566
+    }, {
+      "latency" : 60708548
+    }, {
+      "latency" : 64053702
+    }, {
+      "latency" : 83233731
+    }, {
+      "latency" : 81751611
+    }, {
+      "latency" : 67320760
+    }, {
+      "latency" : 294143952
+    }, {
+      "latency" : 63144889
+    }, {
+      "latency" : 63024971
+    }, {
+      "latency" : 82132724
+    }, {
+      "latency" : 75752490
+    }, {
+      "latency" : 74957367
+    }, {
+      "latency" : 64998715
+    }, {
+      "latency" : 148061294
+    }, {
+      "latency" : 140638260
+    }, {
+      "latency" : 125261741
+    }, {
+      "latency" : 106842034
+    }, {
+      "latency" : 147382264
+    }, {
+      "latency" : 107713632
+    }, {
+      "latency" : 88902794
+    }, {
+      "latency" : 107797505
+    }, {
+      "latency" : 64340635
+    }, {
+      "latency" : 64309852
+    }, {
+      "latency" : 67918165
+    }, {
+      "latency" : 79478689
+    }, {
+      "latency" : 82339292
+    }, {
+      "latency" : 70104710
+    }, {
+      "latency" : 72039289
+    }, {
+      "latency" : 70198618
+    }, {
+      "latency" : 63864788
+    }, {
+      "latency" : 69649167
+    }, {
+      "latency" : 79282514
+    }, {
+      "latency" : 71720161
+    }, {
+      "latency" : 68563429
+    }, {
+      "latency" : 72556431
+    }, {
+      "latency" : 64197637
+    }, {
+      "latency" : 72338537
+    }, {
+      "latency" : 67842109
+    }, {
+      "latency" : 78852745
+    }, {
+      "latency" : 70504309
+    }, {
+      "latency" : 67484074
+    }, {
+      "latency" : 65614306
+    }, {
+      "latency" : 59888110
+    }, {
+      "latency" : 79055042
+    }, {
+      "latency" : 58773755
+    }, {
+      "latency" : 65690210
+    }, {
+      "latency" : 68013082
+    }, {
+      "latency" : 65103140
+    }, {
+      "latency" : 68798326
+    }, {
+      "latency" : 56112120
+    }, {
+      "latency" : 86749257
+    }, {
+      "latency" : 65010477
+    }, {
+      "latency" : 303169175
+    }, {
+      "latency" : 68450904
+    }, {
+      "latency" : 70533238
+    }, {
+      "latency" : 87083194
+    }, {
+      "latency" : 61970695
+    }, {
+      "latency" : 71903851
+    }, {
+      "latency" : 59188602
+    }, {
+      "latency" : 74815809
+    }, {
+      "latency" : 70568972
+    }, {
+      "latency" : 62117576
+    }, {
+      "latency" : 79664390
+    }, {
+      "latency" : 60545078
+    }, {
+      "latency" : 78503510
+    }, {
+      "latency" : 66661098
+    }, {
+      "latency" : 83760768
+    }, {
+      "latency" : 71071707
+    }, {
+      "latency" : 73697451
+    }, {
+      "latency" : 65852910
+    }, {
+      "latency" : 65524934
+    }, {
+      "latency" : 77090595
+    }, {
+      "latency" : 69374599
+    }, {
+      "latency" : 87108495
+    }, {
+      "latency" : 62963225
+    }, {
+      "latency" : 73904876
+    }, {
+      "latency" : 66544216
+    }, {
+      "latency" : 83400753
+    }, {
+      "latency" : 71742771
+    }, {
+      "latency" : 67604376
+    }, {
+      "latency" : 70709003
+    }, {
+      "latency" : 69841089
+    }, {
+      "latency" : 65659685
+    }, {
+      "latency" : 69029349
+    }, {
+      "latency" : 79768804
+    }, {
+      "latency" : 81305138
+    }, {
+      "latency" : 76475659
+    }, {
+      "latency" : 69270159
+    }, {
+      "latency" : 72742902
+    }, {
+      "latency" : 72352698
+    }, {
+      "latency" : 65015860
+    }, {
+      "latency" : 77827922
+    }, {
+      "latency" : 70484061
+    }, {
+      "latency" : 67384948
+    }, {
+      "latency" : 81254861
+    }, {
+      "latency" : 67651729
+    }, {
+      "latency" : 66266634
+    }, {
+      "latency" : 63529426
+    }, {
+      "latency" : 284877197
+    }, {
+      "latency" : 87467723
+    }, {
+      "latency" : 76819310
+    }, {
+      "latency" : 71777496
+    }, {
+      "latency" : 93827163
+    }, {
+      "latency" : 116024935
+    }, {
+      "latency" : 77965118
+    }, {
+      "latency" : 71253913
+    }, {
+      "latency" : 87652569
+    }, {
+      "latency" : 75765746
+    }, {
+      "latency" : 94030436
+    }, {
+      "latency" : 67084299
+    }, {
+      "latency" : 68640637
+    }, {
+      "latency" : 68482467
+    }, {
+      "latency" : 62586371
+    }, {
+      "latency" : 78995767
+    }, {
+      "latency" : 69596953
+    }, {
+      "latency" : 67263790
+    }, {
+      "latency" : 88735666
+    }, {
+      "latency" : 72556199
+    }, {
+      "latency" : 64552992
+    }, {
+      "latency" : 73036859
+    }, {
+      "latency" : 70612950
+    }, {
+      "latency" : 61476828
+    }, {
+      "latency" : 73336010
+    }, {
+      "latency" : 74824945
+    }, {
+      "latency" : 77814267
+    }, {
+      "latency" : 64822318
+    }, {
+      "latency" : 68586601
+    }, {
+      "latency" : 87315386
+    }, {
+      "latency" : 76802011
+    }, {
+      "latency" : 64559328
+    }, {
+      "latency" : 68151242
+    }, {
+      "latency" : 72109687
+    }, {
+      "latency" : 64550815
+    }, {
+      "latency" : 79851885
+    }, {
+      "latency" : 74673087
+    }, {
+      "latency" : 56723091
+    }, {
+      "latency" : 80539330
+    }, {
+      "latency" : 74451747
+    }, {
+      "latency" : 68305520
+    }, {
+      "latency" : 72928214
+    }, {
+      "latency" : 69559987
+    }, {
+      "latency" : 67751128
+    }, {
+      "latency" : 74612993
+    }, {
+      "latency" : 360456277
+    }, {
+      "latency" : 74262715
+    }, {
+      "latency" : 80090500
+    }, {
+      "latency" : 78976948
+    }, {
+      "latency" : 82714834
+    }, {
+      "latency" : 73754076
+    }, {
+      "latency" : 84216305
+    }, {
+      "latency" : 75462951
+    }, {
+      "latency" : 57069358
+    }, {
+      "latency" : 73698103
+    }, {
+      "latency" : 72524299
+    }, {
+      "latency" : 79227349
+    }, {
+      "latency" : 64757053
+    }, {
+      "latency" : 90391291
+    }, {
+      "latency" : 73942072
+    }, {
+      "latency" : 74449369
+    }, {
+      "latency" : 75692155
+    }, {
+      "latency" : 78099635
+    }, {
+      "latency" : 77454959
+    }, {
+      "latency" : 74340419
+    }, {
+      "latency" : 73613612
+    }, {
+      "latency" : 74178620
+    }, {
+      "latency" : 67354515
+    }, {
+      "latency" : 80949761
+    }, {
+      "latency" : 75849970
+    }, {
+      "latency" : 60496384
+    }, {
+      "latency" : 86064790
+    }, {
+      "latency" : 73596645
+    }, {
+      "latency" : 74894369
+    }, {
+      "latency" : 67522056
+    }, {
+      "latency" : 63610288
+    }, {
+      "latency" : 75234307
+    }, {
+      "latency" : 68594313
+    }, {
+      "latency" : 91637766
+    }, {
+      "latency" : 72364024
+    }, {
+      "latency" : 74308788
+    }, {
+      "latency" : 65116382
+    }, {
+      "latency" : 63068011
+    }, {
+      "latency" : 76404336
+    }, {
+      "latency" : 80904116
+    }, {
+      "latency" : 71254394
+    }, {
+      "latency" : 74006399
+    }, {
+      "latency" : 78085226
+    }, {
+      "latency" : 229217264
+    }, {
+      "latency" : 148132034
+    }, {
+      "latency" : 143751794
+    }, {
+      "latency" : 734992440
+    }, {
+      "latency" : 69941790
+    }, {
+      "latency" : 74284603
+    }, {
+      "latency" : 71306170
+    }, {
+      "latency" : 66678379
+    }, {
+      "latency" : 80547732
+    }, {
+      "latency" : 60583512
+    }, {
+      "latency" : 77922261
+    }, {
+      "latency" : 79933281
+    }, {
+      "latency" : 69074843
+    }, {
+      "latency" : 93803178
+    }, {
+      "latency" : 72271752
+    }, {
+      "latency" : 72888655
+    }, {
+      "latency" : 67800904
+    }, {
+      "latency" : 72753069
+    }, {
+      "latency" : 66459583
+    }, {
+      "latency" : 66315895
+    }, {
+      "latency" : 76931508
+    }, {
+      "latency" : 61143622
+    }, {
+      "latency" : 79070404
+    }, {
+      "latency" : 64978866
+    }, {
+      "latency" : 67946177
+    }, {
+      "latency" : 65467895
+    }, {
+      "latency" : 59667135
+    }, {
+      "latency" : 83514622
+    }, {
+      "latency" : 64268640
+    }, {
+      "latency" : 91482391
+    }, {
+      "latency" : 69399372
+    }, {
+      "latency" : 71596997
+    }, {
+      "latency" : 74214490
+    }, {
+      "latency" : 76382328
+    }, {
+      "latency" : 76567667
+    }, {
+      "latency" : 67020889
+    }, {
+      "latency" : 72546845
+    }, {
+      "latency" : 70577814
+    }, {
+      "latency" : 73859913
+    }, {
+      "latency" : 66244285
+    }, {
+      "latency" : 68147488
+    }, {
+      "latency" : 60253726
+    }, {
+      "latency" : 76150833
+    }, {
+      "latency" : 76627199
+    }, {
+      "latency" : 75662717
+    }, {
+      "latency" : 66242804
+    }, {
+      "latency" : 68252406
+    }, {
+      "latency" : 81591819
+    }, {
+      "latency" : 73567234
+    }, {
+      "latency" : 305922845
+    }, {
+      "latency" : 73199914
+    }, {
+      "latency" : 68961899
+    }, {
+      "latency" : 69796436
+    }, {
+      "latency" : 94707354
+    }, {
+      "latency" : 85190454
+    }, {
+      "latency" : 64034840
+    }, {
+      "latency" : 71584410
+    }, {
+      "latency" : 70425493
+    }, {
+      "latency" : 66910689
+    }, {
+      "latency" : 73975883
+    }, {
+      "latency" : 66396419
+    }, {
+      "latency" : 77945432
+    }, {
+      "latency" : 61331455
+    }, {
+      "latency" : 71960640
+    }, {
+      "latency" : 63192621
+    } ]
+  },
+  "dataset" : "ClimateDataset"
+}]
