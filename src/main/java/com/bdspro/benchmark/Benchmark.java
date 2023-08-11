@@ -45,7 +45,7 @@ public class Benchmark {
         this.batchSize = batchSize;
 
         this.dataGenerator = new DataGenerator(dataset);
-        result = new BenchmarkResult(writePercentage, writeFrequency, databases, numberOfNodes, dataset, 0, batchSize);
+        result = new BenchmarkResult(writePercentage, writeFrequency, numberOfNodes, dataset, 0, batchSize);
     }
 
     private String[][] generateWriteQueryWorkload() {
@@ -143,7 +143,7 @@ public class Benchmark {
             db.load(dataset.getCsvName(), dataset);
 
             result.setDatasetRows(db.getRowCount(dataset.getTableName()));
-            result.compressionRates[j] = db.getSize(dataset.getTableName()) * 1.0 / dataset.getCsvFileSize();
+            result.compressionRates.put(db.getClass().getSimpleName(), db.getSize(dataset.getTableName()) * 1.0 / dataset.getCsvFileSize());
 
             //start reader and writer thread
             ReadThread reader = new ReadThread(db, readQueries[j], db.getRowCount(dataset.getTableName()));
@@ -164,7 +164,7 @@ public class Benchmark {
             result.writeResults.put(db.getClass().getSimpleName(), writer.results);
 
             //TODO: do something with the results
-            System.out.println("Compression Rate: " + result.compressionRates[j]);
+            System.out.println("Compression Rate: " + result.compressionRates.get(db.getClass().getSimpleName()));
 
             // cleanup database
             db.cleanup(dataset.getTableName());

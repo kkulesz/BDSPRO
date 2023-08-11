@@ -12,16 +12,14 @@ import java.util.Map;
 
 public class BenchmarkResult {
 
-    private int writePercentage;
-    private int writeFrequency;
+    private final int writePercentage;
+    private final int writeFrequency;
+    final Map<String, Double> compressionRates;
+    private final int numberOfNodes;
     @JsonIgnore
-    private Database[] databases;
-    double[] compressionRates;
-    private int numberOfNodes;
-    @JsonIgnore
-    private Dataset dataset;
+    private final Dataset dataset;
     private int datasetRows;
-    private int batchSize;
+    private final int batchSize;
 
     public final Map<String, List<ReadQueryResult>> readResults = new HashMap<>();
     public final Map<String, List<WriteQueryResult>> writeResults = new HashMap<>();
@@ -34,15 +32,14 @@ public class BenchmarkResult {
         return datasetRows;
     }
 
-    public BenchmarkResult(int writePercentage, int writeFrequency, Database[] databases, int numberOfNodes, Dataset dataset, int rowCount, int batchSize) {
+    public BenchmarkResult(int writePercentage, int writeFrequency, int numberOfNodes, Dataset dataset, int rowCount, int batchSize) {
         this.writePercentage = writePercentage;
         this.writeFrequency = writeFrequency;
-        this.databases = databases;
         this.numberOfNodes = numberOfNodes;
         this.dataset = dataset;
         this.datasetRows = rowCount;
         this.batchSize = batchSize;
-        this.compressionRates = new double[databases.length];
+        this.compressionRates = new HashMap<>();
     }
 
     public static class ReadQueryResult {
@@ -90,7 +87,7 @@ public class BenchmarkResult {
         return writeFrequency;
     }
 
-    public double[] getCompressionRates() {
+    public Map<String, Double> getCompressionRates() {
         return compressionRates;
     }
 
