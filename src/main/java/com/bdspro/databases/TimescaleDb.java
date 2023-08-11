@@ -88,13 +88,13 @@ public class TimescaleDb implements Database {
     }
 
     @Override
-    public int getSize(String datasetTableName) {
+    public long getSize(String datasetTableName) {
         try (Connection conn = DriverManager.getConnection(connUrl)) {
-            String queryString = String.format("SELECT hypertable_size('%s')", datasetTableName);
+            String queryString = String.format("SELECT table_bytes FROM hypertable_detailed_size('%s')", datasetTableName);
             PreparedStatement stmt = conn.prepareStatement(queryString);
             ResultSet rs = stmt.executeQuery();
             rs.next();
-            return rs.getInt(1);
+            return rs.getLong(1);
         }catch (Exception ex) {
             System.err.println(ex.getMessage());
             return -1;

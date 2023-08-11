@@ -15,7 +15,7 @@ public interface Database {
 
     int runQuery(String queryString);
 
-    int getSize(String datasetTableName);
+    long getSize(String datasetTableName);
 
     int getRowCount(String datasetTableName);
 
