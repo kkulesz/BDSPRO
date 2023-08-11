@@ -137,7 +137,7 @@ public class Benchmark {
             System.out.println("Benchmarking Database: " + db.getClass().getSimpleName());
 
             //setup database
-            db.setup(dataset);
+            db.setup(dataset, numberOfNodes > 1);
 
             //write whole dataset
             db.load(dataset.getCsvName(), dataset);

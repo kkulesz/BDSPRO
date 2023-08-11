@@ -15,7 +15,7 @@ public class TimescaleDb implements Database {
 
 
     @Override
-    public int setup(Dataset dataset) {
+    public int setup(Dataset dataset, boolean cluster) {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {

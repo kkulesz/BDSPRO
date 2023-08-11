@@ -18,14 +18,17 @@ public class ClickHouse implements Database {
     ClickHouseNode server;
     private final QueryTranslator queryTranslator = new SqlQueryTranslator();
 
+    private boolean cluster = false;
+
     @Override
-    public int setup(Dataset dataset) {
+    public int setup(Dataset dataset, boolean cluster) {
+        this.cluster = cluster;
         server = ClickHouseNode.builder()
-                .host(System.getProperty("chHost", "clickhouse"))
+                .host(System.getProperty("chHost", "clickhouse-1"))
                 .port(ClickHouseProtocol.HTTP, Integer.getInteger("chPort", 8123))
                 .database("benchmark").credentials(ClickHouseCredentials.fromUserAndPassword(
                         System.getProperty("chUser", "bdspro"), System.getProperty("chPassword", "password")))
-                .addOption(ClickHouseClientOption.SOCKET_TIMEOUT.getKey(), "300000") // 10x bigger than default
+                .addOption(ClickHouseClientOption.SOCKET_TIMEOUT.getKey(), "600000") // 20x bigger than default
                 .build();
 
         try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol())) {
@@ -154,12 +157,15 @@ public class ClickHouse implements Database {
 
     private int getMultiplier(String unit) {
         switch (unit) {
-            case "MiB":
+            case "MiB" -> {
                 return 1048576;
-            case "KiB":
+            }
+            case "KiB" -> {
                 return 1024;
-            case "GiB":
+            }
+            case "GiB" -> {
                 return 1073741824;
+            }
         }
         throw new NoSuchElementException("Multiplier " + unit + " not known yet");
     }

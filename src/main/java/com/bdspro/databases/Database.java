@@ -5,19 +5,19 @@ import com.bdspro.query.QueryTranslator;
 
 public interface Database {
 
-    public int setup(Dataset dataset);
+    int setup(Dataset dataset, boolean cluster);
 
-    public int load(String csvFile, Dataset dataset);
+    int load(String csvFile, Dataset dataset);
 
-    public int cleanup(String datasetTableName);
+    int cleanup(String datasetTableName);
 
-    public int runStatement(String stmtString);
+    int runStatement(String stmtString);
 
-    public int runQuery(String queryString);
+    int runQuery(String queryString);
 
-    public int getSize(String datasetTableName);
+    int getSize(String datasetTableName);
 
-    public int getRowCount(String datasetTableName);
+    int getRowCount(String datasetTableName);
 
-    public QueryTranslator getQueryTranslator();
+    QueryTranslator getQueryTranslator();
 }
