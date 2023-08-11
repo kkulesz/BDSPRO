@@ -6,7 +6,7 @@ import os
 import numpy as np
 
 RESULTS_DIR = "results"
-RUN_DIR = "run3-write-only"  # !change there only if you want to plot results of other run
+RUN_DIR = "run4-compression-rate"  # !change there only if you want to plot results of other run
 RESULTS_FILE = "benchmark_result"
 PLOTS_DIR_NAME = "plots"
 
@@ -164,7 +164,7 @@ def groupByQueryType(json):
     plt.legend(loc="upper left")
     plt.xlabel('Query Type')
     plt.ylabel('Average Latency in ms')
-    plt.title(" Group by Query Type")
+    plt.title("Group by Query Type")
     plt.gcf().subplots_adjust(bottom=.35)
     # plt.tight_layout()
     plt.savefig(os.path.join(PLOTS_DIR_PATH, "avg-que-latency-query-type"))
@@ -195,6 +195,13 @@ def visualize_write_only(json, dataset):
     plt.show()
 
 
+def visualize_compression_rate(json):
+    compression_rates = json[0]["compressionRates"]
+    plt.bar("TimescaleDb", compression_rates["TimescaleDb"], color='r')
+    plt.bar("ClickHouse", compression_rates["ClickHouse"], color='b')
+    plt.savefig(os.path.join(PLOTS_DIR_PATH, f"compression-rate"))
+    plt.ylabel('Compression rate')
+    plt.show()
 
 
 def main():
@@ -202,21 +209,22 @@ def main():
         os.makedirs(PLOTS_DIR_PATH)
     with open(RESULT_FILE_PATH) as json_file:
         json_result = json.load(json_file)
+
         # datasets = getAllValues(json_result, "dataset")
         # for dataset in datasets:
-        showLatencies(json_result, "ClickHouse")
-        showLatencies(json_result, "TimescaleDb")
-        visualize_write_percentages(json_result, 1000)
-        visualize_read_only(json_result, 13192591, 1000)
-        groupByQueryType(json_result)
+        ###### RUN1 and RUN2
+        # showLatencies(json_result, "ClickHouse")
+        # showLatencies(json_result, "TimescaleDb")
+        # visualize_write_percentages(json_result, 1000)
+        # visualize_read_only(json_result, 13192591, 1000)
+        # groupByQueryType(json_result)
 
-        # use those with run that points to the results where:
-        #   - both databases
-        #   - both datasets
-        #   - batch_size changes
-        #   - rest of parameters are fixed
+        ###### RUN3
         # visualize_write_only(json_result, "TaxiRidesDataset")
         # visualize_write_only(json_result, "ClimateDataset")
+
+        ###### RUN4
+        visualize_compression_rate(json_result)
 
 
 if __name__ == "__main__":
