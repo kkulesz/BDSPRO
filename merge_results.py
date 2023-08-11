@@ -55,12 +55,20 @@ def merge_experiments_with_the_same_parameters(params_to_json_dict):
         elif len(jsons) > 2:
             print(f"Something is incorrect, too many experiments for set of params: {params}")
         else:
-            read_results = jsons[0]["readResults"] | jsons[1]["readResults"]
-            write_results = jsons[0]["writeResults"] | jsons[1]["writeResults"]
-
             merged_experiment = jsons[0]
-            merged_experiment["readResults"] = read_results
-            merged_experiment["writeResults"] = write_results
+            merged_experiment["readResults"] = jsons[0]["readResults"] | jsons[1]["readResults"]
+            merged_experiment["writeResults"] = jsons[0]["writeResults"] | jsons[1]["writeResults"]
+
+            if type(jsons[0]["compressionRates"]) == list:  # old version of file
+                db_0 = list(jsons[0]["readResults"].keys())[0]
+                db_1 = list(jsons[1]["readResults"].keys())[0]
+                compression_rates = {
+                    db_0: jsons[0]["compressionRates"][0],
+                    db_1: jsons[1]["compressionRates"][0]
+                }
+            else:  # new version of file
+                compression_rates = jsons[0]["compressionRates"] | jsons[1]["compressionRates"]
+            merged_experiment["compressionRates"] = compression_rates
 
             merged_jsons.append(merged_experiment)
 
@@ -77,7 +85,8 @@ def merge_json_files(jsons_dir):
 
 def main():
     experiments_dir = "results"
-    run_dir = "run3-write-only"
+    # run_dir = "run4-compression-rate-mock"
+    run_dir = "run1"
     sub_experiments_dir = "results"
     results_path = os.path.join(experiments_dir, run_dir, sub_experiments_dir)
 
