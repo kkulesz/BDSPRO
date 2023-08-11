@@ -6,7 +6,7 @@ import os
 import numpy as np
 
 RESULTS_DIR = "results"
-RUN_DIR = "run4-compression-rate"  # !change there only if you want to plot results of other run
+RUN_DIR = "run2-big-taxi"  # !change there only if you want to plot results of other run
 RESULTS_FILE = "benchmark_result"
 PLOTS_DIR_NAME = "plots"
 
@@ -159,8 +159,8 @@ def groupByQueryType(json):
     plt.xticks(ticks=range(len(x)), labels=x, rotation=90)
     y_tsdb = list(results_by_db["TimescaleDb"].values())
     y_ch = list(results_by_db["ClickHouse"].values())
-    plt.plot(x, y_ch, color='red', label='Clickhouse')
-    plt.plot(x, y_tsdb, label='TimescaleDB')
+    plt.plot(x, y_ch, color='blue', label='Clickhouse')
+    plt.plot(x, y_tsdb, color='red', label='TimescaleDB')
     plt.legend(loc="upper left")
     plt.xlabel('Query Type')
     plt.ylabel('Average Latency in ms')
@@ -213,18 +213,18 @@ def main():
         # datasets = getAllValues(json_result, "dataset")
         # for dataset in datasets:
         ###### RUN1 and RUN2
-        # showLatencies(json_result, "ClickHouse")
-        # showLatencies(json_result, "TimescaleDb")
-        # visualize_write_percentages(json_result, 1000)
-        # visualize_read_only(json_result, 13192591, 1000)
-        # groupByQueryType(json_result)
+        showLatencies(json_result, "ClickHouse")
+        showLatencies(json_result, "TimescaleDb")
+        visualize_write_percentages(json_result, 1000)
+        visualize_read_only(json_result, 13192591, 1000)
+        groupByQueryType(json_result)
 
         ###### RUN3
         # visualize_write_only(json_result, "TaxiRidesDataset")
         # visualize_write_only(json_result, "ClimateDataset")
 
         ###### RUN4
-        visualize_compression_rate(json_result)
+        # visualize_compression_rate(json_result)
 
 
 if __name__ == "__main__":
