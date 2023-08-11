@@ -12,7 +12,6 @@ everything that is written below is work in progress, it may slightly change whe
 
 TODO:
 - [ ] plot for write only workloads
-- [ ] check Partitioning
 - [ ] fix compression rate for TSDB
 - [ ] add section in report about COmpression rate
 - [ ] resolve todos in report

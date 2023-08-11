@@ -23,14 +23,38 @@ public class ClickHouse implements Database {
     @Override
     public int setup(Dataset dataset, boolean cluster) {
         this.cluster = cluster;
-        server = ClickHouseNode.builder()
-                .host(System.getProperty("chHost", "clickhouse-1"))
-                .port(ClickHouseProtocol.HTTP, Integer.getInteger("chPort", 8123))
-                .database("benchmark").credentials(ClickHouseCredentials.fromUserAndPassword(
-                        System.getProperty("chUser", "bdspro"), System.getProperty("chPassword", "password")))
-                .addOption(ClickHouseClientOption.SOCKET_TIMEOUT.getKey(), "600000") // 20x bigger than default
-                .build();
+        server = getServer(1);
+        createTable(dataset);
 
+
+        if (cluster) {
+            //setup table on all servers
+            server = getServer(2);
+            createTable(dataset);
+            server = getServer(3);
+            createTable(dataset);
+            server = getServer(1);
+            //setup distributed table view on node one as table_name_dist with distributed engine and timestamp as shard key
+            try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol())) {
+                ClickHouseRequest<?> request = client.connect(server);
+                StringBuilder schema = new StringBuilder();
+                for (Map.Entry<String, ColumnType> column :dataset.getColumnNamesWithTypes()) {
+                    schema.append(column.getKey()).append(" ").append(columnTypeToString(column.getValue())).append(", ");
+                }
+                schema.delete(schema.length() - 2, schema.length());
+                String query = "create table if not exists benchmark." + dataset.getTableName() + "(" + schema + ") engine=Distributed(benchmark_cluster, benchmark, " + dataset.getTableName() + "node, " + dataset.getTimeStampColumnName() + ");";
+                request.query(query).execute().get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // make sure to use dist table from now on
+        }
+        return 0;
+    }
+
+    private void createTable(Dataset dataset)  {
+
+        String tablename = cluster ? dataset.getTableName() + "_node" : dataset.getTableName();
         try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol())) {
             ClickHouseRequest<?> request = client.connect(server);
             StringBuilder schema = new StringBuilder();
@@ -38,12 +62,21 @@ public class ClickHouse implements Database {
                 schema.append(column.getKey()).append(" ").append(columnTypeToString(column.getValue())).append(", ");
             }
             schema.delete(schema.length() - 2, schema.length());
-            String query = "create table if not exists " + dataset.getTableName() + "(" + schema + ") engine=MergeTree() order by " + dataset.getTimeStampColumnName() + ";";
+            String query = "create table if not exists " + tablename + "(" + schema + ") engine=MergeTree() order by " + dataset.getTimeStampColumnName() + ";";
             request.query(query).execute().get();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+    }
+
+    private ClickHouseNode getServer(int i) {
+        return ClickHouseNode.builder()
+                .host(System.getProperty("chHost", "clickhouse-" + i))
+                .port(ClickHouseProtocol.HTTP, Integer.getInteger("chPort", 8123))
+                .database("benchmark").credentials(ClickHouseCredentials.fromUserAndPassword(
+                        System.getProperty("chUser", "bdspro"), System.getProperty("chPassword", "password")))
+                .addOption(ClickHouseClientOption.SOCKET_TIMEOUT.getKey(), "600000") // 20x bigger than default
+                .build();
     }
 
     @Override
