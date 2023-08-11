@@ -6,7 +6,7 @@ import os
 import numpy as np
 
 RESULTS_DIR = "results"
-RUN_DIR = "run2-big-taxi"  # !change there only if you want to plot results of other run
+RUN_DIR = "run1"
 RESULTS_FILE = "benchmark_result"
 PLOTS_DIR_NAME = "plots"
 
@@ -41,7 +41,7 @@ def getAllValues(json, value_name):
 
 ## returns list of all Databases used in the benchmark
 def getAllDBs(json):
-    return list(json[0]['readResults'].keys())
+    return sorted(list(json[0]['readResults'].keys()))
 
 
 def filter_json(json, value_name, value):
