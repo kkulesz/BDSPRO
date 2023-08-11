@@ -61,16 +61,16 @@ public class TaxiRidesDataset implements Dataset{
     @Override
     public Map.Entry<Timestamp, Timestamp> getExampleSmallRange() {
         return new AbstractMap.SimpleEntry<>(
-                Timestamp.valueOf("2015-01-15 19:05:39"),
-                Timestamp.valueOf("2015-01-10 20:33:39")
+                Timestamp.valueOf("2016-01-01 00:00:00"),
+                Timestamp.valueOf("2016-01-10 23:59:59")
         );
     }
 
     @Override
     public Map.Entry<Timestamp, Timestamp> getExampleBigRange() {
         return new AbstractMap.SimpleEntry<>(
-                Timestamp.valueOf("2015-01-15 19:05:39"),
-                Timestamp.valueOf("2015-01-24 00:26:42")
+                Timestamp.valueOf("2016-01-01 00:00:00"),
+                Timestamp.valueOf("2016-01-31 23:59:59")
         );
     }
 
