@@ -6,7 +6,7 @@ import os
 import numpy as np
 
 RESULTS_DIR = "results"
-RUN_DIR = "run1"
+RUN_DIR = "run5-taxi-selectivity"
 RESULTS_FILE = "benchmark_result"
 PLOTS_DIR_NAME = "plots"
 
@@ -84,7 +84,8 @@ def visualize_read_only(json, row_count, batch_size):
     json = filter_json(json, "batchSize", batch_size)
     dbs = getAllDBs(json)
     results_by_db = {}
-    buckets = [0, 1, 0.0001 * row_count, 0.001 * row_count, 0.01 * row_count, 0.1 * row_count, row_count]
+    # buckets = [0, 1, 0.0001 * row_count, 0.001 * row_count, 0.01 * row_count, 0.1 * row_count, row_count]
+    buckets = [1, 0.01 * row_count, 0.05 * row_count, 0.1 * row_count, 0.15 * row_count, 0.2 * row_count, row_count]
     for db in dbs:
         latencies_by_selectivity = {}
         for bucket in buckets:
@@ -105,7 +106,8 @@ def visualize_read_only(json, row_count, batch_size):
         results_by_db[db] = latencies
     x = numpy.array(range(len(buckets)))  # numpy.array(buckets)
     ax = plt.subplot(111)
-    plt.xticks(ticks=range(len(x)), labels=["0", "1", "<0.01%", "<0.1%", "<1%", "<10%", ">=10%"], rotation=45)
+    # plt.xticks(ticks=range(len(x)), labels=["0", "1", "<0.01%", "<0.1%", "<1%", "<10%", ">=10%"], rotation=45)
+    plt.xticks(ticks=range(len(x)), labels=["1", "<1%", "<5%", "<10%", "<15%", "<20%", ">=25%"], rotation=45)
     ax.bar(x - 0.1, results_by_db[dbs[0]], width=.2, color='b', align='center', label=dbs[0])
     ax.bar(x + 0.1, results_by_db[dbs[1]], width=.2, color='r', align='center', label=dbs[1])
     plt.legend(loc="upper left")
@@ -212,7 +214,7 @@ def main():
 
         # datasets = getAllValues(json_result, "dataset")
         # for dataset in datasets:
-        ###### RUN1 and RUN2
+        ###### RUN1, RUN2 and RUN5
         showLatencies(json_result, "ClickHouse")
         showLatencies(json_result, "TimescaleDb")
         visualize_write_percentages(json_result, 1000)
