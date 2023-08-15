@@ -6,7 +6,7 @@ import os
 import numpy as np
 
 RESULTS_DIR = "results"
-RUN_DIR = "run5-taxi-selectivity"
+RUN_DIR = "run2-big-taxi"
 RESULTS_FILE = "benchmark_result"
 PLOTS_DIR_NAME = "plots"
 
@@ -156,13 +156,16 @@ def groupByQueryType(json):
         for type in qTypes:
             results_by_qType[type] = mean(getLatenciesForDBAndQueryType(json, db, type)) / 1000000.0
         results_by_db[db] = results_by_qType
-    x = list(results_by_db[dbs[0]].keys())
-    print(max(results_by_db["TimescaleDb"]))
+
+    ts_results = list(sorted(list(results_by_db["TimescaleDb"].items())))
+    ch_results = list(sorted(list(results_by_db["ClickHouse"].items())))
+    x = list(zip(*ts_results))[0]
+    y_ts = list(zip(*ts_results))[1]
+    y_ch = list(zip(*ch_results))[1]
+
     plt.xticks(ticks=range(len(x)), labels=x, rotation=90)
-    y_tsdb = list(results_by_db["TimescaleDb"].values())
-    y_ch = list(results_by_db["ClickHouse"].values())
     plt.plot(x, y_ch, color='blue', label='Clickhouse')
-    plt.plot(x, y_tsdb, color='red', label='TimescaleDB')
+    plt.plot(x, y_ts, color='red', label='TimescaleDB')
     plt.legend(loc="upper left")
     plt.xlabel('Query Type')
     plt.ylabel('Average Latency in ms')
@@ -215,10 +218,10 @@ def main():
         # datasets = getAllValues(json_result, "dataset")
         # for dataset in datasets:
         ###### RUN1, RUN2 and RUN5
-        showLatencies(json_result, "ClickHouse")
-        showLatencies(json_result, "TimescaleDb")
-        visualize_write_percentages(json_result, 1000)
-        visualize_read_only(json_result, 13192591, 1000)
+        # showLatencies(json_result, "ClickHouse")
+        # showLatencies(json_result, "TimescaleDb")
+        # visualize_write_percentages(json_result, 1000)
+        # visualize_read_only(json_result, 13192591, 1000)
         groupByQueryType(json_result)
 
         ###### RUN3
