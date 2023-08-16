@@ -11,8 +11,8 @@ everything that is written below is work in progress, it may slightly change whe
 #### Project deadline - 14th August
 
 TODO:
-- [ ] plot for write only workloads
-- [ ] fix compression rate for TSDB
+- [x] plot for write only workloads
+- [x] fix compression rate for TSDB
 - [ ] add section in report about COmpression rate
 - [ ] resolve todos in report
 - [ ] run experiment on multiple nodes

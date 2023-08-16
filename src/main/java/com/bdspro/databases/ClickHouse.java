@@ -160,7 +160,7 @@ public class ClickHouse implements Database {
     }
 
     @Override
-    public int getSize(String datasetTableName) {
+    public long getSize(String datasetTableName) {
         String query = "SELECT formatReadableSize(sum(data_compressed_bytes) AS size) AS compressed FROM system.parts" +
                 " WHERE (active = 1) AND (database='benchmark') AND (table='" + datasetTableName + "');";
         try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol());
@@ -170,7 +170,7 @@ public class ClickHouse implements Database {
             int count = 0;
             for (ClickHouseRecord r : response.records()) {
                 int multiplier = getMultiplier(r.getValue(0).asString().split(" ")[1].split("\"")[0]);
-                return multiplier * Integer.parseInt(r.getValue(0).asString().split("\\.")[0].substring(1));
+                return multiplier * Long.parseLong(r.getValue(0).asString().split("\\.")[0].substring(1));
             }
             return count;
         } catch (InterruptedException e) {
