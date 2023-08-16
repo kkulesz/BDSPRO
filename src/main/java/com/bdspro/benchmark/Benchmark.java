@@ -190,7 +190,7 @@ public class Benchmark {
         int non = 1;
         Dataset ds = null;
         Database[] databases = new Database[1];
-        try (BufferedReader reader = new BufferedReader(new FileReader("/app/parameters.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("/parameters.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("=");
@@ -200,6 +200,7 @@ public class Benchmark {
                     case "wf" -> wf = Integer.parseInt(parts[1]);
                     case "nq" -> noq = Integer.parseInt(parts[1]);
                     case "bs" -> bs = Integer.parseInt(parts[1]);
+                    case "non" -> non = Integer.parseInt(parts[1]);
                     case "db" -> {
                         switch (parts[1]) {
                             case "TimescaleDB" -> databases[0] = new TimescaleDb();
@@ -230,13 +231,14 @@ public class Benchmark {
 
         //save intermediate result ,so we do not lose them when tasks fails
         //file is "benchmark_result-{NUMBER}", where NUMBER is number of successful runs during this execution
-        saveResult(resultJson.toString(), "/results/benchmark_result-" + j);
+        saveResult(resultJson.toString(), "/benchmark_result-" + j);
 
         resultJson.append(",");
     }
 
     private static void saveResult(String jsonString, String fileName){
         String resultString = "[" + jsonString + "]";
+        System.out.println(resultString);
         try (PrintWriter out = new PrintWriter(fileName)) {
             out.println(resultString);
         } catch (FileNotFoundException e) {

@@ -42,12 +42,11 @@ public class ClickHouse implements Database {
                     schema.append(column.getKey()).append(" ").append(columnTypeToString(column.getValue())).append(", ");
                 }
                 schema.delete(schema.length() - 2, schema.length());
-                String query = "create table if not exists benchmark." + dataset.getTableName() + "(" + schema + ") engine=Distributed(benchmark_cluster, benchmark, " + dataset.getTableName() + "node, " + dataset.getTimeStampColumnName() + ");";
+                String query = "create table if not exists benchmark." + dataset.getTableName() + "(" + schema + ") engine=Distributed(benchmark_cluster, benchmark, " + dataset.getTableName() + "_node, toYYYYMMDD(" + dataset.getTimeStampColumnName() + "));";
                 request.query(query).execute().get();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            // make sure to use dist table from now on
         }
         return 0;
     }
@@ -71,12 +70,23 @@ public class ClickHouse implements Database {
 
     private ClickHouseNode getServer(int i) {
         return ClickHouseNode.builder()
-                .host(System.getProperty("chHost", "clickhouse-" + i))
-                .port(ClickHouseProtocol.HTTP, Integer.getInteger("chPort", 8123))
+                .host(System.getProperty("chHost", getHost(i)))
+                .port(ClickHouseProtocol.HTTP, Integer.getInteger("chPort", getPort()))
                 .database("benchmark").credentials(ClickHouseCredentials.fromUserAndPassword(
                         System.getProperty("chUser", "bdspro"), System.getProperty("chPassword", "password")))
                 .addOption(ClickHouseClientOption.SOCKET_TIMEOUT.getKey(), "600000") // 20x bigger than default
                 .build();
+    }
+
+    private int getPort() {
+        return cluster ? 8124 : 8123;
+    }
+
+    private String getHost(int i) {
+        if (cluster) {
+            return "cloud-4" + i;
+        }
+        return "clickhouse-" + i;
     }
 
     @Override
@@ -121,8 +131,10 @@ public class ClickHouse implements Database {
             return 0;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            e.printStackTrace();
             return -1;
         } catch (ExecutionException e) {
+            e.printStackTrace();
             return -1;
         }
     }
@@ -142,6 +154,7 @@ public class ClickHouse implements Database {
             Thread.currentThread().interrupt();
             return -1;
         } catch (ExecutionException e) {
+            e.printStackTrace();
             return -1;
         }
     }

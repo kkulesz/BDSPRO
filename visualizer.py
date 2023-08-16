@@ -73,7 +73,7 @@ def visualize_write_percentages(json, batch_size):
     ax = plt.subplot(111)
     ax.bar(x - 1, results_by_db[dbs[0]], width=2, color='b', align='center', label=dbs[0])
     ax.bar(x + 1, results_by_db[dbs[1]], width=2, color='r', align='center', label=dbs[1])
-    plt.legend(loc="upper left")
+    plt.legend(loc="upper right")
     plt.xlabel('Write Percentage')
     plt.ylabel('Average Query Latency in ms')
     plt.savefig(os.path.join(PLOTS_DIR_PATH, "avg-que-latency-writes"))
