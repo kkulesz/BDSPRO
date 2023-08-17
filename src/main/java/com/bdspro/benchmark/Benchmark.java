@@ -231,7 +231,7 @@ public class Benchmark {
 
         //save intermediate result ,so we do not lose them when tasks fails
         //file is "benchmark_result-{NUMBER}", where NUMBER is number of successful runs during this execution
-        saveResult(resultJson.toString(), "/benchmark_result-" + j);
+        saveResult(resultJson.toString(), "/results/benchmark_result-" + j);
 
         resultJson.append(",");
     }
@@ -242,6 +242,11 @@ public class Benchmark {
         try (PrintWriter out = new PrintWriter(fileName)) {
             out.println(resultString);
         } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            Thread.sleep(1000000);
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

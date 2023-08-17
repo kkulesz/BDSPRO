@@ -62,11 +62,10 @@ for wf in "${writeFrequency[@]}"; do
 
 
             docker build -t benchmark .
-            docker run -it --rm --name benchmark_run benchmark -v /home/dnatusch/results:/results -v /home/dnatusch/config/hosts:/etc/hosts
+            docker run -it --rm --name benchmark_run --mount type=bind,source=/home/dnatusch/results,target=/results benchmark
 
             echo "Tearing all containers down"
-            docker compose down -v 1> /dev/null
-            for host in "${dbHosts[@]}"; do
+             for host in "${dbHosts[@]}"; do
                 echo "Tearing down all container on node $host"
                 ssh $host "docker container stop db"
             done

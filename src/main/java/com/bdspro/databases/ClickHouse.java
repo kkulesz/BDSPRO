@@ -84,7 +84,7 @@ public class ClickHouse implements Database {
 
     private String getHost(int i) {
         if (cluster) {
-            return "cloud-4" + i;
+            return "cloud-4" + i + ".dima.tu-berlin.de";
         }
         return "clickhouse-" + i;
     }
@@ -161,18 +161,31 @@ public class ClickHouse implements Database {
 
     @Override
     public long getSize(String datasetTableName) {
+
+        long size1 = getSizeForNode(1, datasetTableName);
+        long size2 = cluster ? getSizeForNode(2, datasetTableName) : 0;
+        long size3 = cluster ? getSizeForNode(3, datasetTableName) : 0;
+
+        System.out.println("Sizes: " + size1 + " " + size2 + " " + size3);
+        server = getServer(1);
+        return size1 + size2 + size3;
+    }
+
+    private long getSizeForNode(int i, String datasetTableName) {
+        if (cluster) {
+            datasetTableName += "_node";
+        }
         String query = "SELECT formatReadableSize(sum(data_compressed_bytes) AS size) AS compressed FROM system.parts" +
                 " WHERE (active = 1) AND (database='benchmark') AND (table='" + datasetTableName + "');";
+        server = getServer(i);
         try (ClickHouseClient client = ClickHouseClient.newInstance(server.getProtocol());
              ClickHouseResponse response = client.read(server)
                      .format(ClickHouseFormat.CSV)
                      .query(query).execute().get()) {
-            int count = 0;
             for (ClickHouseRecord r : response.records()) {
                 int multiplier = getMultiplier(r.getValue(0).asString().split(" ")[1].split("\"")[0]);
                 return multiplier * Long.parseLong(r.getValue(0).asString().split("\\.")[0].substring(1));
             }
-            return count;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             e.printStackTrace();
@@ -181,6 +194,7 @@ public class ClickHouse implements Database {
             e.printStackTrace();
             return -1;
         }
+        return -1;
     }
 
     @Override
