@@ -10,7 +10,9 @@ import java.io.*;
 import java.sql.*;
 
 public class TimescaleDb implements Database {
-    private final String connUrl = "jdbc:postgresql://timescaledb:5432/bdspro?user=timescaledb&password=password";
+    // change HOST if access node on other machine (e.g. cloud-11)
+    // localhost and timescaledb as host do not work
+    private final String connUrl = "jdbc:postgresql://cloud-41:5433/bdspro?user=timescaledb&password=password";
     private final QueryTranslator queryTranslator = new SqlQueryTranslator();
 
 
@@ -23,18 +25,20 @@ public class TimescaleDb implements Database {
         }
         runStatement(queryTranslator.translateCreateTable(dataset));
 
-//        runQuery("SELECT add_data_node('dn1', 'cloud-12.dima.tu-berlin.de')");
-//        runQuery("SELECT add_data_node('dn2', 'cloud-13.dima.tu-berlin.de')");
-//        runQuery("SELECT add_data_node('dn3', 'cloud-14.dima.tu-berlin.de')");
-
-        String crtTableStmt = String.format(
-                "SELECT create_hypertable('%s', '%s', if_not_exists => TRUE)",
-                dataset.getTableName(), dataset.getTimeStampColumnName().toLowerCase()
-        );
 //        String crtTableStmt = String.format(
-//                "SELECT create_distributed_hypertable('%s', '%s', if_not_exists => TRUE)",
+//                "SELECT create_hypertable('%s', '%s', if_not_exists => TRUE)",
 //                dataset.getTableName(), dataset.getTimeStampColumnName().toLowerCase()
 //        );
+
+//        runQuery("SELECT add_data_node('dn41', 'cloud-41.dima.tu-berlin.de')");
+        runQuery("SELECT add_data_node('dn42',  host =>'cloud-42.dima.tu-berlin.de', port => '5433', password => 'password', if_not_exists => TRUE)");
+//        runQuery("SELECT add_data_node('dn43', 'cloud-43.dima.tu-berlin.de')");
+
+
+        String crtTableStmt = String.format(
+                "SELECT create_distributed_hypertable('%s', '%s', if_not_exists => TRUE, migrate_data => TRUE)",
+                dataset.getTableName(), dataset.getTimeStampColumnName().toLowerCase()
+        );
 
         return runQuery(crtTableStmt);
     }
