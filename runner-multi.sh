@@ -4,15 +4,15 @@ homeDirectory="kkulesza"
 #homeDirectory="dnatusch"
 
 # Create arrays with values
-datasets=("Taxi")
-databases=("TimescaleDB")
-#datasets=("Climate")
-#databases=("Clickhouse")
+#datasets=("Taxi")
+#databases=("TimescaleDB")
+datasets=("Climate")
+databases=("Clickhouse")
 
-writeFrequency=(0)
-writePercentage=(50)
-batchSize=(1000)
-numQueries=(10)
+writeFrequency=(100)
+writePercentage=(0 25 50 75 100)
+batchSize=(100)
+numQueries=(1000)
 
 # host names of database
 dbHosts=("cloud-41" "cloud-42" "cloud-43")
