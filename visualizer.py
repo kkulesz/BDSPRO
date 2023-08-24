@@ -6,7 +6,8 @@ import os
 import numpy as np
 
 RESULTS_DIR = "results"
-RUN_DIR = "run2-big-taxi"
+RUN_DIR = "run6-multiNode-climate"
+# RUN_DIR = "run1"
 RESULTS_FILE = "benchmark_result"
 PLOTS_DIR_NAME = "plots"
 
@@ -47,6 +48,7 @@ def getAllDBs(json):
 def filter_json(json, value_name, value):
     res = []
     for benchmark in json:
+        print(1)
         if benchmark[value_name] == value:
             res.append(benchmark)
     return res
@@ -217,11 +219,11 @@ def main():
 
         # datasets = getAllValues(json_result, "dataset")
         # for dataset in datasets:
-        ###### RUN1, RUN2 and RUN5
+        ###### RUN1, RUN2, RUN5, RUN6
         # showLatencies(json_result, "ClickHouse")
         # showLatencies(json_result, "TimescaleDb")
-        # visualize_write_percentages(json_result, 1000)
-        # visualize_read_only(json_result, 13192591, 1000)
+        visualize_write_percentages(json_result, 100)
+        visualize_read_only(json_result, 13192591, 100)
         groupByQueryType(json_result)
 
         ###### RUN3
