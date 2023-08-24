@@ -15,8 +15,7 @@ batchSize=(1000)
 numQueries=(10)
 
 # host names of database
-dbHosts=("cloud-42")
-#dbHosts=("cloud-41" "cloud-42" "cloud-43")
+dbHosts=("cloud-41" "cloud-42" "cloud-43")
 
 # Function to wait for the specific message in logs
 function wait_for_message_in_logs() {

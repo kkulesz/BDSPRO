@@ -3,7 +3,7 @@ services:
     image: timescale/timescaledb:latest-pg12
     restart: always
     ports:
-      - 5433:5432
+      - 5434:5432
     environment:
       POSTGRES_USER: timescaledb
       POSTGRES_PASSWORD: password
@@ -21,8 +21,8 @@ services:
     ports:
       - "8123:8123"
       - "9000:9000"
-  #  volumes:
- #     - ./db:/var/lib/clickhouse
+    #  volumes:
+    #     - ./db:/var/lib/clickhouse
     environment:
       - CLICKHOUSE_USER=bdspro
       - CLICKHOUSE_PASSWORD=password

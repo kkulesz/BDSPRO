@@ -8,11 +8,15 @@ import org.postgresql.core.BaseConnection;
 
 import java.io.*;
 import java.sql.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class TimescaleDb implements Database {
     // change HOST if access node on other machine (e.g. cloud-11)
     // localhost and timescaledb as host do not work
-    private final String connUrl = "jdbc:postgresql://cloud-41:5433/bdspro?user=timescaledb&password=password";
+    private final String connUrl = "jdbc:postgresql://cloud-41:5434/bdspro?user=timescaledb&password=password";
     private final QueryTranslator queryTranslator = new SqlQueryTranslator();
 
 
@@ -24,21 +28,33 @@ public class TimescaleDb implements Database {
             throw new RuntimeException(e);
         }
         runStatement(queryTranslator.translateCreateTable(dataset));
+        String crtTableStmt;
+        if (cluster){
+            List<Map.Entry<String, String>> listOfUniqueNodeValues = new ArrayList<>() {};
+            listOfUniqueNodeValues.add(new AbstractMap.SimpleEntry<>("dn41", "cloud-41.dima.tu-berlin.de"));
+            listOfUniqueNodeValues.add(new AbstractMap.SimpleEntry<>("dn42", "cloud-42.dima.tu-berlin.de"));
+            listOfUniqueNodeValues.add(new AbstractMap.SimpleEntry<>("dn43", "cloud-43.dima.tu-berlin.de"));
+//            listOfUniqueNodeValues.add(new AbstractMap.SimpleEntry<>("dn44", "cloud-44.dima.tu-berlin.de"));
 
-//        String crtTableStmt = String.format(
-//                "SELECT create_hypertable('%s', '%s', if_not_exists => TRUE)",
-//                dataset.getTableName(), dataset.getTimeStampColumnName().toLowerCase()
-//        );
+            for (Map.Entry<String, String> t: listOfUniqueNodeValues) {
+                System.out.println(String.format("Adding data node: %s", t.getValue()));
+                String query = String.format(
+                        "SELECT add_data_node('%s',  host =>'%s', port => '5433', password => 'password', if_not_exists => TRUE)",
+                        t.getKey(), t.getValue()
+                );
+                runQuery(query);
+            }
 
-//        runQuery("SELECT add_data_node('dn41', 'cloud-41.dima.tu-berlin.de')");
-        runQuery("SELECT add_data_node('dn42',  host =>'cloud-42.dima.tu-berlin.de', port => '5433', password => 'password', if_not_exists => TRUE)");
-//        runQuery("SELECT add_data_node('dn43', 'cloud-43.dima.tu-berlin.de')");
-
-
-        String crtTableStmt = String.format(
-                "SELECT create_distributed_hypertable('%s', '%s', if_not_exists => TRUE, migrate_data => TRUE)",
+            crtTableStmt = String.format(
+                    "SELECT create_distributed_hypertable('%s', '%s', if_not_exists => TRUE, migrate_data => TRUE)",
+                    dataset.getTableName(), dataset.getTimeStampColumnName().toLowerCase()
+            );
+        }else{
+            crtTableStmt = String.format(
+                "SELECT create_hypertable('%s', '%s', if_not_exists => TRUE)",
                 dataset.getTableName(), dataset.getTimeStampColumnName().toLowerCase()
         );
+        }
 
         return runQuery(crtTableStmt);
     }
