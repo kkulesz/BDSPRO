@@ -244,10 +244,10 @@ public class Benchmark {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        try {
-            Thread.sleep(1000000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(1 000 000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }
