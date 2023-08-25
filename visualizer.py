@@ -6,7 +6,7 @@ import os
 import numpy as np
 
 RESULTS_DIR = "results"
-RUN_DIR = "run8-multiNode-taxi-writeOnly"
+RUN_DIR = "run8-multiNode-writeOnly"
 RESULTS_FILE = "benchmark_result"
 PLOTS_DIR_NAME = "plots"
 
@@ -224,9 +224,9 @@ def main():
         # visualize_read_only(json_result, 13192591, 100)
         # groupByQueryType(json_result)
 
-        ###### RUN3 and (only taxi)RUN8
+        ###### RUN3 and RUN8
         visualize_write_only(json_result, "TaxiRidesDataset")
-        # visualize_write_only(json_result, "ClimateDataset")
+        visualize_write_only(json_result, "ClimateDataset")
 
         ###### RUN4
         # visualize_compression_rate(json_result)
