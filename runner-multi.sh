@@ -10,8 +10,8 @@ datasets=("Climate")
 databases=("Clickhouse")
 
 writeFrequency=(100)
-writePercentage=(0 25 50 75 100)
-batchSize=(100)
+writePercentage=(100)
+batchSize=(1 10 100 1000)
 numQueries=(1000)
 
 # host names of database
@@ -71,7 +71,14 @@ for wf in "${writeFrequency[@]}"; do
             elif [ "$db" == "Clickhouse" ]; then
               for host in "${dbHosts[@]}"; do
                   echo "Starting Clickhouse node $host"
-                  ssh $host "docker run -d --name db --ulimit nofile=262144:262144 -p \"8124:8123\" -p \"9001:9000\" -v /home/$homeDirectory/config/clickhouse_multi_node.xml:/etc/clickhouse-server/config.xml -v /home/$homeDirectory/config/hosts:/etc/hosts -e CLICKHOUSE_USER=bdspro -e CLICKHOUSE_PASSWORD=password -e CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1 -e CLICKHOUSE_DB=benchmark --rm -m 4G --cpus 2 clickhouse/clickhouse-server"
+                  # I made a mistake in paths initially and instead of config files -
+                  # the script created directories with the same name as those config files, which
+                  # I cannot delete because of "Permission denied". This below is stupid workaround
+                  ssh $host "mkdir /home/$homeDirectory/BDSPRO_2"
+                  ssh $host "mkdir /home/$homeDirectory/BDSPRO_2/config"
+                  scp /home/$homeDirectory/BDSPRO/config/clickhouse_multi_node.xml $host:/home/$homeDirectory/BDSPRO_2/config/
+                  scp /home/$homeDirectory/BDSPRO/config/hosts $host:/home/$homeDirectory/BDSPRO_2/config/
+                  ssh $host "docker run -d --name db --ulimit nofile=262144:262144 -p \"8124:8123\" -p \"9001:9000\" -v /home/$homeDirectory/BDSPRO_2/config/clickhouse_multi_node.xml:/etc/clickhouse-server/config.xml -v /home/$homeDirectory/BDSPRO_2/config/hosts:/etc/hosts -e CLICKHOUSE_USER=bdspro -e CLICKHOUSE_PASSWORD=password -e CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1 -e CLICKHOUSE_DB=benchmark --rm -m 4G --cpus 2 clickhouse/clickhouse-server"
                   wait_for_message_in_logs db "create database 'benchmark'" "$host"
               done
             fi
@@ -96,6 +103,7 @@ for wf in "${writeFrequency[@]}"; do
              for host in "${dbHosts[@]}"; do
                 echo "Tearing down all container on node $host"
                 ssh $host "docker container stop db"
+#                ssh $host "docker rm db"
             done
 
           done
