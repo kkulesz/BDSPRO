@@ -6,7 +6,7 @@ import os
 import numpy as np
 
 RESULTS_DIR = "results"
-RUN_DIR = "run7-multiNode-taxi"
+RUN_DIR = "run8-multiNode-taxi-writeOnly"
 RESULTS_FILE = "benchmark_result"
 PLOTS_DIR_NAME = "plots"
 
@@ -217,15 +217,15 @@ def main():
 
         # datasets = getAllValues(json_result, "dataset")
         # for dataset in datasets:
-        ###### RUN1, RUN2, RUN5, RUN6
-        showLatencies(json_result, "ClickHouse")
-        showLatencies(json_result, "TimescaleDb")
-        visualize_write_percentages(json_result, 100)
-        visualize_read_only(json_result, 13192591, 100)
-        groupByQueryType(json_result)
+        ###### RUN1, RUN2, RUN5, RUN6 and RUN7
+        # showLatencies(json_result, "ClickHouse")
+        # showLatencies(json_result, "TimescaleDb")
+        # visualize_write_percentages(json_result, 100)
+        # visualize_read_only(json_result, 13192591, 100)
+        # groupByQueryType(json_result)
 
-        ###### RUN3
-        # visualize_write_only(json_result, "TaxiRidesDataset")
+        ###### RUN3 and (only taxi)RUN8
+        visualize_write_only(json_result, "TaxiRidesDataset")
         # visualize_write_only(json_result, "ClimateDataset")
 
         ###### RUN4
