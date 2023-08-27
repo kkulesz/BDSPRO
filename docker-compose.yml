@@ -50,17 +50,6 @@ services:
     networks:
       - ntw
 
-  #benchmark_run:
-  #  depends_on:
-  #    - timescaledb
-  #    - clickhouse
-  #  build:
-  #    context: ./
-  #    dockerfile: Dockerfile
-  #  volumes:
-  #    - ./src/main/java:/app
-  #  networks:
-  #    - ntw
 
 networks:
   ntw:

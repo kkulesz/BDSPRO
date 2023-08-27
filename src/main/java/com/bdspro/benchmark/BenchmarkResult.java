@@ -1,6 +1,5 @@
 package com.bdspro.benchmark;
 
-import com.bdspro.databases.Database;
 import com.bdspro.datasets.Dataset;
 import com.bdspro.query.QueryType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
